@@ -2,13 +2,13 @@ import { FaSearch } from 'react-icons/fa';
 import alarm from '../assets/alarm.png';
 import person from '../assets/person.png';
 
-function Topbar({ heading }) {
+function Topbar({ heading, showSearch}) {
   return (
     <div className="d-flex align-items-center justify-content-between px-4 py-2 bg-white margin" style={{ minHeight: 70 }}>
       <h2 className="fw-bold mb-0" style={{ color: '#222', fontSize: 36 }}>
         {heading}
       </h2>
-
+ {showSearch && (
       <div className="mx-4" style={{ position: 'relative', maxWidth: 400, flexGrow: 1 }}>
         <FaSearch
           style={{
@@ -33,6 +33,7 @@ function Topbar({ heading }) {
           }}
         />
       </div>
+      )}
 
       <div className="d-flex align-items-center gap-4">
         <span className="text-secondary" style={{ cursor: 'pointer', color: '#515151', fontWeight: 'bold' }}>
