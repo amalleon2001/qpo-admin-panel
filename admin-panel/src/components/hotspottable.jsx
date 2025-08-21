@@ -63,7 +63,7 @@ function HotspotTable({ onBack }) {
             fontSize: 15,
           }}
         >
-          <thead style={{ backgroundColor: "#f4f4f4" }}>
+          <thead className="table-secondary">
             <tr>
               <th style={{ padding: 12 }}>Hotspot</th>
               <th style={{ padding: 12 }}>Live Ride Request</th>
