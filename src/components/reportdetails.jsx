@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaSearch, FaEye, FaArrowLeft } from "react-icons/fa";
-import HotspotDetails from "./HotspotDetails"; // ✅ import Hotspot component
+import HotspotDetails from "./hotspotdetails"; // ✅ import Hotspot component
 
 const ReportDetails = ({ onBack, setActive }) => {
   const [searchTerm, setSearchTerm] = useState("");

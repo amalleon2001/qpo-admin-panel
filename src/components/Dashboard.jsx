@@ -3,7 +3,7 @@ import liveDemandIcon from '../assets/paid.png';
 import tick from '../assets/tick.png';
 import wrong from '../assets/wrong.png';
 import auto from '../assets/auto.png';
-import driver from '../assets/vector.png';
+import driver from '../assets/Vector.png';
 import alarmon from '../assets/alarm_on.png';
 import liveDriverIcon from '../assets/f7_person-3-fill.png';
 
