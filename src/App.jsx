@@ -1,177 +1,34 @@
-import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import LoginPage from "./components/LoginPage";
+import DashboardLayout from "./components/Dashboardlayout";
 
-import Dashboard from './components/Dashboard';
-import Sidebar from './components/Sidebar';
-import Topbar from './components/Topbar';
-import PlaceholderPage from './components/PlaceholderPage';
-import LiveRideRequest from './components/liveriderequest';
-import NewTrip from './components/newtrip';
-import RefillingTrip from './components/refilling-trip';
-import IdleDrivers from './components/idledrivers';
-import OngoingDrivers from './components/OngoingDrivers';
-import LiveDemand from './components/LiveDemand';
-import RideDirection from './components/livedemandtable'; 
-import HotspotTable from './components/hotspottable';
-import PreviousReports from './components/previousreports';
-import ReportDetails from './components/reportdetails';
-import GeofenceTable from './components/geofence';
-
-
-import FullScreenStyles from './components/FullScreenStyles';
-import PricingAlgorithm from './components/pricing-algorithm';
-import DriverAlgorithm from './components/Driver-algorithm';
+// Wrapper to protect dashboard route
+function PrivateRoute({ children }) {
+  const token = localStorage.getItem("token");
+  return token ? children : <Navigate to="/" />;
+}
 
 function App() {
-  const [active, setActive] = useState('Daily Operations');
-  const showSearch = active === "Daily Operations"; 
-  const [openMenus, setOpenMenus] = useState({});
-  const [selectedRoute, setSelectedRoute] = useState("");
-  const [selectedDirection, setSelectedDirection] = useState(null);
-
-  // Keep sidebar highlight correct
-  const sidebarActive = 
-    active === 'ridedirection' || active === 'hotspot' 
-      ? 'liveDemand' 
-      : active === 'reportDetails' || active === 'hotspotDetails' 
-      ? 'previousReports' 
-      : active;
-
-  const getParentHeading = (activeKey) => {
-    const liveActivitiesChildren = [
-      'log', 'liveRide', 'pairing', 'newTrip', 'refillingTrip', 'liveDriver', 
-      'idleDrivers', 'ongoingDrivers'
-    ];
-    const demandChildren = ['demand', 'liveDemand', 'ridedirection', 'previousReports','reportDetails','hotspot','hotspotDetails']; 
-    const algorithmChildren = ['algorithm', 'pricingAlgorithm', 'driverAlgorithm'];
-
-    if (liveActivitiesChildren.includes(activeKey)) return 'Live Activities Log';
-    if (demandChildren.includes(activeKey)) return 'Demand and Hotspot';  
-    if (algorithmChildren.includes(activeKey)) return 'Algorithm';
-    if (activeKey === 'geofence') return 'Geofence';
-    if (activeKey === 'Daily Operations') return 'Dashboard';
-    return activeKey;
-  };
-
-  const heading = getParentHeading(active);
-
-  let content;
-
-  switch (active) {
-    case 'Daily Operations':
-      content = <Dashboard />;
-      break;
-    case 'liveRide':
-      content = <LiveRideRequest />;
-      break;
-    case 'newTrip':
-      content = <NewTrip />;
-      break;
-    case 'refillingTrip':
-      content = <RefillingTrip />;
-      break;
-    case 'liveDriver':
-    case 'idleDrivers':
-      content = <IdleDrivers />;
-      break;
-    case 'ongoingDrivers':
-      content = <OngoingDrivers />;
-      break;
-    case 'demand':
-    case 'liveDemand':
-      content = <LiveDemand onViewDirection={route => { setSelectedRoute(route); setActive('ridedirection'); }} />;
-      break;
-    case 'ridedirection':
-      content = (
-        <RideDirection
-          routeName={selectedRoute}
-          onBack={() => setActive('liveDemand')}
-          onViewHotspot={direction => { setSelectedDirection(direction); setActive('hotspot'); }}
-        />
-      );
-      break;
-    case 'hotspot':
-      content = <HotspotTable onBack={() => setActive('ridedirection')} data={selectedDirection} />;
-      break;
-   case 'previousReports':
-  content = (
-    <PreviousReports
-      onViewReport={(report) => {
-        setSelectedRoute(report.route);
-        setActive("reportDetails");
-      }}
-    />
-  );
-  break;
-
-case 'reportDetails':
-  content = (
-    <ReportDetails
-      routeName={selectedRoute}
-      onBack={() => setActive("previousReports")}
-      onViewHotspot={(direction) => {
-        setSelectedDirection(direction);
-        setActive("hotspotDetails");
-      }}
-    />
-  );
-  break;
-
-case 'hotspotDetails':
-  content = (
-    <HotspotTable
-      onBack={() => setActive("reportDetails")}
-      data={selectedDirection}
-    />
-  );
-  break;
-    case 'geofence':
-       content = <GeofenceTable />;
-      break;
-
-
-   
-
-    case 'algorithm':
-      content = <PlaceholderPage title={active} />;
-      break;
-    case 'pricingAlgorithm':
-      content = <PricingAlgorithm />;
-      break;
-    case 'driverAlgorithm':
-      content = <DriverAlgorithm />;
-      break;
-    default:
-      content = <PlaceholderPage title={active} />;
-  }
-
   return (
-    <>
-      <FullScreenStyles />
-      <div
-        className="d-flex"
-        style={{
-          background: '#ffffffff',
-          minHeight: '100vh',
-          height: '100vh',
-          width: '100vw',
-          overflow: 'hidden',
-        }}
-      >
-        <Sidebar
-          active={sidebarActive}  
-          setActive={setActive}
-          openMenus={openMenus}
-          setOpenMenus={setOpenMenus}
+    <Router>
+      <Routes>
+        {/* Login Page */}
+        <Route path="/" element={<LoginPage />} />
+
+        {/* Protected Dashboard */}
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <DashboardLayout />
+            </PrivateRoute>
+          }
         />
-        <div
-          className="flex-grow-1 d-flex flex-column"
-          style={{ minWidth: 0, height: '100vh', overflow: 'auto' }}
-        >
-          <Topbar heading={heading} showSearch={showSearch} />
-          {content}
-        </div>
-      </div>
-    </>
+
+        {/* Fallback - redirect everything else to login */}
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </Router>
   );
 }
 

@@ -32,7 +32,7 @@ const sidebarItems = [
           { key: 'refillingTrip', label: 'Refilling Trip' },
         ],
       },
-       {
+      {
         key: 'liveDriver',
         label: 'Live Driver Assigning',
         children: [
@@ -125,17 +125,15 @@ function Sidebar({ active, setActive, openMenus, setOpenMenus }) {
                 }}
                 aria-label="Toggle submenu"
               >
-   <img
+                <img
                   src={openMenus[item.key] ? downArrow : rightArrow}
                   alt={openMenus[item.key] ? 'Collapse' : 'Expand'}
-                  style={{ 
-                    width: 16, 
+                  style={{
+                    width: 16,
                     height: 16,
                     opacity: 1,
-                 
                   }}
                 />
-
               </button>
             )}
           </div>
@@ -147,6 +145,32 @@ function Sidebar({ active, setActive, openMenus, setOpenMenus }) {
 
   return (
     <div className="d-flex flex-column flex-shrink-0 ps-3 border-end vh-100" style={{ width: 260, background: sidebarBg }}>
+      {/* Scrollbar styling inline */}
+      <style>{`
+        .sidebar-scroll {
+          flex: 1;
+          overflow-y: scroll;
+          overflow-x: hidden;
+        }
+        .sidebar-scroll::-webkit-scrollbar {
+          width: 6px;
+        }
+        .sidebar-scroll::-webkit-scrollbar-track {
+          background: ${sidebarBg};
+        }
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+          background-color: #c5d1e0;
+          border-radius: 10px;
+        }
+        .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+          background-color: #9bb4d1;
+        }
+        .sidebar-scroll {
+          scrollbar-width: thin;
+          scrollbar-color: #c5d1e0 ${sidebarBg};
+        }
+      `}</style>
+
       <div className="d-flex align-items-center m-2">
         <img
           src={logoImg}
@@ -157,7 +181,11 @@ function Sidebar({ active, setActive, openMenus, setOpenMenus }) {
           QPo
         </span>
       </div>
-      {renderItems(sidebarItems)}
+
+      <div className="sidebar-scroll">
+        {renderItems(sidebarItems)}
+      </div>
+
       <div className="mt-auto text-muted small">Admin 2</div>
     </div>
   );
