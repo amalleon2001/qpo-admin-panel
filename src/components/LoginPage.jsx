@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BackgroundImage from "../assets/loginbackground.png";
+import { login } from "../controllers/authcontrol"; // import controller
 
 function LoginPage() {
   const [username, setUsername] = useState("");
@@ -11,33 +12,17 @@ function LoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://prod.qpocabs.com/v2/auth/admin/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
+      const data = await login(username, password);
 
-      if (!response.ok) {
-        throw new Error("Login failed");
-      }
-
-      const data = await response.json();
-
-      // Extract from your API response
-      const { accessToken, adminProfile } = data.login;
-
-      if (accessToken) {
-        localStorage.setItem("token", accessToken);
-        localStorage.setItem("user", JSON.stringify(adminProfile));
-
+      if (data.login?.accessToken) {
+        localStorage.setItem("token", data.login.accessToken);
+        localStorage.setItem("user", JSON.stringify(data.login.adminProfile));
         navigate("/dashboard");
       } else {
-        setError("Invalid login response");
+        setError("Invalid username or password");
       }
     } catch (err) {
-      setError("Invalid username or password");
+      setError("Login failed");
     }
   };
 
@@ -63,7 +48,6 @@ function LoginPage() {
       </h2>
       <div>
         <form
-          className="login-form"
           onSubmit={handleLogin}
           style={{
             maxWidth: "500px",
@@ -80,16 +64,11 @@ function LoginPage() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             style={{
-              backgroundColor: "white",
-              color: "black",
               width: "400px",
               height: "40px",
-              padding: "0px 10px",
-              display: "block",
               margin: "20px",
+              padding: "0 10px",
             }}
-            name="username"
-            id="user"
           />
           <input
             type="password"
@@ -97,16 +76,11 @@ function LoginPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             style={{
-              backgroundColor: "white",
               width: "400px",
-              color: "black",
               height: "40px",
-              padding: "0px 10px",
-              display: "block",
               margin: "20px",
+              padding: "0 10px",
             }}
-            name="password"
-            id="password"
           />
           <button
             type="submit"
@@ -124,24 +98,20 @@ function LoginPage() {
           >
             Login
           </button>
-          {error && (
-            <p style={{ color: "red", marginTop: "10px" }}>{error}</p>
-          )}
+          {error && <p style={{ color: "red" }}>{error}</p>}
         </form>
 
-        <div>
-          <img
-            src={BackgroundImage}
-            alt="Background"
-            style={{
-              position: "absolute",
-              top: "20%",
-              left: "50%",
-              width: "40%",
-              height: "80vh",
-            }}
-          />
-        </div>
+        <img
+          src={BackgroundImage}
+          alt="Background"
+          style={{
+            position: "absolute",
+            top: "20%",
+            left: "50%",
+            width: "40%",
+            height: "80vh",
+          }}
+        />
       </div>
     </div>
   );
