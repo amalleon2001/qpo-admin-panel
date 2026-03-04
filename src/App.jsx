@@ -1,8 +1,9 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import LoginPage from "./components/LoginPage";
 import DashboardLayout from "./components/Dashboardlayout";
+import RidersLayout from "./components/RidersLayout";
 
-// Wrapper to protect dashboard route
+// Protect routes
 function PrivateRoute({ children }) {
   const token = localStorage.getItem("token");
   return token ? children : <Navigate to="/" />;
@@ -12,10 +13,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Login Page */}
+        {/* Login */}
         <Route path="/" element={<LoginPage />} />
 
-        {/* Protected Dashboard */}
+        {/* Dashboard (Parent) */}
         <Route
           path="/dashboard"
           element={
@@ -23,9 +24,12 @@ function App() {
               <DashboardLayout />
             </PrivateRoute>
           }
-        />
+        >
+          {/* Nested route */}
+          <Route path="riders" element={<RidersLayout />} />
+        </Route>
 
-        {/* Fallback - redirect everything else to login */}
+        {/* Fallback */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>

@@ -32,7 +32,7 @@ const PreviousReports = ({ onViewReport }) => {
         <hr />
       <h4 className="fw-semibold mb-3">Previous Reports</h4>
 
-      {/* Search and filters */}
+      
       <div className="d-flex align-items-center gap-3 mb-3 flex-wrap">
         <div className="position-relative" style={{ flex: "1 1 250px", maxWidth: "1000px" }}>
           <FaSearch
@@ -59,7 +59,7 @@ const PreviousReports = ({ onViewReport }) => {
         </div>
       </div>
 
-      {/* Table */}
+     
       <div className="table-responsive">
   <table
     className="table"

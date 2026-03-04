@@ -74,7 +74,7 @@ const PricingAlgorithm = () => {
       pricingPerKm: 0,
     };
     setPricingData(prevData => [...prevData, newItem]);
-    handleEdit(newId); // Immediately edit the new item
+    handleEdit(newId); 
   };
 
   const handleInputChange = (field, value) => {
@@ -90,14 +90,13 @@ const PricingAlgorithm = () => {
 
   return (
     <div className="p-4 bg-white" style={{ minHeight: "100vh" }}>
-      {/* Header */}
+      
       <div className="d-flex align-items-center justify-content-between mb-4">
         <h2 className="fw-bold mb-0" style={{ color: "#333", fontSize: "28px" }}>
           Pricing Algorithm
         </h2>
       </div>
 
-      {/* Search, Add Button, and Total Count */}
       <div className="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
        <div className="position-relative" style={{ flex: "1 1 300px", maxWidth: "900px" }}>
   <FaSearch
@@ -148,7 +147,7 @@ const PricingAlgorithm = () => {
         </div>
       </div>
 
-      {/* Table */}
+      
       <div className="table-responsive">
         <table
           className="table mb-0"

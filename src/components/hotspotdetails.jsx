@@ -21,7 +21,7 @@ const HotspotDetails = ({ direction, onBack }) => {
     <div className="p-4 pt-2 bg-white">
       <hr />
 
-      {/* Breadcrumb + Back */}
+     
       <div className="d-flex align-items-center gap-2 mb-3">
         <FaArrowLeft
           style={{ cursor: "pointer", fontSize: 22, color: "grey" }}
@@ -35,7 +35,6 @@ const HotspotDetails = ({ direction, onBack }) => {
         </div>
       </div>
 
-      {/* Search + Filters */}
       <div className="d-flex align-items-center gap-3 mb-3 flex-wrap">
              <div className="position-relative" style={{ flex: "1 1 250px", maxWidth: "1000px" }}>
                <FaSearch
@@ -62,13 +61,13 @@ const HotspotDetails = ({ direction, onBack }) => {
              </div>
            </div>
 
-      {/* Table */}
+     
      <table
   className="table"
   style={{
     borderCollapse: "collapse",
     width: "100%",
-    border: "1px solid #ccc",   // ✅ outer border
+    border: "1px solid #ccc",   
   }}
 >
   <thead className="table-secondary">

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { FaSearch, FaEye, FaArrowLeft } from "react-icons/fa";
-import HotspotDetails from "./hotspotdetails"; // ✅ import Hotspot component
+import HotspotDetails from "./hotspotdetails"; 
 
 const ReportDetails = ({ onBack, setActive }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedHotspot, setSelectedHotspot] = useState(null); // ✅ track which row is clicked
+  const [selectedHotspot, setSelectedHotspot] = useState(null); 
 
   const directionsData = [
     {
@@ -29,12 +29,12 @@ const ReportDetails = ({ onBack, setActive }) => {
     row.direction.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // ✅ If a hotspot is selected, show HotspotDetails instead of the table
+  
   if (selectedHotspot) {
     return (
       <HotspotDetails
         data={selectedHotspot}
-        onBack={() => setSelectedHotspot(null)} // back to ReportDetails
+        onBack={() => setSelectedHotspot(null)} 
       />
     );
   }
@@ -43,7 +43,7 @@ const ReportDetails = ({ onBack, setActive }) => {
     <div className="p-4 pt-2 bg-white">
       <hr />
 
-      {/* Back Button + Title */}
+  
       <div className="d-flex align-items-center gap-2 mb-3">
         <FaArrowLeft
           style={{ cursor: "pointer", fontSize: 22, color: "grey" }}
@@ -64,7 +64,7 @@ const ReportDetails = ({ onBack, setActive }) => {
         </div>
       </div>
 
-      {/* Search + Filters */}
+      
        <div className="d-flex align-items-center gap-3 mb-3 flex-wrap">
               <div className="position-relative" style={{ flex: "1 1 250px", maxWidth: "1000px" }}>
                 <FaSearch
@@ -90,13 +90,13 @@ const ReportDetails = ({ onBack, setActive }) => {
                 Total Count : {filteredData.length}
               </div>
             </div>
-      {/* Table */}
+      
     <div className="table-responsive">
   <table
     className="table"
     style={{
-      border: "1px solid #ccc", // outer border
-      borderCollapse: "collapse", // collapse table for cleaner outer border
+      border: "1px solid #ccc", 
+      borderCollapse: "collapse", 
       width: "100%",
     }}
   >

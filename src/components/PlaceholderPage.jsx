@@ -1,4 +1,4 @@
-const dashboardBg = '#f8f9fa'; // or import from a constants file
+const dashboardBg = '#f8f9fa'; 
 const cardBg = '#fff';
 const cardShadow = '0 4px 8px rgba(0, 0, 0, 0.05)';
 

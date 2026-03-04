@@ -21,7 +21,7 @@ function HotspotTable({ onBack }) {
     <div className="p-4 pt-0 bg-white">
         <hr />
       <div className="d-flex align-items-center mb-3">
-        {/* Back button */}
+        
         <FaArrowLeft
           style={{ cursor: "pointer", marginRight: 10 }}
           onClick={onBack}

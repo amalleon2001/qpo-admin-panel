@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 
+import RidersSidebar from "./RidersSidebar";
 import Dashboard from "./Dashboard";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
@@ -24,12 +26,18 @@ import DriverAlgorithm from "./Driver-algorithm";
 
 function DashboardLayout() {
   const [active, setActive] = useState("Daily Operations");
-  const showSearch = active === "Daily Operations";
+  const [ridersActive, setRidersActive] = useState("dashboard"); 
+  const location = useLocation();
+  const isRidersPage = location.pathname.startsWith("/dashboard/riders");
+
+  const showSearch = !isRidersPage
+    ? active === "Daily Operations"
+    : ridersActive === "dashboard";
+
   const [openMenus, setOpenMenus] = useState({});
   const [selectedRoute, setSelectedRoute] = useState("");
   const [selectedDirection, setSelectedDirection] = useState(null);
 
-  // Sidebar highlighting logic
   const sidebarActive =
     active === "ridedirection" || active === "hotspot"
       ? "liveDemand"
@@ -39,32 +47,16 @@ function DashboardLayout() {
 
   const getParentHeading = (activeKey) => {
     const liveActivitiesChildren = [
-      "log",
-      "liveRide",
-      "pairing",
-      "newTrip",
-      "refillingTrip",
-      "liveDriver",
-      "idleDrivers",
-      "ongoingDrivers",
+      "log", "liveRide", "pairing", "newTrip", "refillingTrip",
+      "liveDriver", "idleDrivers", "ongoingDrivers",
     ];
     const demandChildren = [
-      "demand",
-      "liveDemand",
-      "ridedirection",
-      "previousReports",
-      "reportDetails",
-      "hotspot",
-      "hotspotDetails",
+      "demand", "liveDemand", "ridedirection", "previousReports",
+      "reportDetails", "hotspot", "hotspotDetails",
     ];
-    const algorithmChildren = [
-      "algorithm",
-      "pricingAlgorithm",
-      "driverAlgorithm",
-    ];
+    const algorithmChildren = ["algorithm", "pricingAlgorithm", "driverAlgorithm"];
 
-    if (liveActivitiesChildren.includes(activeKey))
-      return "Live Activities Log";
+    if (liveActivitiesChildren.includes(activeKey)) return "Live Activities Log";
     if (demandChildren.includes(activeKey)) return "Demand and Hotspot";
     if (algorithmChildren.includes(activeKey)) return "Algorithm";
     if (activeKey === "geofence") return "Geofence";
@@ -72,10 +64,32 @@ function DashboardLayout() {
     return activeKey;
   };
 
-  const heading = getParentHeading(active);
+  const getRidersHeading = (activeKey) => {
+    if (!activeKey) return "Riders";
+    const ridersMap = {
+      dashboard: "Riders",
+      complaints: "Complaints and Queries",
+      allRides: "All Rides",
+      cancelledRides: "Cancelled Rides",
+      completedRides: "Completed Rides",
+      notifications: "Notification Management",
+      coupons: "Coupons and Offers", 
+      sales: "Sales Reports",
+      activityLogs: "Activity Logs",
+      appActivity: "App Activity Logs",
+      liveActivity: "Activity Logs",
+      previousReports: "Activity Logs",
+      rideRequestLogs: "Ride Request Logs",
+      riderDatabase: "Rider Database",
+    };
+    return ridersMap[activeKey] || "Riders";
+  };
+
+  const heading = isRidersPage
+    ? getRidersHeading(ridersActive)
+    : getParentHeading(active);
 
   let content;
-
   switch (active) {
     case "Daily Operations":
       content = <Dashboard />;
@@ -186,18 +200,34 @@ function DashboardLayout() {
           overflow: "hidden",
         }}
       >
-        <Sidebar
-          active={sidebarActive}
-          setActive={setActive}
-          openMenus={openMenus}
-          setOpenMenus={setOpenMenus}
-        />
+        {isRidersPage ? (
+          <RidersSidebar
+            active={ridersActive}
+            setActive={setRidersActive}
+            openMenus={openMenus}
+            setOpenMenus={setOpenMenus}
+          />
+        ) : (
+          <Sidebar
+            active={sidebarActive}
+            setActive={setActive}
+            openMenus={openMenus}
+            setOpenMenus={setOpenMenus}
+          />
+        )}
+
         <div
           className="flex-grow-1 d-flex flex-column"
           style={{ minWidth: 0, height: "100vh", overflow: "auto" }}
         >
           <Topbar heading={heading} showSearch={showSearch} />
-          {content}
+
+          
+          {location.pathname.startsWith("/dashboard/riders") ? (
+            <Outlet context={{ ridersActive, setRidersActive }} />
+          ) : (
+            content
+          )}
         </div>
       </div>
     </>

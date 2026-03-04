@@ -1,8 +1,7 @@
-// GeofenceTable.jsx
+
 import React, { useState } from "react";
 import { FaEye, FaEdit, FaTrash, FaSearch } from "react-icons/fa";
-import GeofenceComponent from "./geofence-component"; // Adjust path as needed
-
+import GeofenceComponent from "./geofence-component"; 
 const GeofenceTable = () => {
   const initialData = [
     { id: 1, route: "Tidel Park and SIPCOT", totalDrivers: 10 },
@@ -29,7 +28,7 @@ const GeofenceTable = () => {
     setEditingRow(null);
   };
 
-  // Show DirectionTable component when viewingDirectionTable is true
+
   if (viewingGeoFenceComponent) {
     return (
       <GeofenceComponent
@@ -43,12 +42,12 @@ const GeofenceTable = () => {
     <div className="p-4 pt-2 bg-white">
       <hr />
 
-      {/* Title */}
+      
       <div className="d-flex align-items-center gap-2 mb-3">
         <div style={{ fontSize: 22, fontWeight: "bold" }}>Geofence</div>
       </div>
 
-      {/* Search + Filters */}
+      
       <div className="d-flex align-items-center gap-3 mb-3 flex-wrap">
         <div
           className="position-relative"
@@ -78,7 +77,7 @@ const GeofenceTable = () => {
         </div>
       </div>
 
-      {/* Table */}
+    
       <table style={{ width: "100%", borderCollapse: "collapse", border: "1px solid #ccc" }}>
         <thead style={{ backgroundColor: "#D9D9D9" }}>
           <tr>

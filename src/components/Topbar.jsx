@@ -2,10 +2,13 @@ import { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import alarm from '../assets/alarm.png';
 import person from '../assets/person.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 
 function Topbar({ heading, showSearch, username }) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isRidersActive = location.pathname === "/dashboard/riders";
+
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleLogout = () => {
@@ -55,11 +58,16 @@ function Topbar({ heading, showSearch, username }) {
 
       <div className="d-flex align-items-center gap-4 position-relative">
         <span
-          className="text-secondary"
-          style={{ cursor: 'pointer', color: '#515151', fontWeight: 'bold' }}
-        >
-          Riders
-        </span>
+  style={{
+    cursor: 'pointer',
+    color: isRidersActive ? '#0C6CFC' : '#757474',
+    fontWeight:'bold'
+  }}
+  onClick={() => navigate("/dashboard/riders")}
+>
+  Riders
+</span>
+
         <span
           className="text-secondary"
           style={{ cursor: 'pointer', color: '#515151', fontWeight: 'bold' }}

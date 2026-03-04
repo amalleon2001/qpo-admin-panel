@@ -80,7 +80,7 @@ const IdleDrivers = () => {
         </div>
       </div>
 
-      {/* Search and Filters */}
+      
       <div
         className="d-flex align-items-center justify-content-start gap-4 mb-3 flex-wrap"
         style={{ flexWrap: "wrap", rowGap: "10px" }}
@@ -116,7 +116,7 @@ const IdleDrivers = () => {
         </select>
       </div>
 
-      {/* Table */}
+   
       <div className="table-responsive">
         <table
           className="table mb-0"

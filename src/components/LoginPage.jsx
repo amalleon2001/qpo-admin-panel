@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BackgroundImage from "../assets/loginbackground.png";
-import { login } from "../controllers/authcontrol"; // import controller
+import { login } from "../controllers/authcontrol"; 
 
 function LoginPage() {
   const [username, setUsername] = useState("");

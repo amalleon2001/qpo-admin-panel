@@ -13,7 +13,7 @@ const DriverAlgorithm = () => {
       assignmentMethod,
       assignmentTime
     });
-    // Add your save logic here
+  
   };
 
   return (
@@ -21,7 +21,6 @@ const DriverAlgorithm = () => {
       className="p-4 pt-2 bg-white"
       style={{ minHeight: "100vh", backgroundColor: "#f8f9fa" }}
     >
-      {/* Header */}
       <hr />
       <div className="mb-4">
         <h2
@@ -32,7 +31,6 @@ const DriverAlgorithm = () => {
         </h2>
       </div>
 
-      {/* Search and Add Button */}
       <div className="d-flex align-items-center justify-content-between mb-4 gap-3">
         <div
           className="position-relative"
@@ -69,12 +67,12 @@ const DriverAlgorithm = () => {
             backgroundColor: "white"
           }}
         >
-          <FaPlus size={16} /> {/* Using FaPlus from react-icons/fa */}
+          <FaPlus size={16} />
           Add
         </button>
       </div>
 
-      {/* Main rounded container */}
+      
       <div
         style={{
           width: "100%",
@@ -88,7 +86,6 @@ const DriverAlgorithm = () => {
           alignItems: "flex-start",
         }}
       >
-        {/* Algorithm Selection Cards */}
         <div
           style={{
             display: "flex",
@@ -98,7 +95,7 @@ const DriverAlgorithm = () => {
             marginBottom: "30px"
           }}
         >
-          {/* Send to All Card */}
+          
           <div
             style={{
               display: "flex",
@@ -177,7 +174,7 @@ const DriverAlgorithm = () => {
             </div>
           </div>
 
-          {/* Send One by One Card */}
+         
           <div
             style={{
               display: "flex",
@@ -257,7 +254,7 @@ const DriverAlgorithm = () => {
           </div>
         </div>
 
-        {/* Assignment Time */}
+        
         <div className="mb-4" style={{ width: "100%", marginTop: 25 }}>
           <label
             className="form-label fw-medium mb-2"
@@ -280,7 +277,7 @@ const DriverAlgorithm = () => {
           />
         </div>
 
-        {/* Save Button */}
+        
         <button
           className="btn btn-dark"
           onClick={handleSave}

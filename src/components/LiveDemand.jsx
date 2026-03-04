@@ -60,7 +60,7 @@ const LiveDemand = ({ setActive, onViewDirection }) => {
         <h4 className="fw-semibold fs-24 mb-0 mt-2 nav-path">Live Demand</h4>
       </div>
 
-      {/* Search & Filters */}
+      
       <div
         className="d-flex align-items-center justify-content-start gap-4 mb-3 flex-wrap"
         style={{ flexWrap: "wrap", rowGap: "10px" }}
@@ -94,7 +94,6 @@ const LiveDemand = ({ setActive, onViewDirection }) => {
         </div>
       </div>
 
-      {/* Table */}
       <div className="table-responsive">
         <table
           className="table mb-0"

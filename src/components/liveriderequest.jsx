@@ -21,10 +21,10 @@ const LiveRideRequest = () => {
 
         const data = await res.json();
 
-        // Debug: log full raw response
+        
         console.log("🔴 Raw API Response:", data);
 
-        // Check if data contains rideRequests key or direct array
+        
         if (Array.isArray(data)) {
           setRideData(data); // case 1: API returns array directly
         } else if (data.rideRequests) {
@@ -57,7 +57,7 @@ const LiveRideRequest = () => {
         </div>
       </div>
 
-      {/* Search & Filters */}
+     
       <div
         className="d-flex align-items-center justify-content-start gap-4 mb-3 flex-wrap"
         style={{ flexWrap: "wrap", rowGap: "10px" }}
@@ -93,7 +93,6 @@ const LiveRideRequest = () => {
         </select>
       </div>
 
-      {/* Table */}
       <div className="table-responsive">
         {rideData.length === 0 ? (
           <p className="text-center py-3 mb-0">No ride requests available.</p>

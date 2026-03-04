@@ -63,12 +63,12 @@ const GeoFenceComponent = ({ onBack }) => {
     dir.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Show HotspotListView when viewingHotspots is true
+  
   if (viewingHotspots) {
     return <HotspotListView onBack={() => setViewingHotspots(false)} />;
   }
 
-  // Show DirectionDetails if needed
+
   if (viewingDirection) {
     return (
       <DirectionDetails

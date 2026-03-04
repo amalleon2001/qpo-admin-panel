@@ -35,7 +35,7 @@ const HotspotListView = ({ onBack }) => {
     <div className="p-4 pt-2 bg-white">
 
       <hr/>
-      {/* Breadcrumb */}
+      
       <div style={{
         display: "flex",
         alignItems: "center",

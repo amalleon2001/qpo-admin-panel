@@ -17,7 +17,7 @@ function RideDirection({ routeName, onBack, onViewHotspot }) {
     <div className="p-4 pt-0 bg-white">
       <hr />
       <div className="d-flex align-items-center mb-2 mt-4">
-        {/* Back button */}
+       
         <FaArrowLeft
           style={{ cursor: "pointer", marginRight: 10 }}
           onClick={onBack}
