@@ -15,38 +15,16 @@ const styles = {
     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23555' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`,
     backgroundRepeat: "no-repeat", backgroundPosition: "right 10px center", outline: "none", minWidth: 120,
   },
-
- 
   formSection: { background: "#f9faff", borderRadius: 12, padding: "24px", marginBottom: 28 },
   formLayout: { display: "flex", gap: 24 },
   formLeft: { display: "flex", flexDirection: "column", gap: 16, flex: 1 },
   formRight: { flex: 1 },
   formGroup: { display: "flex", flexDirection: "column", gap: 6 },
   formLabel: { fontSize: 13, color: "#333", fontWeight: 500 },
-  formInput: { 
-  border: "1px solid #ccc", 
-  borderRadius: 6, 
-  padding: "5px 8px",    
-  fontSize: 13,         
-  outline: "none", 
-  background: "#fff",
-  width: "60%",          
-},
-formTextarea: { 
-  border: "1px solid #ccc", 
-  borderRadius: 6, 
-  padding: "5px 8px",    
-  fontSize: 13,          
-  outline: "none", 
-  background: "#fff", 
-  resize: "none", 
-  height: 250,           
-  width: "80%",          
-},
-
+  formInput: { border: "1px solid #ccc", borderRadius: 6, padding: "5px 8px", fontSize: 13, outline: "none", background: "#fff", width: "60%" },
+  formTextarea: { border: "1px solid #ccc", borderRadius: 6, padding: "5px 8px", fontSize: 13, outline: "none", background: "#fff", resize: "none", height: 250, width: "80%" },
   radioGroup: { display: "flex", alignItems: "center", gap: 24, marginTop: 4 },
   radioLabel: { display: "flex", alignItems: "center", gap: 6, fontSize: 14, color: "#333", cursor: "pointer" },
-  
   historyTitle: { fontSize: 18, fontWeight: 700, color: "#111", marginBottom: 12 },
   tableWrapper: { border: "1.5px solid #e0e0e0", borderRadius: 4, overflow: "hidden" },
   table: { width: "100%", borderCollapse: "collapse" },
@@ -62,11 +40,13 @@ const SearchIcon = () => (
     <path d="M11 11l3 3" stroke="#888" strokeWidth="1.6" strokeLinecap="round" />
   </svg>
 );
+
 const EditIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
     <path d="M11 2l3 3-9 9H2v-3l9-9z" stroke="#333" strokeWidth="1.4" strokeLinejoin="round" />
   </svg>
 );
+
 const TrashIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
     <rect x="3" y="4" width="10" height="10" rx="1" stroke="#333" strokeWidth="1.4" />
@@ -87,24 +67,37 @@ function NotificationManagement() {
 
   return (
     <div style={styles.page}>
-      <style>{`
-  .poppins-title { font-family: 'Poppins', sans-serif !important; }
-  .send-btn {
-    background: #111 !important;
-    color: #fff !important;
-    border: none !important;
-    border-radius: 20px !important;
-    padding: 5px 14px !important;
-    font-size: 12px !important;
-    font-weight: 600 !important;
-    cursor: pointer !important;
-    margin-top: 16px !important;
-    display: inline-block !important;
-    width: fit-content !important;
-  }
-`}</style>
-
       <hr />
+      <style>{`
+        .poppins-title { font-family: 'Poppins', sans-serif !important; }
+        .send-btn {
+          background: #111 !important;
+          color: #fff !important;
+          border: none !important;
+          border-radius: 20px !important;
+          padding: 5px 14px !important;
+          font-size: 12px !important;
+          font-weight: 600 !important;
+          cursor: pointer !important;
+          margin-top: 16px !important;
+          display: inline-block !important;
+          width: fit-content !important;
+        }
+        input[type="radio"] {
+          appearance: none !important;
+          -webkit-appearance: none !important;
+          width: 16px !important;
+          height: 16px !important;
+          border-radius: 50% !important;
+          background: #e0e0e0 !important;
+          cursor: pointer !important;
+          vertical-align: middle !important;
+        }
+        input[type="radio"]:checked {
+          background: #111 !important;
+          border-color: #111 !important;
+        }
+      `}</style>
 
      
       <div style={styles.topBar}>
@@ -112,7 +105,7 @@ function NotificationManagement() {
         <span style={styles.totalCount}>Total Count : 1150</span>
       </div>
 
-      
+     
       <div style={styles.filterBar}>
         <div style={styles.searchWrapper}>
           <SearchIcon />
@@ -131,9 +124,10 @@ function NotificationManagement() {
         </select>
       </div>
 
+     
       <div style={styles.formSection}>
         <div style={styles.formLayout}>
-         
+          
           <div style={styles.formLeft}>
             <div style={styles.formGroup}>
               <label style={styles.formLabel}>Notification Title</label>
@@ -153,7 +147,7 @@ function NotificationManagement() {
                 Customer List
               </label>
             </div>
-              <button className="send-btn">Send Notification</button>
+            <button className="send-btn">Send Notification</button>
           </div>
 
           
