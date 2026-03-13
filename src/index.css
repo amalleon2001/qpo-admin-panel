@@ -1,81 +1,99 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-* {
-  font-family: 'Inter' !important;
-  font-weight: 400;
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #0c6cfc;
+  --color-primary-hover: #0a5cd6;
+  --color-sidebar-bg: #f7f9fb;
+  --color-dashboard-bg: #f9faff;
+  --color-orange: #ff930f;
 }
 
-.nav-path {
-  font-family: 'Poppins', sans-serif !important;
-  font-weight: 600 !important;
-  font-size: 20px !important;
-}
+@layer base {
+  * {
+    font-family: 'Inter', sans-serif;
+  }
 
-:root {
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
     color: #213547;
     background-color: #ffffff;
   }
-  a:hover {
-    color: #747bff;
+
+  a {
+    font-weight: 500;
+    text-decoration: inherit;
   }
-  button {
-    background-color: #f9f9f9;
+
+  #root {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    text-align: left;
+    background-color: #fff;
+  }
+}
+
+@utility nav-path {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+@utility poppins-breadcrumb {
+  font-family: 'Poppins', sans-serif;
+}
+
+@utility poppins-title {
+  font-family: 'Poppins', sans-serif;
+}
+
+@utility sidebar-scroll {
+  flex: 1;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #c5d1e0 var(--color-sidebar-bg);
+}
+
+@utility send-btn {
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 16px;
+  display: inline-block;
+  width: fit-content;
+}
+
+@layer base {
+  input[type='radio'] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    cursor: pointer;
+    vertical-align: middle;
+  }
+
+  input[type='radio']:checked {
+    background: #111;
+    border-color: #111;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }

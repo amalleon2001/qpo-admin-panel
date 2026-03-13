@@ -4,33 +4,13 @@ import HotspotListView from './HotspotListView';
 
 const DirectionDetails = ({ direction, onBack }) => (
   <div className="p-4">
-    <button
-      onClick={onBack}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        gap: 6,
-        background: 'none',
-        border: 'none',
-        color: '#007bff',
-        fontSize: 18,
-        cursor: 'pointer',
-        marginBottom: 16,
-      }}
-    >
-      <FaArrowLeft />
-      Back
+    <button onClick={onBack} className="flex items-center gap-1.5 bg-transparent border-none text-blue-500 text-lg cursor-pointer mb-4">
+      <FaArrowLeft /> Back
     </button>
-    <h2 style={{ fontSize: 22, fontWeight: 'bold', marginBottom: 12 }}>
-      Direction Details
-    </h2>
+    <h2 className="text-[22px] font-bold mb-3">Direction Details</h2>
     <div>
-      <div style={{ marginBottom: 12 }}>
-        <b>Direction:</b> {direction.name}
-      </div>
-      <div>
-        <b>Total Drivers Tagged:</b> {direction.totalDrivers}
-      </div>
+      <div className="mb-3"><b>Direction:</b> {direction.name}</div>
+      <div><b>Total Drivers Tagged:</b> {direction.totalDrivers}</div>
     </div>
   </div>
 );
@@ -44,197 +24,59 @@ const GeoFenceComponent = ({ onBack }) => {
   const [viewingDirection, setViewingDirection] = useState(null);
   const [viewingHotspots, setViewingHotspots] = useState(false);
 
-  const handleDelete = (id) => {
-    setDirections(directions.filter((dir) => dir.id !== id));
-  };
-
+  const handleDelete = (id) => setDirections(directions.filter((dir) => dir.id !== id));
   const handleEdit = (id) => {
     const newName = prompt('Enter new direction name:');
-    if (newName) {
-      setDirections(
-        directions.map((dir) =>
-          dir.id === id ? { ...dir, name: newName } : dir
-        )
-      );
-    }
+    if (newName) setDirections(directions.map((dir) => dir.id === id ? { ...dir, name: newName } : dir));
   };
+  const filteredDirections = directions.filter((dir) => dir.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
-  const filteredDirections = directions.filter((dir) =>
-    dir.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  if (viewingHotspots) {
-    return <HotspotListView onBack={() => setViewingHotspots(false)} />;
-  }
-
-  if (viewingDirection) {
-    return (
-      <DirectionDetails
-        direction={viewingDirection}
-        onBack={() => setViewingDirection(null)}
-      />
-    );
-  }
+  if (viewingHotspots) return <HotspotListView onBack={() => setViewingHotspots(false)} />;
+  if (viewingDirection) return <DirectionDetails direction={viewingDirection} onBack={() => setViewingDirection(null)} />;
 
   return (
     <div className="p-4 pt-2 bg-white">
       <hr />
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 10,
-          fontSize: 22,
-          fontWeight: 'bold',
-          marginBottom: 10,
-        }}
-      >
-        <button
-          onClick={onBack}
-          aria-label="Back"
-          style={{
-            border: 'none',
-            background: 'none',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            padding: 0,
-            marginRight: 6,
-            fontSize: 22,
-            color: '#000',
-          }}
-        >
+      <div className="flex items-center gap-2.5 text-[22px] font-bold mb-2.5">
+        <button onClick={onBack} aria-label="Back" className="border-none bg-transparent cursor-pointer flex items-center p-0 mr-1.5 text-[22px] text-black">
           <FaArrowLeft />
         </button>
-        <span style={{ color: 'grey', fontWeight: 'bold' }}>Geofence &gt;</span>
-        <span style={{ color: '#000000', fontWeight: 'bold' }}>Direction</span>
+        <span className="text-gray-500 font-bold">Geofence &gt;</span>
+        <span className="text-black font-bold">Direction</span>
       </div>
-      <div
-        style={{
-          background: '#fff',
-          padding: '12px 16px',
-          borderRadius: 6,
-          display: 'flex',
-          alignItems: 'center',
-          gap: 10,
-          marginBottom: 12,
-        }}
-      >
-        <div
-          style={{ position: 'relative', flex: '1 1 300px', maxWidth: 1000 }}
-        >
-          <FaSearch
-            style={{
-              position: 'absolute',
-              left: 12,
-              top: '50%',
-              transform: 'translateY(-50%)',
-              color: '#919191ff',
-              pointerEvents: 'none',
-            }}
-          />
-          <input
-            type="text"
-            placeholder="Search"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            style={{
-              width: '100%',
-              backgroundColor: '#ffffff',
-              padding: '8px 12px 8px 36px',
-              borderRadius: 6,
-              border: '1px solid #c6c6c6ff',
-              fontSize: 16,
-            }}
-          />
+
+      <div className="bg-white py-3 px-4 rounded-md flex items-center gap-2.5 mb-3">
+        <div className="relative flex-[1_1_300px] max-w-[1000px]">
+          <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-[#919191] pointer-events-none" />
+          <input type="text" placeholder="Search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full bg-white py-2 pl-9 pr-3 rounded-md border border-[#c6c6c6] text-base outline-none" />
         </div>
-        <button
-          onClick={() => alert('Add new direction')}
-          style={{
-            background: '#f4f4f4',
-            color: '#222',
-            border: '1px solid #ccc',
-            borderRadius: 6,
-            padding: '7px 16px',
-            fontSize: 16,
-            cursor: 'pointer',
-          }}
-        >
+        <button onClick={() => alert('Add new direction')} className="bg-[#f4f4f4] text-gray-800 border border-gray-300 rounded-md py-1.75 px-4 text-base cursor-pointer">
           + Add Direction
         </button>
-        <span
-          style={{
-            fontWeight: 'bold',
-            border: '1px solid #ccc',
-            borderRadius: 6,
-            padding: '7px 16px',
-            fontSize: 18,
-            background: '#fff',
-          }}
-        >
+        <span className="font-bold border border-gray-300 rounded-md py-1.75 px-4 text-lg bg-white">
           Total Count : {directions.length}
         </span>
       </div>
-      <div
-        style={{
-          border: '1px solid #919191ff',
-          borderRadius: 4,
-          overflow: 'hidden',
-        }}
-      >
-        <table
-          style={{
-            width: '100%',
-            borderCollapse: 'separate',
-            borderSpacing: 0,
-          }}
-        >
+
+      <div className="border border-[#919191] rounded overflow-hidden">
+        <table className="w-full border-separate border-spacing-0">
           <thead>
-            <tr style={{ background: '#d9d9d9', color: '#444' }}>
-              <th
-                style={{ padding: '10px', fontWeight: 500, textAlign: 'left' }}
-              >
-                Direction
-              </th>
-              <th
-                style={{ padding: '10px', fontWeight: 500, textAlign: 'left' }}
-              >
-                Total Drivers Tagged
-              </th>
-              <th
-                style={{ padding: '10px', fontWeight: 500, textAlign: 'left' }}
-              >
-                Action
-              </th>
+            <tr className="bg-[#d9d9d9] text-gray-600">
+              <th className="p-2.5 font-medium text-left">Direction</th>
+              <th className="p-2.5 font-medium text-left">Total Drivers Tagged</th>
+              <th className="p-2.5 font-medium text-left">Action</th>
             </tr>
           </thead>
           <tbody>
             {filteredDirections.map((dir) => (
-              <tr
-                key={dir.id}
-                style={{
-                  borderBottom: '1px solid #e4e4e4',
-                  background: '#fff',
-                }}
-              >
-                <td style={{ padding: '10px', color: '#333' }}>{dir.name}</td>
-                <td style={{ padding: '10px', color: '#333' }}>
-                  {dir.totalDrivers}
-                </td>
-                <td style={{ padding: '10px' }}>
-                  <span style={{ display: 'flex', gap: 18 }}>
-                    <FaEye
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => setViewingHotspots(true)}
-                    />
-                    <FaEdit
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => handleEdit(dir.id)}
-                    />
-                    <FaTrash
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => handleDelete(dir.id)}
-                    />
+              <tr key={dir.id} className="border-b border-[#e4e4e4] bg-white">
+                <td className="p-2.5 text-gray-700">{dir.name}</td>
+                <td className="p-2.5 text-gray-700">{dir.totalDrivers}</td>
+                <td className="p-2.5">
+                  <span className="flex gap-4.5">
+                    <FaEye className="cursor-pointer" onClick={() => setViewingHotspots(true)} />
+                    <FaEdit className="cursor-pointer" onClick={() => handleEdit(dir.id)} />
+                    <FaTrash className="cursor-pointer" onClick={() => handleDelete(dir.id)} />
                   </span>
                 </td>
               </tr>

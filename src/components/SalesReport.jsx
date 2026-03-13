@@ -1,133 +1,6 @@
 import React, { useState } from 'react';
 
-const styles = {
-  page: {
-    padding: '0px 18px',
-    background: '#fff',
-    minHeight: '100vh',
-    fontFamily: "'Segoe UI', Arial, sans-serif",
-  },
-  topBar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  pageTitle: {
-    fontSize: 22,
-    fontWeight: 600,
-    color: '#111',
-    margin: 0,
-  },
-  totalCount: {
-    fontSize: 18,
-    fontWeight: 700,
-    color: '#111',
-    border: '1.5px solid #222',
-    borderRadius: 10,
-    padding: '6px 20px',
-  },
-  filterBar: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 12,
-    marginBottom: 16,
-  },
-  searchWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    background: '#fff',
-    border: '1.5px solid #ddd',
-    borderRadius: 24,
-    padding: '7px 16px',
-    flex: 1,
-    gap: 8,
-  },
-  searchInput: {
-    border: 'none',
-    outline: 'none',
-    fontSize: 14,
-    color: '#333',
-    width: '100%',
-    background: 'transparent',
-  },
-  exportBtn: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 6,
-    border: '1.5px solid #ddd',
-    borderRadius: 8,
-    padding: '7px 16px',
-    fontSize: 14,
-    color: '#333',
-    background: '#fff',
-    cursor: 'pointer',
-    fontWeight: 500,
-  },
-  select: {
-    border: '1.5px solid #ddd',
-    borderRadius: 8,
-    padding: '7px 32px 7px 14px',
-    fontSize: 14,
-    color: '#333',
-    background: '#fff',
-    cursor: 'pointer',
-    appearance: 'none',
-    WebkitAppearance: 'none',
-    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23555' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right 10px center',
-    outline: 'none',
-    minWidth: 130,
-  },
-  tableWrapper: {
-    border: '1.5px solid #e0e0e0',
-    borderRadius: 4,
-    overflow: 'hidden',
-  },
-  table: {
-    width: '100%',
-    borderCollapse: 'collapse',
-  },
-  th: {
-    background: '#f0f0f0',
-    color: '#333',
-    fontWeight: 600,
-    fontSize: 14,
-    padding: '12px 18px',
-    textAlign: 'center',
-    borderBottom: '1.5px solid #e0e0e0',
-  },
-  td: {
-    fontSize: 14,
-    color: '#333',
-    padding: '13px 18px',
-    textAlign: 'center',
-    borderBottom: '1px solid #f0f0f0',
-  },
-  eyeBtn: {
-    background: 'none',
-    border: 'none',
-    cursor: 'pointer',
-    padding: 0,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: '0 auto',
-  },
-};
-
-const SearchIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <circle cx="7" cy="7" r="5" stroke="#888" strokeWidth="1.6" />
-    <path
-      d="M11 11l3 3"
-      stroke="#888"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-    />
-  </svg>
-);
+import SearchIcon from './common/SearchIcon';
 
 const ExportIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -180,36 +53,34 @@ function SalesReports() {
   );
 
   return (
-    <div style={styles.page}>
+    <div className="px-[18px] bg-white min-h-screen font-[Segoe_UI,Arial,sans-serif]">
       <hr />
-      <style>{`
-        .poppins-title {
-          font-family: 'Poppins', sans-serif !important;
-        }
-      `}</style>
-      <div style={styles.topBar}>
-        <h2 className="poppins-title" style={styles.pageTitle}>
+
+      <div className="flex items-center justify-between mb-5">
+        <h2 className="poppins-title text-[22px] font-semibold text-gray-900 m-0">
           Sales Reports
         </h2>
-        <span style={styles.totalCount}>Total Count : 1150</span>
+        <span className="text-lg font-bold text-gray-900 border-[1.5px] border-gray-800 rounded-[10px] py-1.5 px-5">
+          Total Count : 1150
+        </span>
       </div>
 
-      <div style={styles.filterBar}>
-        <div style={styles.searchWrapper}>
+      <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center bg-white border-[1.5px] border-gray-300 rounded-3xl py-[7px] px-4 flex-1 gap-2">
           <SearchIcon />
           <input
-            style={styles.searchInput}
+            className="border-none outline-none text-sm text-gray-700 w-full bg-transparent"
             placeholder="Search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <button style={styles.exportBtn}>
+        <button className="flex items-center gap-1.5 border-[1.5px] border-gray-300 rounded-lg py-[7px] px-4 text-sm text-gray-700 bg-white cursor-pointer font-medium">
           <ExportIcon />
           Export
         </button>
         <select
-          style={styles.select}
+          className="border-[1.5px] border-gray-300 rounded-lg py-[7px] pr-8 pl-3.5 text-sm text-gray-700 bg-white cursor-pointer appearance-none outline-none min-w-[130px] bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23555%22%20d%3D%22M6%208L1%203h10z%22/%3E%3C/svg%3E')] bg-no-repeat bg-[position:right_10px_center]"
           value={period}
           onChange={(e) => setPeriod(e.target.value)}
         >
@@ -219,8 +90,8 @@ function SalesReports() {
         </select>
       </div>
 
-      <div style={styles.tableWrapper}>
-        <table style={styles.table}>
+      <div className="border-[1.5px] border-gray-300 rounded overflow-hidden">
+        <table className="w-full border-collapse">
           <thead>
             <tr>
               {[
@@ -233,7 +104,10 @@ function SalesReports() {
                 'Drop',
                 'Distance (km)',
               ].map((h) => (
-                <th key={h} style={styles.th}>
+                <th
+                  key={h}
+                  className="bg-[#f0f0f0] text-gray-700 font-semibold text-sm py-3 px-[18px] text-center border-b-[1.5px] border-gray-300"
+                >
                   {h}
                 </th>
               ))}
@@ -241,19 +115,33 @@ function SalesReports() {
           </thead>
           <tbody>
             {filtered.map((row, i) => (
-              <tr key={i} style={{ background: '#fff' }}>
-                <td style={styles.td}>
-                  <button style={styles.eyeBtn}>
+              <tr key={i} className="bg-white">
+                <td className="text-sm text-gray-700 py-[13px] px-[18px] text-center border-b border-[#f0f0f0]">
+                  <button className="bg-transparent border-none cursor-pointer p-0 flex items-center justify-center mx-auto">
                     <EyeIcon />
                   </button>
                 </td>
-                <td style={styles.td}>{row.date}</td>
-                <td style={styles.td}>{row.invoiceId}</td>
-                <td style={styles.td}>{row.rideId}</td>
-                <td style={styles.td}>{row.riderName}</td>
-                <td style={styles.td}>{row.pickup}</td>
-                <td style={styles.td}>{row.drop}</td>
-                <td style={styles.td}>{row.distance}</td>
+                <td className="text-sm text-gray-700 py-[13px] px-[18px] text-center border-b border-[#f0f0f0]">
+                  {row.date}
+                </td>
+                <td className="text-sm text-gray-700 py-[13px] px-[18px] text-center border-b border-[#f0f0f0]">
+                  {row.invoiceId}
+                </td>
+                <td className="text-sm text-gray-700 py-[13px] px-[18px] text-center border-b border-[#f0f0f0]">
+                  {row.rideId}
+                </td>
+                <td className="text-sm text-gray-700 py-[13px] px-[18px] text-center border-b border-[#f0f0f0]">
+                  {row.riderName}
+                </td>
+                <td className="text-sm text-gray-700 py-[13px] px-[18px] text-center border-b border-[#f0f0f0]">
+                  {row.pickup}
+                </td>
+                <td className="text-sm text-gray-700 py-[13px] px-[18px] text-center border-b border-[#f0f0f0]">
+                  {row.drop}
+                </td>
+                <td className="text-sm text-gray-700 py-[13px] px-[18px] text-center border-b border-[#f0f0f0]">
+                  {row.distance}
+                </td>
               </tr>
             ))}
           </tbody>

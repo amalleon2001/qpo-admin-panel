@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
+import axiosBaseInstance from '../services/api';
+import { endpoints } from '../services/endpoints';
 import tickIcon from '../assets/tick.png';
 import failedicon from '../assets/Failedtoassigndriver.png';
 import pairIcon from '../assets/Failedpairing.png';
@@ -18,197 +20,6 @@ import RiderDatabase from './RiderDatabase';
 import CouponsAndOffers from './CouponsAndOffers';
 import NotificationManagement from './NotificationManagement';
 
-const BG = '#f9faff';
-const WHITE = '#fff';
-const SHADOW = '0 2px 12px rgba(120,130,180,0.10)';
-const RADIUS = 18;
-
-const styles = {
-  page: {
-    padding: '24px',
-    background: '#fff',
-    minHeight: '100vh',
-    fontFamily: "'Segoe UI', Arial, sans-serif",
-  },
-  inner: {
-    background: BG,
-    borderRadius: 28,
-    padding: '28px 24px 24px',
-  },
-  grid4: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(4, 1fr)',
-    gap: 16,
-  },
-  statCard: {
-    background: WHITE,
-    borderRadius: RADIUS,
-    padding: '18px 20px 16px',
-    boxShadow: SHADOW,
-  },
-  statIcon: {
-    marginBottom: 10,
-    lineHeight: 0,
-  },
-  statTitle: {
-    color: '#666',
-    fontSize: 13,
-    fontWeight: 700,
-    margin: 0,
-    marginBottom: 4,
-  },
-  statValue: {
-    fontSize: 34,
-    fontWeight: 800,
-    color: '#111',
-    margin: 0,
-    lineHeight: 1.1,
-  },
-  grid3: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: 16,
-    marginTop: 16,
-  },
-  wideCard: {
-    background: WHITE,
-    borderRadius: RADIUS,
-    padding: '18px 22px 16px',
-    boxShadow: SHADOW,
-  },
-  wideHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    marginBottom: 14,
-  },
-  wideTitle: {
-    fontSize: 15,
-    fontWeight: 800,
-    textAlign: 'center',
-    color: '#111',
-    margin: 0,
-  },
-  wideRow: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    fontSize: 13.5,
-    color: '#515151',
-    padding: '4px 0',
-  },
-  wideRowValue: {
-    fontWeight: 700,
-    color: '#515151',
-  },
-  sosCard: {
-    background: '#fff',
-    borderRadius: 18,
-    padding: '20px 22px 16px',
-    boxShadow: SHADOW,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    minHeight: 140,
-  },
-  sosHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    marginBottom: 8,
-    width: '100%',
-  },
-  sosLabel: {
-    fontSize: 22,
-    fontWeight: 800,
-    color: '#e53935',
-    letterSpacing: 1,
-  },
-  sosNumber: {
-    fontSize: 64,
-    fontWeight: 900,
-    color: '#111',
-    lineHeight: 1,
-    marginBottom: 4,
-    textAlign: 'center',
-  },
-  viewMore: {
-    fontSize: 13,
-    color: '#444',
-    cursor: 'pointer',
-    display: 'flex',
-    alignItems: 'center',
-    gap: 6,
-    marginTop: 'auto',
-    alignSelf: 'flex-end',
-    textDecoration: 'none',
-  },
-  bottomTitle: {
-    fontSize: 20,
-    fontWeight: 700,
-    color: '#111',
-    margin: '0 0 14px 0',
-  },
-  bottomGrid: {
-    display: 'flex',
-    flexDirection: 'row',
-    gap: 36,
-    alignItems: 'center',
-  },
-  mapBox: {
-    background: '#D9D9D9',
-    borderRadius: RADIUS,
-    width: 500,
-    flexShrink: 0,
-    height: 230,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: 42,
-    fontWeight: 700,
-    color: '#111',
-  },
-  installCard: {
-    background: WHITE,
-    borderRadius: RADIUS,
-    padding: '20px 24px',
-    boxShadow: SHADOW,
-    width: 350,
-    flexShrink: 0,
-  },
-  installTitle: {
-    fontSize: 15,
-    fontWeight: 700,
-    color: '#111',
-    textAlign: 'center',
-    marginBottom: 14,
-    display: 'block',
-  },
-  installRow: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    fontSize: 13.5,
-    color: '#515151',
-    padding: '4px 0',
-  },
-  installValue: {
-    fontWeight: 600,
-  },
-  viewPrev: {
-    textAlign: 'right',
-    marginTop: 14,
-    paddingRight: 4,
-  },
-  viewPrevLink: {
-    fontSize: 13,
-    color: '#333',
-    textDecoration: 'underline',
-    fontWeight: 500,
-    cursor: 'pointer',
-  },
-};
-
 const StarSVG = () => (
   <svg width="25" height="25" viewBox="0 0 22 22" fill="none">
     <path
@@ -223,71 +34,71 @@ const StarSVG = () => (
 
 function StatCard({ icon, title, value }) {
   return (
-    <div style={styles.statCard}>
-      <div style={styles.statIcon}>{icon}</div>
-      <p style={styles.statTitle}>{title}</p>
-      <h2 style={styles.statValue}>{value}</h2>
+    <div className="bg-white rounded-[18px] pt-4.5 px-5 pb-4 shadow-[0_2px_12px_rgba(120,130,180,0.10)]">
+      <div className="mb-2.5 leading-none">{icon}</div>
+      <p className="text-gray-500 text-[13px] font-bold m-0 mb-1">{title}</p>
+      <h2 className="text-[34px] font-extrabold text-gray-900 m-0 leading-tight">{value}</h2>
     </div>
   );
 }
 
-function AverageWaitingTime() {
+function AverageWaitingTime({ data }) {
   return (
-    <div style={styles.wideCard}>
-      <div style={styles.wideHeader}>
+    <div className="bg-white rounded-[18px] pt-4.5 px-5.5 pb-4 shadow-[0_2px_12px_rgba(120,130,180,0.10)]">
+      <div className="flex items-center justify-center gap-2 mb-3.5">
         <img src={alarm} alt="Waiting Time" width={25} height={25} />
-        <h4 style={styles.wideTitle}>Average Waiting Time</h4>
+        <h4 className="text-[15px] font-extrabold text-center text-gray-900 m-0">Average Waiting Time</h4>
       </div>
       {[
-        { label: 'Pairing', value: '2 mins' },
-        { label: 'Drivers Assigning', value: '2 mins' },
-        { label: 'Drivers Arrival', value: '2 mins' },
+        { label: 'Pairing', value: `${data.pairingMins} mins` },
+        { label: 'Drivers Assigning', value: `${data.driverAssigningMins} mins` },
+        { label: 'Drivers Arrival', value: `${data.driverArrivalMins} mins` },
       ].map((r) => (
-        <div key={r.label} style={styles.wideRow}>
-          <span style={{ fontWeight: 600 }}>{r.label}</span>
-          <span style={styles.wideRowValue}>{r.value}</span>
+        <div key={r.label} className="flex justify-between text-[13.5px] text-[#515151] py-1">
+          <span className="font-semibold">{r.label}</span>
+          <span className="font-bold text-[#515151]">{r.value}</span>
         </div>
       ))}
     </div>
   );
 }
 
-function AverageRating() {
+function AverageRating({ data }) {
   return (
-    <div style={styles.wideCard}>
-      <div style={styles.wideHeader}>
+    <div className="bg-white rounded-[18px] pt-4.5 px-5.5 pb-4 shadow-[0_2px_12px_rgba(120,130,180,0.10)]">
+      <div className="flex items-center justify-center gap-2 mb-3.5">
         <StarSVG />
-        <h4 style={styles.wideTitle}>Average Rating</h4>
+        <h4 className="text-[15px] font-extrabold text-center text-gray-900 m-0">Average Rating</h4>
       </div>
       {[
-        { label: 'Rides', value: '3.5' },
-        { label: 'Play store', value: '3.5' },
-        { label: 'App Store', value: '3.5' },
+        { label: 'Rides', value: String(data.rides) },
+        { label: 'Play store', value: String(data.playStore) },
+        { label: 'App Store', value: String(data.appStore) },
       ].map((r) => (
-        <div key={r.label} style={styles.wideRow}>
-          <span style={{ fontWeight: 600 }}>{r.label}</span>
-          <span style={styles.wideRowValue}>{r.value}</span>
+        <div key={r.label} className="flex justify-between text-[13.5px] text-[#515151] py-1">
+          <span className="font-semibold">{r.label}</span>
+          <span className="font-bold text-[#515151]">{r.value}</span>
         </div>
       ))}
     </div>
   );
 }
 
-function SOSCard() {
+function SOSCard({ count }) {
   return (
-    <div style={styles.sosCard}>
-      <div style={styles.sosHeader}>
+    <div className="bg-white rounded-[18px] py-5 px-5.5 pb-4 shadow-[0_2px_12px_rgba(120,130,180,0.10)] flex flex-col items-center min-h-35">
+      <div className="flex items-center justify-center gap-2 mb-2 w-full">
         <img src={sosIcon} alt="SOS" width={28} height={28} />
-        <span style={styles.sosLabel}>SOS</span>
+        <span className="text-[22px] font-extrabold text-red-600 tracking-wide">SOS</span>
       </div>
-      <div style={styles.sosNumber}>01</div>
-      <a href="#" style={styles.viewMore}>
+      <div className="text-[64px] font-black text-gray-900 leading-none mb-1 text-center">{String(count).padStart(2, '0')}</div>
+      <a href="#" className="text-[13px] text-gray-700 cursor-pointer flex items-center gap-1.5 mt-auto self-end no-underline">
         <span>View more</span>
         <svg
           width="50"
           height="12"
           viewBox="0 0 50 12"
-          style={{ display: 'inline-block', verticalAlign: 'middle' }}
+          className="inline-block align-middle"
         >
           <line x1="0" y1="6" x2="42" y2="6" stroke="#444" strokeWidth="1.5" />
           <polyline
@@ -304,74 +115,77 @@ function SOSCard() {
 }
 
 function RidersDashboard() {
+  const [stats, setStats] = useState({
+    completedRides: 0, totalRideRequests: 0, failedToAssignDriver: 0, failedToPair: 0,
+    averageWaitingTime: { pairingMins: 0, driverAssigningMins: 0, driverArrivalMins: 0 },
+    averageRating: { rides: 0, playStore: 0, appStore: 0 },
+    sosCount: 0,
+  });
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await axiosBaseInstance.get(endpoints.GET_RIDER_DASHBOARD_STATS);
+        if (response.success) setStats(response.data);
+      } catch (error) { console.error('Error fetching rider dashboard stats:', error); }
+    };
+    fetchStats();
+  }, []);
+
   return (
-    <div style={styles.page}>
-      <div style={styles.inner}>
-        <div style={styles.grid4}>
+    <div className="p-6 bg-white min-h-screen font-[Segoe_UI,Arial,sans-serif]">
+      <div className="bg-dashboard-bg rounded-[28px] pt-7 px-6 pb-6">
+        <div className="grid grid-cols-4 gap-4">
           <StatCard
             icon={<img src={tickIcon} alt="Completed" width={50} height={50} />}
             title="Completed Rides"
-            value="1000"
+            value={String(stats.completedRides)}
           />
           <StatCard
-            icon={
-              <img
-                src={rideRequestIcon}
-                alt="Ride Request"
-                width={50}
-                height={50}
-              />
-            }
+            icon={<img src={rideRequestIcon} alt="Ride Request" width={50} height={50} />}
             title="Total Ride Request"
-            value="1000"
+            value={String(stats.totalRideRequests)}
           />
           <StatCard
-            icon={
-              <img
-                src={failedicon}
-                alt="Failed Assign"
-                width={50}
-                height={50}
-              />
-            }
+            icon={<img src={failedicon} alt="Failed Assign" width={50} height={50} />}
             title="Failed to Assign Driver"
-            value="20"
+            value={String(stats.failedToAssignDriver)}
           />
           <StatCard
-            icon={
-              <img src={pairIcon} alt="Failed Pair" width={50} height={50} />
-            }
+            icon={<img src={pairIcon} alt="Failed Pair" width={50} height={50} />}
             title="Failed to Pair"
-            value="30"
+            value={String(stats.failedToPair)}
           />
         </div>
 
-        <div style={styles.grid3}>
-          <AverageWaitingTime />
-          <AverageRating />
-          <SOSCard />
+        <div className="grid grid-cols-3 gap-4 mt-4">
+          <AverageWaitingTime data={stats.averageWaitingTime} />
+          <AverageRating data={stats.averageRating} />
+          <SOSCard count={stats.sosCount} />
         </div>
       </div>
 
-      <div style={{ ...styles.inner, marginTop: 16 }}>
-        <h3 style={styles.bottomTitle}>QPo Ride Request View</h3>
-        <div style={styles.bottomGrid}>
-          <div style={styles.mapBox}>Map</div>
-          <div style={styles.installCard}>
-            <span style={styles.installTitle}>New Installs</span>
+      <div className="bg-dashboard-bg rounded-[28px] pt-7 px-6 pb-6 mt-4">
+        <h3 className="text-xl font-bold text-gray-900 m-0 mb-3.5">QPo Ride Request View</h3>
+        <div className="flex flex-row gap-9 items-center">
+          <div className="bg-[#D9D9D9] rounded-[18px] w-[500px] shrink-0 h-[230px] flex items-center justify-center text-[42px] font-bold text-gray-900">
+            Map
+          </div>
+          <div className="bg-white rounded-[18px] py-5 px-6 shadow-[0_2px_12px_rgba(120,130,180,0.10)] w-[350px] shrink-0">
+            <span className="text-[15px] font-bold text-gray-900 text-center mb-3.5 block">New Installs</span>
             {[
               { label: 'Play Store', value: '100' },
               { label: 'App Store', value: '100' },
             ].map((r) => (
-              <div key={r.label} style={styles.installRow}>
-                <span style={{ fontWeight: 700 }}>{r.label}</span>
-                <span style={styles.installValue}>{r.value}</span>
+              <div key={r.label} className="flex justify-between text-[13.5px] text-[#515151] py-1">
+                <span className="font-bold">{r.label}</span>
+                <span className="font-semibold">{r.value}</span>
               </div>
             ))}
           </div>
         </div>
-        <div style={styles.viewPrev}>
-          <a href="#" style={styles.viewPrevLink}>
+        <div className="text-right mt-3.5 pr-1">
+          <a href="#" className="text-[13px] text-gray-700 underline font-medium cursor-pointer">
             View Previous Days &raquo;
           </a>
         </div>

@@ -15,7 +15,7 @@ const ridersSidebarItems = [
       <img
         src={dashboardIcon}
         alt="Dashboard"
-        style={{ width: 24, height: 24, marginLeft: 10 }}
+        className="w-6 h-6 ml-2.5"
       />
     ),
   },
@@ -26,7 +26,7 @@ const ridersSidebarItems = [
       <img
         src={headSet}
         alt="Complaints"
-        style={{ width: 22, height: 22, marginLeft: 10 }}
+        className="w-5.5 h-5.5 ml-2.5"
       />
     ),
   },
@@ -37,7 +37,7 @@ const ridersSidebarItems = [
       <img
         src={autoRicksawIcon}
         alt="All Rides"
-        style={{ width: 22, height: 22, marginLeft: 10 }}
+        className="w-5.5 h-5.5 ml-2.5"
       />
     ),
     children: [
@@ -52,7 +52,7 @@ const ridersSidebarItems = [
       <img
         src={msgIcon}
         alt="Notifications"
-        style={{ width: 22, height: 22, marginLeft: 10 }}
+        className="w-5.5 h-5.5 ml-2.5"
       />
     ),
   },
@@ -63,7 +63,7 @@ const ridersSidebarItems = [
       <img
         src={discountIcon}
         alt="Coupons"
-        style={{ width: 22, height: 22, marginLeft: 10 }}
+        className="w-5.5 h-5.5 ml-2.5"
       />
     ),
   },
@@ -74,7 +74,7 @@ const ridersSidebarItems = [
       <img
         src={clippadIcon}
         alt="Sales"
-        style={{ width: 22, height: 22, marginLeft: 10 }}
+        className="w-5.5 h-5.5 ml-2.5"
       />
     ),
   },
@@ -85,7 +85,7 @@ const ridersSidebarItems = [
       <img
         src={graphIcon}
         alt="Activity Logs"
-        style={{ width: 22, height: 22, marginLeft: 10 }}
+        className="w-5.5 h-5.5 ml-2.5"
       />
     ),
     children: [
@@ -107,7 +107,7 @@ const ridersSidebarItems = [
       <img
         src={storageIcon}
         alt="Rider Database"
-        style={{ width: 22, height: 22, marginLeft: 10 }}
+        className="w-5.5 h-5.5 ml-2.5"
       />
     ),
   },

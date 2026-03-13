@@ -1,196 +1,65 @@
-import React, { useState } from 'react';
-
-const styles = {
-  page: {
-    padding: '0px 18px',
-    background: '#fff',
-    minHeight: '100vh',
-    fontFamily: "'Segoe UI', Arial, sans-serif",
-  },
-
-  breadcrumb: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  breadcrumbLeft: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 8,
-    fontSize: 20,
-  },
-  breadcrumbParent: {
-    color: '#999',
-    fontSize: 22,
-
-    fontWeight: 500,
-    cursor: 'pointer',
-
-    fontFamily: "'Poppins', sans-serif",
-  },
-  breadcrumbSeparator: {
-    color: '#999',
-    fontSize: 22,
-    fontFamily: "'Poppins', sans-serif",
-  },
-  breadcrumbCurrent: {
-    color: '#111',
-    fontWeight: 600,
-    fontSize: 22,
-    fontFamily: "'Poppins', sans-serif",
-  },
-  totalCount: {
-    fontSize: 18,
-    fontWeight: 700,
-    color: '#000000',
-    border: '1.5px solid #222',
-    borderRadius: 10,
-    padding: '6px 20px',
-  },
-
-  filterBar: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 12,
-    marginBottom: 16,
-  },
-  searchWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    background: '#fff',
-    border: '1.5px solid #ddd',
-    borderRadius: 24,
-    padding: '7px 16px',
-    flex: 1,
-    gap: 8,
-  },
-  searchInput: {
-    border: 'none',
-    outline: 'none',
-    fontSize: 14,
-    color: '#333',
-    width: '100%',
-    background: 'transparent',
-  },
-  select: {
-    border: '1.5px solid #ddd',
-    borderRadius: 8,
-    padding: '7px 32px 7px 14px',
-    fontSize: 14,
-    color: '#333',
-    background: '#fff',
-    cursor: 'pointer',
-    appearance: 'none',
-    WebkitAppearance: 'none',
-    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23555' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right 10px center',
-    outline: 'none',
-    minWidth: 130,
-  },
-
-  tableWrapper: {
-    border: '1.5px solid #e0e0e0',
-    borderRadius: 4,
-    overflow: 'hidden',
-  },
-  table: {
-    width: '100%',
-    borderCollapse: 'collapse',
-  },
-  th: {
-    background: '#f0f0f0',
-    color: '#333',
-    fontWeight: 600,
-    fontSize: 14,
-    padding: '12px 18px',
-    textAlign: 'center',
-    borderBottom: '1.5px solid #e0e0e0',
-  },
-  td: {
-    fontSize: 14,
-    color: '#333',
-    padding: '13px 18px',
-    textAlign: 'center',
-    borderBottom: '1px solid #f0f0f0',
-  },
-};
-
-const SearchIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <circle cx="7" cy="7" r="5" stroke="#888" strokeWidth="1.6" />
-    <path
-      d="M11 11l3 3"
-      stroke="#888"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-    />
-  </svg>
-);
-
-const sampleData = Array(6).fill({
-  date: '16 Jul 2025',
-  time: '08:35',
-  rideId: 'R0001',
-  riderName: 'Manisha',
-  pickup: 'Hindustan College',
-  drop: 'Bharathi Nagar',
-  driverAssigned: 'Vijayan',
-  fare: '20',
-});
+import { useState, useEffect } from 'react';
+import SearchIcon from './common/SearchIcon';
+import axiosBaseInstance from '../services/api';
+import { endpoints } from '../services/endpoints';
 
 function CompletedRides() {
+  const [ridesData, setRidesData] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState('all');
   const [period, setPeriod] = useState('month');
 
-  const filtered = sampleData.filter(
+  useEffect(() => {
+    const fetchCompletedRides = async () => {
+      try {
+        const response = await axiosBaseInstance.get(endpoints.GET_COMPLETED_RIDES);
+        setRidesData(response.data?.rides || []);
+        setTotalCount(response.data?.totalCount || 0);
+      } catch (error) {
+        console.error('Error fetching completed rides:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCompletedRides();
+  }, []);
+
+  const filtered = ridesData.filter(
     (r) =>
       r.riderName.toLowerCase().includes(search.toLowerCase()) ||
-      r.rideId.toLowerCase().includes(search.toLowerCase()) ||
+      String(r.rideId).toLowerCase().includes(search.toLowerCase()) ||
       r.pickup.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
-    <div style={styles.page}>
+    <div className="px-4.5 bg-white min-h-screen font-[Segoe_UI,Arial,sans-serif]">
       <hr />
-      <style>{`
-        .poppins-breadcrumb {
-          font-family: 'Poppins', sans-serif !important;
-        }
-      `}</style>
 
-      <div style={styles.breadcrumb}>
-        <div style={styles.breadcrumbLeft}>
-          <span className="poppins-breadcrumb" style={styles.breadcrumbParent}>
-            All Rides
-          </span>
-          <span
-            className="poppins-breadcrumb"
-            style={styles.breadcrumbSeparator}
-          >
-            &gt;
-          </span>
-          <span className="poppins-breadcrumb" style={styles.breadcrumbCurrent}>
-            Completed Rides
-          </span>
+      <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center gap-2 text-xl">
+          <span className="poppins-breadcrumb text-[22px] text-gray-400 font-medium cursor-pointer">All Rides</span>
+          <span className="poppins-breadcrumb text-[22px] text-gray-400">&gt;</span>
+          <span className="poppins-breadcrumb text-[22px] text-gray-900 font-semibold">Completed Rides</span>
         </div>
-        <span style={styles.totalCount}>Total Count : 1150</span>
+        <span className="text-lg font-bold text-black border-[1.5px] border-gray-800 rounded-[10px] py-1.5 px-5">
+          Total Count : {totalCount}
+        </span>
       </div>
 
-      <div style={styles.filterBar}>
-        <div style={styles.searchWrapper}>
+      <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center bg-white border-[1.5px] border-gray-300 rounded-3xl py-1.75 px-4 flex-1 gap-2">
           <SearchIcon />
           <input
-            style={styles.searchInput}
+            className="border-none outline-none text-sm text-gray-700 w-full bg-transparent"
             placeholder="Search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <select
-          style={styles.select}
+          className="border-[1.5px] border-gray-300 rounded-lg py-1.75 pr-8 pl-3.5 text-sm text-gray-700 bg-white cursor-pointer appearance-none outline-none min-w-[130px] bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23555%22%20d%3D%22M6%208L1%203h10z%22/%3E%3C/svg%3E')] bg-no-repeat bg-position-[right_10px_center]"
           value={status}
           onChange={(e) => setStatus(e.target.value)}
         >
@@ -199,7 +68,7 @@ function CompletedRides() {
           <option value="closed">Closed</option>
         </select>
         <select
-          style={styles.select}
+          className="border-[1.5px] border-gray-300 rounded-lg py-1.75 pr-8 pl-3.5 text-sm text-gray-700 bg-white cursor-pointer appearance-none outline-none min-w-[130px] bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23555%22%20d%3D%22M6%208L1%203h10z%22/%3E%3C/svg%3E')] bg-no-repeat bg-position-[right_10px_center]"
           value={period}
           onChange={(e) => setPeriod(e.target.value)}
         >
@@ -209,39 +78,40 @@ function CompletedRides() {
         </select>
       </div>
 
-      <div style={styles.tableWrapper}>
-        <table style={styles.table}>
+      <div className="border-[1.5px] border-gray-300 rounded overflow-hidden">
+        <table className="w-full border-collapse">
           <thead>
             <tr>
-              {[
-                'Date',
-                'Time',
-                'Ride ID',
-                'Rider Name',
-                'Pickup',
-                'Drop',
-                'Driver Assigned',
-                'Fare',
-              ].map((h) => (
-                <th key={h} style={styles.th}>
+              {['Date', 'Time', 'Ride ID', 'Rider Name', 'Pickup', 'Drop', 'Driver Assigned', 'Fare'].map((h) => (
+                <th key={h} className="bg-[#f0f0f0] text-gray-700 font-semibold text-sm py-3 px-4.5 text-center border-b-[1.5px] border-gray-300">
                   {h}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {filtered.map((row, i) => (
-              <tr key={i} style={{ background: '#fff' }}>
-                <td style={styles.td}>{row.date}</td>
-                <td style={styles.td}>{row.time}</td>
-                <td style={styles.td}>{row.rideId}</td>
-                <td style={styles.td}>{row.riderName}</td>
-                <td style={styles.td}>{row.pickup}</td>
-                <td style={styles.td}>{row.drop}</td>
-                <td style={styles.td}>{row.driverAssigned}</td>
-                <td style={styles.td}>{row.fare}</td>
+            {loading ? (
+              <tr>
+                <td colSpan={8} className="text-sm text-gray-700 py-3.25 px-4.5 text-center">Loading...</td>
               </tr>
-            ))}
+            ) : filtered.length === 0 ? (
+              <tr>
+                <td colSpan={8} className="text-sm text-gray-700 py-3.25 px-4.5 text-center">No completed rides found</td>
+              </tr>
+            ) : (
+              filtered.map((row, i) => (
+                <tr key={i} className="bg-white">
+                  <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.date}</td>
+                  <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.time}</td>
+                  <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.rideId}</td>
+                  <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.riderName}</td>
+                  <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.pickup}</td>
+                  <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.drop}</td>
+                  <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.driverAssigned}</td>
+                  <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.fare}</td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

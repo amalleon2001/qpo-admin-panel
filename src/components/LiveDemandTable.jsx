@@ -28,12 +28,12 @@ function RideDirection({ routeName, onBack, onViewHotspot }) {
   return (
     <div className="p-4 pt-0 bg-white">
       <hr />
-      <div className="d-flex align-items-center mb-2 mt-4">
+      <div className="flex items-center mb-2 mt-4">
         <FaArrowLeft
           style={{ cursor: 'pointer', marginRight: 10 }}
           onClick={onBack}
         />
-        <h4 className="fw-semibold fs-20 mb-0 nav-path">
+        <h4 className="font-semibold mb-0 nav-path">
           <span style={{ color: 'grey', fontWeight: 'bold' }}>
             Live Demand &nbsp; &gt; Routes &nbsp; &gt;
           </span>{' '}
@@ -42,20 +42,20 @@ function RideDirection({ routeName, onBack, onViewHotspot }) {
       </div>
 
       <div
-        className="d-flex align-items-center justify-content-start gap-4 mb-3 mt-4 flex-wrap"
+        className="flex items-center justify-start gap-4 mb-3 mt-4 flex-wrap"
         style={{ flexWrap: 'wrap', rowGap: '10px' }}
       >
         <div
-          className="position-relative"
+          className="relative"
           style={{ flex: '1 1 250px', maxWidth: '1000px' }}
         >
           <FaSearch
-            className="position-absolute"
+            className="absolute"
             style={{ top: 12, left: 12, color: '#888' }}
           />
           <input
             type="text"
-            className="form-control ps-5"
+            className="w-full py-2 pl-10 pr-4 border border-gray-300 rounded-[10px] outline-none bg-white"
             placeholder="Search"
             style={{ borderRadius: 10, width: '100%' }}
             value={searchTerm}
@@ -64,20 +64,20 @@ function RideDirection({ routeName, onBack, onViewHotspot }) {
         </div>
 
         <select
-          className="form-select"
+          className="border border-gray-300 rounded-[10px] py-2 px-3 outline-none bg-white"
           style={{ borderRadius: 10, maxWidth: 150 }}
         >
           <option>This Month</option>
         </select>
 
-        <div className="fw-bold fs-5 border px-3 py-2 rounded-3">
+        <div className="font-bold text-xl border border-gray-300 px-3 py-2 rounded-lg">
           Total Count : {filteredData.length}
         </div>
       </div>
 
-      <div className="table-responsive">
+      <div className="overflow-x-auto">
         <table
-          className="table mb-0"
+          className="w-full mb-0"
           style={{
             border: '1px solid #ccc',
             borderRadius: 8,
@@ -87,7 +87,7 @@ function RideDirection({ routeName, onBack, onViewHotspot }) {
           }}
         >
           <thead
-            className="table-secondary"
+            className="bg-gray-100"
             style={{
               backgroundColor: '#f8f9fa',
               borderBottom: '1px solid #ccc',

@@ -1,188 +1,16 @@
 import React, { useState } from 'react';
-
-const styles = {
-  page: {
-    padding: '0px 18px',
-    background: '#fff',
-    minHeight: '100vh',
-    fontFamily: "'Segoe UI', Arial, sans-serif",
-  },
-
-  breadcrumb: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  breadcrumbLeft: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 8,
-    fontSize: 15,
-  },
-  breadcrumbParent: {
-    color: '#696969',
-    fontWeight: 500,
-    cursor: 'pointer',
-    fontSize: 22,
-  },
-  breadcrumbSeparator: {
-    color: '#999',
-    fontSize: 22,
-  },
-  breadcrumbCurrent: {
-    color: '#111',
-    fontWeight: 600,
-    fontSize: 22,
-  },
-  breadcrumbRight: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 12,
-  },
-  totalCount: {
-    fontSize: 22,
-    fontWeight: 600,
-    color: '#111',
-    border: '1.5px solid #222',
-    borderRadius: 10,
-    padding: '6px 20px',
-  },
-  exportBtn: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 6,
-    border: '1.5px solid #ddd',
-    borderRadius: 8,
-    padding: '7px 16px',
-    fontSize: 14,
-    color: '#333',
-    background: '#fff',
-    cursor: 'pointer',
-    fontWeight: 500,
-  },
-
-  filterBar: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 12,
-    marginBottom: 16,
-  },
-  searchWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    background: '#fff',
-    border: '1.5px solid #ddd',
-    borderRadius: 24,
-    padding: '7px 16px',
-    flex: 1,
-    gap: 8,
-  },
-  searchInput: {
-    border: 'none',
-    outline: 'none',
-    fontSize: 14,
-    color: '#333',
-    width: '100%',
-    background: 'transparent',
-  },
-  select: {
-    border: '1.5px solid #ddd',
-    borderRadius: 8,
-    padding: '7px 32px 7px 14px',
-    fontSize: 14,
-    color: '#333',
-    background: '#fff',
-    cursor: 'pointer',
-    appearance: 'none',
-    WebkitAppearance: 'none',
-    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23555' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right 10px center',
-    outline: 'none',
-    minWidth: 130,
-  },
-
-  tableWrapper: {
-    border: '1.5px solid #e0e0e0',
-    borderRadius: 4,
-    overflow: 'hidden',
-  },
-  table: {
-    width: '100%',
-    borderCollapse: 'collapse',
-  },
-  th: {
-    background: '#f0f0f0',
-    color: '#333',
-    fontWeight: 600,
-    fontSize: 14,
-    padding: '12px 18px',
-    textAlign: 'center',
-    borderBottom: '1.5px solid #e0e0e0',
-  },
-  td: {
-    fontSize: 14,
-    color: '#333',
-    padding: '13px 18px',
-    textAlign: 'center',
-    borderBottom: '1px solid #f0f0f0',
-  },
-};
-
-const SearchIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <circle cx="7" cy="7" r="5" stroke="#888" strokeWidth="1.6" />
-    <path
-      d="M11 11l3 3"
-      stroke="#888"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-    />
-  </svg>
-);
+import SearchIcon from './common/SearchIcon';
 
 const ExportIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <rect
-      x="2"
-      y="10"
-      width="12"
-      height="4"
-      rx="1"
-      stroke="#333"
-      strokeWidth="1.4"
-      fill="none"
-    />
-    <path
-      d="M8 2v7M5 6l3 3 3-3"
-      stroke="#333"
-      strokeWidth="1.4"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
+    <rect x="2" y="10" width="12" height="4" rx="1" stroke="#333" strokeWidth="1.4" fill="none" />
+    <path d="M8 2v7M5 6l3 3 3-3" stroke="#333" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
 const sampleData = [
-  {
-    date: '16 Jul 2025',
-    userType: 'Returning User',
-    appOpenedAt: '10:05',
-    appOpenedVia: 'Notification',
-    riderId: 'CUS0001',
-    riderName: 'Manisha',
-    pickupSearched: 'Auto fetched',
-  },
-  ...Array(5).fill({
-    date: '16 Jul 2025',
-    userType: 'New User',
-    appOpenedAt: '10:05',
-    appOpenedVia: 'Notification',
-    riderId: 'CUS0001',
-    riderName: 'Manisha',
-    pickupSearched: 'Auto fetched',
-  }),
+  { date: '16 Jul 2025', userType: 'Returning User', appOpenedAt: '10:05', appOpenedVia: 'Notification', riderId: 'CUS0001', riderName: 'Manisha', pickupSearched: 'Auto fetched' },
+  ...Array(5).fill({ date: '16 Jul 2025', userType: 'New User', appOpenedAt: '10:05', appOpenedVia: 'Notification', riderId: 'CUS0001', riderName: 'Manisha', pickupSearched: 'Auto fetched' }),
 ];
 
 function PreviousReportsActivity() {
@@ -198,60 +26,39 @@ function PreviousReportsActivity() {
   );
 
   return (
-    <div style={styles.page}>
-      <style>{`
-        .poppins-breadcrumb {
-          font-family: 'Poppins', sans-serif !important;
-        }
-      `}</style>
-
+    <div className="px-4.5 bg-white min-h-screen font-[Segoe_UI,Arial,sans-serif]">
       <hr />
 
-      <div style={styles.breadcrumb}>
-        <div style={styles.breadcrumbLeft}>
-          <span className="poppins-breadcrumb" style={styles.breadcrumbParent}>
-            Activity Logs
-          </span>
-          <span
-            className="poppins-breadcrumb"
-            style={styles.breadcrumbSeparator}
-          >
-            &gt;
-          </span>
-          <span className="poppins-breadcrumb" style={styles.breadcrumbParent}>
-            App Activity Logs
-          </span>
-          <span
-            className="poppins-breadcrumb"
-            style={styles.breadcrumbSeparator}
-          >
-            &gt;
-          </span>
-          <span className="poppins-breadcrumb" style={styles.breadcrumbCurrent}>
-            Previous Reports
-          </span>
+      <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center gap-2 text-[15px]">
+          <span className="poppins-breadcrumb text-[22px] text-[#696969] font-medium cursor-pointer">Activity Logs</span>
+          <span className="poppins-breadcrumb text-[22px] text-gray-400">&gt;</span>
+          <span className="poppins-breadcrumb text-[22px] text-[#696969] font-medium cursor-pointer">App Activity Logs</span>
+          <span className="poppins-breadcrumb text-[22px] text-gray-400">&gt;</span>
+          <span className="poppins-breadcrumb text-[22px] text-gray-900 font-semibold">Previous Reports</span>
         </div>
-        <div style={styles.breadcrumbRight}>
-          <button style={styles.exportBtn}>
-            <ExportIcon />
-            Export
+        <div className="flex items-center gap-3">
+          <button className="flex items-center gap-1.5 border-[1.5px] border-gray-300 rounded-lg py-1.75 px-4 text-sm text-gray-700 bg-white cursor-pointer font-medium">
+            <ExportIcon /> Export
           </button>
-          <span style={styles.totalCount}>Total Count : 1150</span>
+          <span className="text-[22px] font-semibold text-gray-900 border-[1.5px] border-gray-800 rounded-[10px] py-1.5 px-5">
+            Total Count : 1150
+          </span>
         </div>
       </div>
 
-      <div style={styles.filterBar}>
-        <div style={styles.searchWrapper}>
+      <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center bg-white border-[1.5px] border-gray-300 rounded-3xl py-1.75 px-4 flex-1 gap-2">
           <SearchIcon />
           <input
-            style={styles.searchInput}
+            className="border-none outline-none text-sm text-gray-700 w-full bg-transparent"
             placeholder="Search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <select
-          style={styles.select}
+          className="border-[1.5px] border-gray-300 rounded-lg py-1.75 pr-8 pl-3.5 text-sm text-gray-700 bg-white cursor-pointer appearance-none outline-none min-w-[130px] bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23555%22%20d%3D%22M6%208L1%203h10z%22/%3E%3C/svg%3E')] bg-no-repeat bg-position-[right_10px_center]"
           value={status}
           onChange={(e) => setStatus(e.target.value)}
         >
@@ -260,7 +67,7 @@ function PreviousReportsActivity() {
           <option value="returning">Returning User</option>
         </select>
         <select
-          style={styles.select}
+          className="border-[1.5px] border-gray-300 rounded-lg py-1.75 pr-8 pl-3.5 text-sm text-gray-700 bg-white cursor-pointer appearance-none outline-none min-w-[130px] bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23555%22%20d%3D%22M6%208L1%203h10z%22/%3E%3C/svg%3E')] bg-no-repeat bg-position-[right_10px_center]"
           value={period}
           onChange={(e) => setPeriod(e.target.value)}
         >
@@ -270,35 +77,25 @@ function PreviousReportsActivity() {
         </select>
       </div>
 
-      <div style={styles.tableWrapper}>
-        <table style={styles.table}>
+      <div className="border-[1.5px] border-gray-300 rounded overflow-hidden">
+        <table className="w-full border-collapse">
           <thead>
             <tr>
-              {[
-                'Date',
-                'User Type',
-                'App Opened at',
-                'App Opened Via',
-                'Rider ID',
-                'Rider Name',
-                'Pickup Searched',
-              ].map((h) => (
-                <th key={h} style={styles.th}>
-                  {h}
-                </th>
+              {['Date', 'User Type', 'App Opened at', 'App Opened Via', 'Rider ID', 'Rider Name', 'Pickup Searched'].map((h) => (
+                <th key={h} className="bg-[#f0f0f0] text-gray-700 font-semibold text-sm py-3 px-4.5 text-center border-b-[1.5px] border-gray-300">{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {filtered.map((row, i) => (
-              <tr key={i} style={{ background: '#fff' }}>
-                <td style={styles.td}>{row.date}</td>
-                <td style={styles.td}>{row.userType}</td>
-                <td style={styles.td}>{row.appOpenedAt}</td>
-                <td style={styles.td}>{row.appOpenedVia}</td>
-                <td style={styles.td}>{row.riderId}</td>
-                <td style={styles.td}>{row.riderName}</td>
-                <td style={styles.td}>{row.pickupSearched}</td>
+              <tr key={i} className="bg-white">
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.date}</td>
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.userType}</td>
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.appOpenedAt}</td>
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.appOpenedVia}</td>
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.riderId}</td>
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.riderName}</td>
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.pickupSearched}</td>
               </tr>
             ))}
           </tbody>

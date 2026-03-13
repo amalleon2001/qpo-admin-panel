@@ -1,12 +1,1 @@
-/* App-level overrides */
-#root {
-  margin: 0;
-  padding: 0;
-  max-width: 100%;
-  text-align: left;
-  background-color: #fff;
-}
-
-.ms-6 {
-  margin-left: 6rem;
-}
+/* Kept empty - all styles moved to Tailwind */

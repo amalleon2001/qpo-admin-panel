@@ -1,198 +1,14 @@
 import React, { useState } from 'react';
-
-const styles = {
-  page: {
-    padding: '0px 18px',
-    background: '#fff',
-    minHeight: '100vh',
-    fontFamily: "'Segoe UI', Arial, sans-serif",
-  },
-  topBar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  pageTitle: { fontSize: 22, fontWeight: 600, color: '#111', margin: 0 },
-  totalCount: {
-    fontSize: 22,
-    fontWeight: 600,
-    color: '#111',
-    border: '1.5px solid #222',
-    borderRadius: 10,
-    padding: '6px 20px',
-  },
-  filterBar: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 12,
-    marginBottom: 20,
-  },
-  searchWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    background: '#fff',
-    border: '1.5px solid #ddd',
-    borderRadius: 24,
-    padding: '7px 16px',
-    flex: 1,
-    gap: 8,
-  },
-  searchInput: {
-    border: 'none',
-    outline: 'none',
-    fontSize: 14,
-    color: '#333',
-    width: '100%',
-    background: 'transparent',
-  },
-  addBtn: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 4,
-    border: '1.5px solid #ddd',
-    borderRadius: 8,
-    padding: '7px 14px',
-    fontSize: 14,
-    color: '#333',
-    background: '#fff',
-    cursor: 'pointer',
-    fontWeight: 500,
-    whiteSpace: 'nowrap',
-  },
-  select: {
-    border: '1.5px solid #ddd',
-    borderRadius: 8,
-    padding: '7px 32px 7px 14px',
-    fontSize: 14,
-    color: '#333',
-    background: '#fff',
-    cursor: 'pointer',
-    appearance: 'none',
-    WebkitAppearance: 'none',
-    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23555' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right 10px center',
-    outline: 'none',
-    minWidth: 120,
-  },
-  formSection: {
-    background: '#f9faff',
-    borderRadius: 12,
-    padding: '24px',
-    marginBottom: 28,
-  },
-  formLayout: { display: 'flex', gap: 24 },
-  formLeft: { display: 'flex', flexDirection: 'column', gap: 16, flex: 1 },
-  formRight: { flex: 1 },
-  formGroup: { display: 'flex', flexDirection: 'column', gap: 6 },
-  formLabel: { fontSize: 13, color: '#333', fontWeight: 500 },
-  formInput: {
-    border: '1px solid #ccc',
-    borderRadius: 6,
-    padding: '5px 8px',
-    fontSize: 13,
-    outline: 'none',
-    background: '#fff',
-    width: '60%',
-  },
-  formTextarea: {
-    border: '1px solid #ccc',
-    borderRadius: 6,
-    padding: '5px 8px',
-    fontSize: 13,
-    outline: 'none',
-    background: '#fff',
-    resize: 'none',
-    height: 250,
-    width: '80%',
-  },
-  radioGroup: { display: 'flex', alignItems: 'center', gap: 24, marginTop: 4 },
-  radioLabel: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 6,
-    fontSize: 14,
-    color: '#333',
-    cursor: 'pointer',
-  },
-  historyTitle: {
-    fontSize: 18,
-    fontWeight: 700,
-    color: '#111',
-    marginBottom: 12,
-  },
-  tableWrapper: {
-    border: '1.5px solid #e0e0e0',
-    borderRadius: 4,
-    overflow: 'hidden',
-  },
-  table: { width: '100%', borderCollapse: 'collapse' },
-  th: {
-    background: '#f0f0f0',
-    color: '#333',
-    fontWeight: 600,
-    fontSize: 14,
-    padding: '12px 18px',
-    textAlign: 'left',
-    borderBottom: '1.5px solid #e0e0e0',
-  },
-  td: {
-    fontSize: 14,
-    color: '#333',
-    padding: '13px 18px',
-    textAlign: 'left',
-    borderBottom: '1px solid #f0f0f0',
-  },
-  actionCell: { display: 'flex', alignItems: 'center', gap: 10 },
-  iconBtn: {
-    background: 'none',
-    border: 'none',
-    cursor: 'pointer',
-    padding: 0,
-  },
-};
-
-const SearchIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <circle cx="7" cy="7" r="5" stroke="#888" strokeWidth="1.6" />
-    <path
-      d="M11 11l3 3"
-      stroke="#888"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-    />
-  </svg>
-);
-
+import SearchIcon from './common/SearchIcon';
 const EditIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <path
-      d="M11 2l3 3-9 9H2v-3l9-9z"
-      stroke="#333"
-      strokeWidth="1.4"
-      strokeLinejoin="round"
-    />
+    <path d="M11 2l3 3-9 9H2v-3l9-9z" stroke="#333" strokeWidth="1.4" strokeLinejoin="round" />
   </svg>
 );
-
 const TrashIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <rect
-      x="3"
-      y="4"
-      width="10"
-      height="10"
-      rx="1"
-      stroke="#333"
-      strokeWidth="1.4"
-    />
-    <path
-      d="M1 4h14M6 4V2h4v2"
-      stroke="#333"
-      strokeWidth="1.4"
-      strokeLinecap="round"
-    />
+    <rect x="3" y="4" width="10" height="10" rx="1" stroke="#333" strokeWidth="1.4" />
+    <path d="M1 4h14M6 4V2h4v2" stroke="#333" strokeWidth="1.4" strokeLinecap="round" />
   </svg>
 );
 
@@ -214,59 +30,33 @@ function NotificationManagement() {
   const [target, setTarget] = useState('all');
 
   return (
-    <div style={styles.page}>
+    <div className="px-4.5 bg-white min-h-screen font-[Segoe_UI,Arial,sans-serif]">
       <hr />
-      <style>{`
-        .poppins-title { font-family: 'Poppins', sans-serif !important; }
-        .send-btn {
-          background: #111 !important;
-          color: #fff !important;
-          border: none !important;
-          border-radius: 20px !important;
-          padding: 5px 14px !important;
-          font-size: 12px !important;
-          font-weight: 600 !important;
-          cursor: pointer !important;
-          margin-top: 16px !important;
-          display: inline-block !important;
-          width: fit-content !important;
-        }
-        input[type="radio"] {
-          appearance: none !important;
-          -webkit-appearance: none !important;
-          width: 16px !important;
-          height: 16px !important;
-          border-radius: 50% !important;
-          background: #e0e0e0 !important;
-          cursor: pointer !important;
-          vertical-align: middle !important;
-        }
-        input[type="radio"]:checked {
-          background: #111 !important;
-          border-color: #111 !important;
-        }
-      `}</style>
 
-      <div style={styles.topBar}>
-        <h2 className="poppins-title" style={styles.pageTitle}>
+      <div className="flex items-center justify-between mb-5">
+        <h2 className="poppins-title text-[22px] font-semibold text-gray-900 m-0">
           Notification Management
         </h2>
-        <span style={styles.totalCount}>Total Count : 1150</span>
+        <span className="text-[22px] font-semibold text-gray-900 border-[1.5px] border-gray-800 rounded-[10px] py-1.5 px-5">
+          Total Count : 1150
+        </span>
       </div>
 
-      <div style={styles.filterBar}>
-        <div style={styles.searchWrapper}>
+      <div className="flex items-center gap-3 mb-5">
+        <div className="flex items-center bg-white border-[1.5px] border-gray-300 rounded-3xl py-1.75 px-4 flex-1 gap-2">
           <SearchIcon />
           <input
-            style={styles.searchInput}
+            className="border-none outline-none text-sm text-gray-700 w-full bg-transparent"
             placeholder="Search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <button style={styles.addBtn}>+ Add</button>
+        <button className="flex items-center gap-1 border-[1.5px] border-gray-300 rounded-lg py-1.75 px-3.5 text-sm text-gray-700 bg-white cursor-pointer font-medium whitespace-nowrap">
+          + Add
+        </button>
         <select
-          style={styles.select}
+          className="border-[1.5px] border-gray-300 rounded-lg py-1.75 pr-8 pl-3.5 text-sm text-gray-700 bg-white cursor-pointer appearance-none outline-none min-w-[120px] bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23555%22%20d%3D%22M6%208L1%203h10z%22/%3E%3C/svg%3E')] bg-no-repeat bg-position-[right_10px_center]"
           value={status}
           onChange={(e) => setStatus(e.target.value)}
         >
@@ -275,7 +65,7 @@ function NotificationManagement() {
           <option value="inactive">Inactive</option>
         </select>
         <select
-          style={styles.select}
+          className="border-[1.5px] border-gray-300 rounded-lg py-1.75 pr-8 pl-3.5 text-sm text-gray-700 bg-white cursor-pointer appearance-none outline-none min-w-[120px] bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23555%22%20d%3D%22M6%208L1%203h10z%22/%3E%3C/svg%3E')] bg-no-repeat bg-position-[right_10px_center]"
           value={period}
           onChange={(e) => setPeriod(e.target.value)}
         >
@@ -285,55 +75,34 @@ function NotificationManagement() {
         </select>
       </div>
 
-      <div style={styles.formSection}>
-        <div style={styles.formLayout}>
-          <div style={styles.formLeft}>
-            <div style={styles.formGroup}>
-              <label style={styles.formLabel}>Notification Title</label>
-              <input
-                style={styles.formInput}
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-              />
+      <div className="bg-dashboard-bg rounded-xl p-6 mb-7">
+        <div className="flex gap-6">
+          <div className="flex flex-col gap-4 flex-1">
+            <div className="flex flex-col gap-1.5">
+              <label className="text-[13px] text-gray-700 font-medium">Notification Title</label>
+              <input className="border border-gray-300 rounded-md py-1.25 px-2 text-[13px] outline-none bg-white w-3/5" value={title} onChange={(e) => setTitle(e.target.value)} />
             </div>
-            <div style={styles.formGroup}>
-              <label style={styles.formLabel}>Notification Tag</label>
-              <input
-                style={styles.formInput}
-                value={tag}
-                onChange={(e) => setTag(e.target.value)}
-              />
+            <div className="flex flex-col gap-1.5">
+              <label className="text-[13px] text-gray-700 font-medium">Notification Tag</label>
+              <input className="border border-gray-300 rounded-md py-1.25 px-2 text-[13px] outline-none bg-white w-3/5" value={tag} onChange={(e) => setTag(e.target.value)} />
             </div>
-            <div style={styles.radioGroup}>
-              <label style={styles.radioLabel}>
-                <input
-                  type="radio"
-                  name="target"
-                  value="all"
-                  checked={target === 'all'}
-                  onChange={() => setTarget('all')}
-                />
+            <div className="flex items-center gap-6 mt-1">
+              <label className="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
+                <input type="radio" name="target" value="all" checked={target === 'all'} onChange={() => setTarget('all')} />
                 All
               </label>
-              <label style={styles.radioLabel}>
-                <input
-                  type="radio"
-                  name="target"
-                  value="customerList"
-                  checked={target === 'customerList'}
-                  onChange={() => setTarget('customerList')}
-                />
+              <label className="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer">
+                <input type="radio" name="target" value="customerList" checked={target === 'customerList'} onChange={() => setTarget('customerList')} />
                 Customer List
               </label>
             </div>
             <button className="send-btn">Send Notification</button>
           </div>
-
-          <div style={styles.formRight}>
-            <div style={styles.formGroup}>
-              <label style={styles.formLabel}>Message</label>
+          <div className="flex-1">
+            <div className="flex flex-col gap-1.5">
+              <label className="text-[13px] text-gray-700 font-medium">Message</label>
               <textarea
-                style={styles.formTextarea}
+                className="border border-gray-300 rounded-md py-1.25 px-2 text-[13px] outline-none bg-white resize-none h-[250px] w-4/5"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
               />
@@ -342,41 +111,28 @@ function NotificationManagement() {
         </div>
       </div>
 
-      <div style={styles.historyTitle}>Notification History</div>
-      <div style={styles.tableWrapper}>
-        <table style={styles.table}>
+      <div className="text-lg font-bold text-gray-900 mb-3">Notification History</div>
+      <div className="border-[1.5px] border-gray-300 rounded overflow-hidden">
+        <table className="w-full border-collapse">
           <thead>
             <tr>
-              {[
-                'Created On',
-                'Title',
-                'Tag',
-                'Message Body',
-                'Status',
-                'Action',
-              ].map((h) => (
-                <th key={h} style={styles.th}>
-                  {h}
-                </th>
+              {['Created On', 'Title', 'Tag', 'Message Body', 'Status', 'Action'].map((h) => (
+                <th key={h} className="bg-[#f0f0f0] text-gray-700 font-semibold text-sm py-3 px-4.5 text-left border-b-[1.5px] border-gray-300">{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {historyData.map((row, i) => (
-              <tr key={i} style={{ background: '#fff' }}>
-                <td style={styles.td}>{row.createdOn}</td>
-                <td style={styles.td}>{row.title}</td>
-                <td style={styles.td}>{row.tag}</td>
-                <td style={styles.td}>{row.messageBody}</td>
-                <td style={styles.td}>{row.status}</td>
-                <td style={styles.td}>
-                  <div style={styles.actionCell}>
-                    <button style={styles.iconBtn}>
-                      <EditIcon />
-                    </button>
-                    <button style={styles.iconBtn}>
-                      <TrashIcon />
-                    </button>
+              <tr key={i} className="bg-white">
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-left border-b border-[#f0f0f0]">{row.createdOn}</td>
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-left border-b border-[#f0f0f0]">{row.title}</td>
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-left border-b border-[#f0f0f0]">{row.tag}</td>
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-left border-b border-[#f0f0f0]">{row.messageBody}</td>
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-left border-b border-[#f0f0f0]">{row.status}</td>
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-left border-b border-[#f0f0f0]">
+                  <div className="flex items-center gap-2.5">
+                    <button className="bg-transparent border-none cursor-pointer p-0"><EditIcon /></button>
+                    <button className="bg-transparent border-none cursor-pointer p-0"><TrashIcon /></button>
                   </div>
                 </td>
               </tr>

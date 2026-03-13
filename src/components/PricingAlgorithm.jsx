@@ -3,33 +3,12 @@ import { FaSearch, FaEdit, FaTrash, FaSave, FaTimes } from 'react-icons/fa';
 
 const PricingAlgorithm = () => {
   const [pricingData, setPricingData] = useState([
-    {
-      id: 1,
-      distanceRange: '1-3',
-      pricingPerKm: 10,
-    },
-    {
-      id: 2,
-      distanceRange: '2-5',
-      pricingPerKm: 10,
-    },
-    {
-      id: 3,
-      distanceRange: '3-7',
-      pricingPerKm: 10,
-    },
-    {
-      id: 4,
-      distanceRange: '4-9',
-      pricingPerKm: 10,
-    },
-    {
-      id: 5,
-      distanceRange: 'Above 10',
-      pricingPerKm: 10,
-    },
+    { id: 1, distanceRange: '1-3', pricingPerKm: 10 },
+    { id: 2, distanceRange: '2-5', pricingPerKm: 10 },
+    { id: 3, distanceRange: '3-7', pricingPerKm: 10 },
+    { id: 4, distanceRange: '4-9', pricingPerKm: 10 },
+    { id: 5, distanceRange: 'Above 10', pricingPerKm: 10 },
   ]);
-
   const [searchTerm, setSearchTerm] = useState('');
   const [editingId, setEditingId] = useState(null);
   const [editValues, setEditValues] = useState({});
@@ -37,308 +16,82 @@ const PricingAlgorithm = () => {
   const handleEdit = (id) => {
     const item = pricingData.find((data) => data.id === id);
     setEditingId(id);
-    setEditValues({
-      distanceRange: item.distanceRange,
-      pricingPerKm: item.pricingPerKm,
-    });
+    setEditValues({ distanceRange: item.distanceRange, pricingPerKm: item.pricingPerKm });
   };
-
   const handleSave = (id) => {
-    setPricingData((prevData) =>
-      prevData.map((item) =>
-        item.id === id ? { ...item, ...editValues } : item
-      )
-    );
-    setEditingId(null);
-    setEditValues({});
+    setPricingData((prev) => prev.map((item) => item.id === id ? { ...item, ...editValues } : item));
+    setEditingId(null); setEditValues({});
   };
-
-  const handleCancel = () => {
-    setEditingId(null);
-    setEditValues({});
-  };
-
+  const handleCancel = () => { setEditingId(null); setEditValues({}); };
   const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this pricing rule?')) {
-      setPricingData((prevData) => prevData.filter((item) => item.id !== id));
-    }
+    if (window.confirm('Are you sure you want to delete this pricing rule?'))
+      setPricingData((prev) => prev.filter((item) => item.id !== id));
   };
-
   const handleAdd = () => {
     const newId = Math.max(...pricingData.map((item) => item.id)) + 1;
-    const newItem = {
-      id: newId,
-      distanceRange: 'New Range',
-      pricingPerKm: 0,
-    };
-    setPricingData((prevData) => [...prevData, newItem]);
+    setPricingData((prev) => [...prev, { id: newId, distanceRange: 'New Range', pricingPerKm: 0 }]);
     handleEdit(newId);
   };
-
   const handleInputChange = (field, value) => {
-    setEditValues((prev) => ({
-      ...prev,
-      [field]: field === 'pricingPerKm' ? Number(value) : value,
-    }));
+    setEditValues((prev) => ({ ...prev, [field]: field === 'pricingPerKm' ? Number(value) : value }));
   };
 
-  const filteredData = pricingData.filter((item) =>
-    item.distanceRange.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredData = pricingData.filter((item) => item.distanceRange.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
-    <div className="p-4 bg-white" style={{ minHeight: '100vh' }}>
-      <div className="d-flex align-items-center justify-content-between mb-4">
-        <h2
-          className="fw-bold mb-0"
-          style={{ color: '#333', fontSize: '28px' }}
-        >
-          Pricing Algorithm
-        </h2>
+    <div className="p-4 bg-white min-h-screen">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="font-bold mb-0 text-gray-700 text-[28px]">Pricing Algorithm</h2>
       </div>
 
-      <div className="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
-        <div
-          className="position-relative"
-          style={{ flex: '1 1 300px', maxWidth: '900px' }}
-        >
-          <FaSearch
-            className="position-absolute"
-            style={{ top: 12, left: 12, color: '#999', fontSize: 16 }}
-          />
-          <input
-            type="text"
-            className="form-control ps-5"
-            placeholder="Search"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            style={{
-              borderRadius: 8,
-              border: '1px solid #ddd',
-              fontSize: 14,
-            }}
-          />
+      <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
+        <div className="relative flex-[1_1_300px] max-w-[900px]">
+          <FaSearch className="absolute top-3 left-3 text-gray-400 text-base" />
+          <input type="text" className="w-full py-2 pl-10 pr-4 border border-gray-300 rounded-lg outline-none bg-white text-sm" placeholder="Search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         </div>
-
-        <div className="d-flex align-items-center gap-5">
-          <button
-            className="btn btn-outline-secondary d-flex align-items-center gap-2"
-            onClick={handleAdd}
-            style={{
-              borderRadius: 8,
-              fontSize: 16,
-              color: '#363636',
-              fontWeight: 500,
-              padding: '8px 16px',
-            }}
-          >
-            <span style={{ fontSize: 16 }}>+</span>
-            Add
+        <div className="flex items-center gap-5">
+          <button className="flex items-center gap-2 border border-gray-400 text-[#363636] hover:bg-gray-100 cursor-pointer bg-white rounded-lg text-base font-medium py-2 px-4" onClick={handleAdd}>
+            <span className="text-base">+</span> Add
           </button>
-
-          <div
-            className="px-3 py-2 border rounded"
-            style={{
-              backgroundColor: '#f8f9fa',
-              fontSize: 14,
-              fontWeight: 600,
-              color: '#333',
-            }}
-          >
+          <div className="px-3 py-2 border border-gray-300 rounded bg-[#f8f9fa] text-sm font-semibold text-gray-700">
             Total Count : {filteredData.length}
           </div>
         </div>
       </div>
 
-      <div className="table-responsive">
-        <table
-          className="table mb-0"
-          style={{
-            border: '1px solid #000000ff',
-
-            borderCollapse: 'separate',
-            borderSpacing: 0,
-            overflow: 'hidden',
-          }}
-        >
-          <thead
-            style={{
-              backgroundColor: '#f1f3f4',
-              borderBottom: '1px solid #ddd',
-            }}
-          >
+      <div className="overflow-x-auto">
+        <table className="w-full mb-0 border border-black border-separate border-spacing-0 overflow-hidden">
+          <thead className="bg-[#f1f3f4] border-b border-gray-300">
             <tr>
-              <th
-                style={{
-                  padding: '10px',
-                  border: 'none',
-                  fontWeight: 600,
-                  fontSize: 14,
-                  color: '#000000ff',
-                  backgroundColor: '#D9D9D9',
-                  textAlign: 'left',
-                }}
-              >
-                Distance Range (km)
-              </th>
-              <th
-                style={{
-                  padding: '6px',
-                  border: 'none',
-                  fontWeight: 600,
-                  fontSize: 14,
-                  color: '#000000ff',
-                  backgroundColor: '#D9D9D9',
-                  textAlign: 'center',
-                }}
-              >
-                Pricing Per km (Rs)
-              </th>
-              <th
-                style={{
-                  padding: '6px',
-                  border: 'none',
-                  fontWeight: 600,
-                  fontSize: 14,
-                  color: '#000000ff',
-                  backgroundColor: '#D9D9D9',
-                  textAlign: 'center',
-                  width: '120px',
-                }}
-              >
-                Edit
-              </th>
+              <th className="p-2.5 border-none font-semibold text-sm text-black bg-[#D9D9D9] text-left">Distance Range (km)</th>
+              <th className="p-1.5 border-none font-semibold text-sm text-black bg-[#D9D9D9] text-center">Pricing Per km (Rs)</th>
+              <th className="p-1.5 border-none font-semibold text-sm text-black bg-[#D9D9D9] text-center w-[120px]">Edit</th>
             </tr>
           </thead>
           <tbody>
-            {filteredData.map((item, index) => (
-              <tr key={item.id} style={{ backgroundColor: '#fff' }}>
-                <td
-                  style={{
-                    padding: '15px 50px',
-                    border: 'none',
-                    borderBottom: '1px solid #363636',
-                    fontSize: 14,
-                    color: '#333',
-                  }}
-                >
+            {filteredData.map((item) => (
+              <tr key={item.id} className="bg-white">
+                <td className="py-3.75 px-12.5 border-b border-[#363636] text-sm text-gray-700">
                   {editingId === item.id ? (
-                    <input
-                      type="text"
-                      value={editValues.distanceRange || ''}
-                      onChange={(e) =>
-                        handleInputChange('distanceRange', e.target.value)
-                      }
-                      className="form-control"
-                      style={{
-                        fontSize: 14,
-                        border: '1px solid #007bff',
-                        borderRadius: 4,
-                        padding: '6px 8px',
-                      }}
-                    />
-                  ) : (
-                    item.distanceRange
-                  )}
+                    <input type="text" value={editValues.distanceRange || ''} onChange={(e) => handleInputChange('distanceRange', e.target.value)} className="w-full py-2 px-4 border border-blue-500 rounded outline-none bg-white text-sm" />
+                  ) : item.distanceRange}
                 </td>
-                <td
-                  style={{
-                    padding: '16px 20px',
-                    border: 'none',
-                    borderBottom: '1px solid #363636',
-                    fontSize: 14,
-                    color: '#333',
-                    textAlign: 'center',
-                  }}
-                >
+                <td className="py-4 px-5 border-b border-[#363636] text-sm text-gray-700 text-center">
                   {editingId === item.id ? (
-                    <input
-                      type="number"
-                      value={editValues.pricingPerKm || ''}
-                      onChange={(e) =>
-                        handleInputChange('pricingPerKm', e.target.value)
-                      }
-                      className="form-control"
-                      style={{
-                        fontSize: 14,
-                        border: '1px solid #007bff',
-                        borderRadius: 4,
-                        padding: '6px 8px',
-                        textAlign: 'center',
-                        maxWidth: '100px',
-                        margin: '0 auto',
-                      }}
-                    />
-                  ) : (
-                    item.pricingPerKm
-                  )}
+                    <input type="number" value={editValues.pricingPerKm || ''} onChange={(e) => handleInputChange('pricingPerKm', e.target.value)} className="py-1.5 px-2 border border-blue-500 rounded outline-none bg-white text-sm text-center max-w-[100px] mx-auto" />
+                  ) : item.pricingPerKm}
                 </td>
-                <td
-                  style={{
-                    padding: '16px 20px',
-                    border: 'none',
-                    borderBottom: '1px solid #363636',
-                    textAlign: 'center',
-                  }}
-                >
-                  <div className="d-flex justify-content-center gap-2">
+                <td className="py-4 px-5 border-b border-[#363636] text-center">
+                  <div className="flex justify-center gap-2">
                     {editingId === item.id ? (
                       <>
-                        <button
-                          className="btn btn-link p-1"
-                          onClick={() => handleSave(item.id)}
-                          style={{
-                            color: '#28a745',
-                            fontSize: 16,
-                            border: 'none',
-                            background: 'none',
-                          }}
-                          title="Save"
-                        >
-                          <FaSave />
-                        </button>
-                        <button
-                          className="btn btn-link p-1"
-                          onClick={handleCancel}
-                          style={{
-                            color: '#dc3545',
-                            fontSize: 16,
-                            border: 'none',
-                            background: 'none',
-                          }}
-                          title="Cancel"
-                        >
-                          <FaTimes />
-                        </button>
+                        <button className="bg-transparent border-none cursor-pointer p-1 text-green-600 text-base" onClick={() => handleSave(item.id)} title="Save"><FaSave /></button>
+                        <button className="bg-transparent border-none cursor-pointer p-1 text-red-600 text-base" onClick={handleCancel} title="Cancel"><FaTimes /></button>
                       </>
                     ) : (
                       <>
-                        <button
-                          className="btn btn-link p-1"
-                          onClick={() => handleEdit(item.id)}
-                          style={{
-                            color: '#666',
-                            fontSize: 16,
-                            border: 'none',
-                            background: 'none',
-                          }}
-                          title="Edit"
-                        >
-                          <FaEdit />
-                        </button>
-                        <button
-                          className="btn btn-link p-1"
-                          onClick={() => handleDelete(item.id)}
-                          style={{
-                            color: '#666',
-                            fontSize: 16,
-                            border: 'none',
-                            background: 'none',
-                          }}
-                          title="Delete"
-                        >
-                          <FaTrash />
-                        </button>
+                        <button className="bg-transparent border-none cursor-pointer p-1 text-gray-500 text-base" onClick={() => handleEdit(item.id)} title="Edit"><FaEdit /></button>
+                        <button className="bg-transparent border-none cursor-pointer p-1 text-gray-500 text-base" onClick={() => handleDelete(item.id)} title="Delete"><FaTrash /></button>
                       </>
                     )}
                   </div>
@@ -350,9 +103,7 @@ const PricingAlgorithm = () => {
       </div>
 
       {filteredData.length === 0 && (
-        <div className="text-center py-5">
-          <p className="text-muted">No pricing rules found</p>
-        </div>
+        <div className="text-center py-5"><p className="text-gray-500">No pricing rules found</p></div>
       )}
     </div>
   );

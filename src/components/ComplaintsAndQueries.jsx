@@ -1,104 +1,5 @@
 import React, { useState } from 'react';
 
-const styles = {
-  page: {
-    padding: '0px 15px',
-    background: '#ffffff',
-    minHeight: '100vh',
-    fontFamily: "'Segoe UI', Arial, sans-serif",
-  },
-
-  topBar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  pageTitle: {
-    fontSize: 24,
-    fontFamily: "'Poppins' !important",
-    fontWeight: 600,
-    color: '#111',
-    margin: 0,
-    paddingLeft: 12,
-  },
-  totalCount: {
-    fontSize: 22,
-    fontWeight: 700,
-    color: '#111',
-    border: '1.5px solid #222',
-    borderRadius: 10,
-    padding: '6px 20px',
-  },
-
-  filterBar: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 12,
-    marginBottom: 16,
-  },
-  searchWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    background: '#fff',
-    border: '1.5px solid #ddd',
-    borderRadius: 8,
-    padding: '6px 14px',
-    flex: 1,
-    gap: 8,
-  },
-  searchInput: {
-    border: 'none',
-    outline: 'none',
-    fontSize: 14,
-    color: '#333',
-    width: '100%',
-    background: 'transparent',
-  },
-  select: {
-    border: '1.5px solid #ddd',
-    borderRadius: 8,
-    padding: '7px 32px 7px 14px',
-    fontSize: 14,
-    color: '#333',
-    background: '#fff',
-    cursor: 'pointer',
-    appearance: 'none',
-    WebkitAppearance: 'none',
-    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23555' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right 10px center',
-    outline: 'none',
-  },
-
-  tableWrapper: {
-    background: '#fff',
-
-    border: '1.5px solid #e0e0e0',
-    overflow: 'hidden',
-  },
-  table: {
-    width: '100%',
-    borderCollapse: 'collapse',
-  },
-  th: {
-    background: '#f0f0f0',
-    color: '#333',
-    fontWeight: 600,
-    fontSize: 14,
-    padding: '12px 16px',
-    textAlign: 'center',
-    borderBottom: '1.5px solid #e0e0e0',
-  },
-  td: {
-    fontSize: 14,
-    color: '#333',
-    padding: '13px 16px',
-    textAlign: 'center',
-    borderBottom: '1px solid #f0f0f0',
-  },
-};
-
 const sampleData = Array(6).fill({
   date: '16 Jul 2025',
   time: '10:00',
@@ -110,17 +11,7 @@ const sampleData = Array(6).fill({
   preview: 'Driver Charged Extra Fare',
 });
 
-const SearchIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <circle cx="7" cy="7" r="5" stroke="#888" strokeWidth="1.6" />
-    <path
-      d="M11 11l3 3"
-      stroke="#888"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-    />
-  </svg>
-);
+import SearchIcon from './common/SearchIcon';
 
 function ComplaintsAndQueries() {
   const [search, setSearch] = useState('');
@@ -135,26 +26,30 @@ function ComplaintsAndQueries() {
   );
 
   return (
-    <div style={styles.page}>
+    <div className="px-[15px] bg-white min-h-screen font-[Segoe_UI,Arial,sans-serif]">
       <hr />
 
-      <div style={styles.topBar}>
-        <h2 style={styles.pageTitle}>Complaints and Queries</h2>
-        <span style={styles.totalCount}>Total Count : 1150</span>
+      <div className="flex items-center justify-between mb-5">
+        <h2 className="text-2xl font-semibold text-gray-900 m-0 pl-3 font-[Poppins]">
+          Complaints and Queries
+        </h2>
+        <span className="text-[22px] font-bold text-gray-900 border-[1.5px] border-gray-800 rounded-[10px] py-1.5 px-5">
+          Total Count : 1150
+        </span>
       </div>
 
-      <div style={styles.filterBar}>
-        <div style={styles.searchWrapper}>
+      <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center bg-white border-[1.5px] border-gray-300 rounded-lg py-1.5 px-3.5 flex-1 gap-2">
           <SearchIcon />
           <input
-            style={styles.searchInput}
+            className="border-none outline-none text-sm text-gray-700 w-full bg-transparent"
             placeholder="Search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <select
-          style={styles.select}
+          className="border-[1.5px] border-gray-300 rounded-lg py-[7px] pr-8 pl-3.5 text-sm text-gray-700 bg-white cursor-pointer appearance-none outline-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23555%22%20d%3D%22M6%208L1%203h10z%22/%3E%3C/svg%3E')] bg-no-repeat bg-[position:right_10px_center]"
           value={status}
           onChange={(e) => setStatus(e.target.value)}
         >
@@ -164,7 +59,7 @@ function ComplaintsAndQueries() {
           <option value="pending">Pending</option>
         </select>
         <select
-          style={styles.select}
+          className="border-[1.5px] border-gray-300 rounded-lg py-[7px] pr-8 pl-3.5 text-sm text-gray-700 bg-white cursor-pointer appearance-none outline-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23555%22%20d%3D%22M6%208L1%203h10z%22/%3E%3C/svg%3E')] bg-no-repeat bg-[position:right_10px_center]"
           value={period}
           onChange={(e) => setPeriod(e.target.value)}
         >
@@ -174,8 +69,8 @@ function ComplaintsAndQueries() {
         </select>
       </div>
 
-      <div style={styles.tableWrapper}>
-        <table style={styles.table}>
+      <div className="bg-white border-[1.5px] border-gray-300 overflow-hidden">
+        <table className="w-full border-collapse">
           <thead>
             <tr>
               {[
@@ -188,7 +83,10 @@ function ComplaintsAndQueries() {
                 'Category',
                 'Preview',
               ].map((h) => (
-                <th key={h} style={styles.th}>
+                <th
+                  key={h}
+                  className="bg-[#f0f0f0] text-gray-700 font-semibold text-sm py-3 px-4 text-center border-b-[1.5px] border-gray-300"
+                >
                   {h}
                 </th>
               ))}
@@ -196,18 +94,15 @@ function ComplaintsAndQueries() {
           </thead>
           <tbody>
             {filtered.map((row, i) => (
-              <tr
-                key={i}
-                style={{ background: i % 2 === 0 ? '#fff' : '#fafafa' }}
-              >
-                <td style={styles.td}>{row.date}</td>
-                <td style={styles.td}>{row.time}</td>
-                <td style={styles.td}>{row.ticketId}</td>
-                <td style={styles.td}>{row.type}</td>
-                <td style={styles.td}>{row.riderId}</td>
-                <td style={styles.td}>{row.riderName}</td>
-                <td style={styles.td}>{row.category}</td>
-                <td style={styles.td}>{row.preview}</td>
+              <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-[#fafafa]'}>
+                <td className="text-sm text-gray-700 py-[13px] px-4 text-center border-b border-[#f0f0f0]">{row.date}</td>
+                <td className="text-sm text-gray-700 py-[13px] px-4 text-center border-b border-[#f0f0f0]">{row.time}</td>
+                <td className="text-sm text-gray-700 py-[13px] px-4 text-center border-b border-[#f0f0f0]">{row.ticketId}</td>
+                <td className="text-sm text-gray-700 py-[13px] px-4 text-center border-b border-[#f0f0f0]">{row.type}</td>
+                <td className="text-sm text-gray-700 py-[13px] px-4 text-center border-b border-[#f0f0f0]">{row.riderId}</td>
+                <td className="text-sm text-gray-700 py-[13px] px-4 text-center border-b border-[#f0f0f0]">{row.riderName}</td>
+                <td className="text-sm text-gray-700 py-[13px] px-4 text-center border-b border-[#f0f0f0]">{row.category}</td>
+                <td className="text-sm text-gray-700 py-[13px] px-4 text-center border-b border-[#f0f0f0]">{row.preview}</td>
               </tr>
             ))}
           </tbody>

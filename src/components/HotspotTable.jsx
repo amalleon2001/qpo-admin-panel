@@ -2,186 +2,63 @@ import React, { useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 
 const hotspotData = [
-  {
-    hotspot: 'Gandhi Road',
-    liveRideRequest: 10,
-    paired: 6,
-    waitingForDrivingAssigning: 4,
-    waitingForDriverArrival: 2,
-    averageWaitingTime: '2 Minutes',
-  },
-  {
-    hotspot: 'AGS Navallur',
-    liveRideRequest: 10,
-    paired: 6,
-    waitingForDrivingAssigning: 4,
-    waitingForDriverArrival: 2,
-    averageWaitingTime: '2 Minutes',
-  },
-  {
-    hotspot: 'Baby Nagar',
-    liveRideRequest: 10,
-    paired: 6,
-    waitingForDrivingAssigning: 4,
-    waitingForDriverArrival: 2,
-    averageWaitingTime: '2 Minutes',
-  },
-  {
-    hotspot: 'Bharathi Nagar',
-    liveRideRequest: 10,
-    paired: 6,
-    waitingForDrivingAssigning: 4,
-    waitingForDriverArrival: 2,
-    averageWaitingTime: '2 Minutes',
-  },
-  {
-    hotspot: 'Dollar Accenture',
-    liveRideRequest: 10,
-    paired: 6,
-    waitingForDrivingAssigning: 4,
-    waitingForDriverArrival: 2,
-    averageWaitingTime: '2 Minutes',
-  },
-  {
-    hotspot: 'IGP',
-    liveRideRequest: 10,
-    paired: 6,
-    waitingForDrivingAssigning: 4,
-    waitingForDriverArrival: 2,
-    averageWaitingTime: '2 Minutes',
-  },
+  { hotspot: 'Gandhi Road', liveRideRequest: 10, paired: 6, waitingForDrivingAssigning: 4, waitingForDriverArrival: 2, averageWaitingTime: '2 Minutes' },
+  { hotspot: 'AGS Navallur', liveRideRequest: 10, paired: 6, waitingForDrivingAssigning: 4, waitingForDriverArrival: 2, averageWaitingTime: '2 Minutes' },
+  { hotspot: 'Baby Nagar', liveRideRequest: 10, paired: 6, waitingForDrivingAssigning: 4, waitingForDriverArrival: 2, averageWaitingTime: '2 Minutes' },
+  { hotspot: 'Bharathi Nagar', liveRideRequest: 10, paired: 6, waitingForDrivingAssigning: 4, waitingForDriverArrival: 2, averageWaitingTime: '2 Minutes' },
+  { hotspot: 'Dollar Accenture', liveRideRequest: 10, paired: 6, waitingForDrivingAssigning: 4, waitingForDriverArrival: 2, averageWaitingTime: '2 Minutes' },
+  { hotspot: 'IGP', liveRideRequest: 10, paired: 6, waitingForDrivingAssigning: 4, waitingForDriverArrival: 2, averageWaitingTime: '2 Minutes' },
 ];
 
 function HotspotTable({ onBack }) {
   const [searchTerm, setSearchTerm] = useState('');
-
-  const filteredData = hotspotData.filter((row) =>
-    row.hotspot.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredData = hotspotData.filter((row) => row.hotspot.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
     <div className="p-4 pt-0 bg-white">
       <hr />
-      <div className="d-flex align-items-center mb-3">
-        <FaArrowLeft
-          style={{ cursor: 'pointer', marginRight: 10 }}
-          onClick={onBack}
-        />
-        <h4 className="fw-semibold fs-20 mb-0 nav-path">
-          <span style={{ color: 'grey', fontWeight: 'bold' }}>
-            Live Demand &nbsp; &gt; Routes &nbsp; &gt;Directions &nbsp; &gt;
-          </span>{' '}
+      <div className="flex items-center mb-3">
+        <FaArrowLeft className="cursor-pointer mr-2.5" onClick={onBack} />
+        <h4 className="font-semibold mb-0 nav-path">
+          <span className="text-gray-500 font-bold">Live Demand &nbsp; &gt; Routes &nbsp; &gt;Directions &nbsp; &gt;</span>{' '}
           Hotspot
         </h4>
       </div>
 
-      <div className="d-flex align-items-center mb-3" style={{ gap: 12 }}>
+      <div className="flex items-center mb-3 gap-3">
         <input
           type="text"
           placeholder="Search"
-          className="form-control"
-          style={{ maxWidth: 330, borderRadius: 10 }}
+          className="w-full py-2 px-4 border border-gray-300 rounded-[10px] outline-none bg-white max-w-[330px]"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <select
-          className="form-select"
-          style={{ borderRadius: 10, width: 130, fontSize: 15 }}
-        >
+        <select className="border border-gray-300 rounded-[10px] py-2 px-3 outline-none bg-white w-[130px] text-[15px]">
           <option>This Month</option>
         </select>
-        <div
-          className="fw-bold fs-5 border px-3 py-2 rounded-3 bg-white"
-          style={{ minWidth: 140, textAlign: 'center' }}
-        >
+        <div className="font-bold text-xl border border-gray-300 px-3 py-2 rounded-lg bg-white min-w-[140px] text-center">
           Total Count : {filteredData.length}
         </div>
       </div>
 
-      <div className="table-responsive">
-        <table
-          className="table mb-0"
-          style={{
-            border: '1px solid #ccc',
-            borderRadius: 8,
-            borderCollapse: 'separate',
-            borderSpacing: 0,
-            overflow: 'hidden',
-            fontSize: 15,
-          }}
-        >
-          <thead className="table-secondary">
+      <div className="overflow-x-auto">
+        <table className="w-full mb-0 border border-gray-300 rounded-lg border-separate border-spacing-0 overflow-hidden text-[15px]">
+          <thead className="bg-gray-100">
             <tr>
-              <th style={{ padding: 12 }}>Hotspot</th>
-              <th style={{ padding: 12 }}>Live Ride Request</th>
-              <th style={{ padding: 12 }}>Paired</th>
-              <th style={{ padding: 12 }}>Waiting for Driving Assigning</th>
-              <th style={{ padding: 12 }}>Waiting for Driver Arrival</th>
-              <th style={{ padding: 12 }}>Average waiting Time</th>
+              {['Hotspot', 'Live Ride Request', 'Paired', 'Waiting for Driving Assigning', 'Waiting for Driver Arrival', 'Average waiting Time'].map((h) => (
+                <th key={h} className="p-3 border-none">{h}</th>
+              ))}
             </tr>
           </thead>
           <tbody>
             {filteredData.map((row, idx) => (
               <tr key={idx}>
-                <td
-                  style={{
-                    padding: 12,
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                  }}
-                >
-                  {row.hotspot}
-                </td>
-                <td
-                  style={{
-                    padding: 12,
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                    textAlign: 'center',
-                  }}
-                >
-                  {row.liveRideRequest}
-                </td>
-                <td
-                  style={{
-                    padding: 12,
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                    textAlign: 'center',
-                  }}
-                >
-                  {row.paired}
-                </td>
-                <td
-                  style={{
-                    padding: 12,
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                    textAlign: 'center',
-                  }}
-                >
-                  {row.waitingForDrivingAssigning}
-                </td>
-                <td
-                  style={{
-                    padding: 12,
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                    textAlign: 'center',
-                  }}
-                >
-                  {row.waitingForDriverArrival}
-                </td>
-                <td
-                  style={{
-                    padding: 12,
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                    textAlign: 'center',
-                  }}
-                >
-                  {row.averageWaitingTime}
-                </td>
+                <td className="p-3 border-b border-gray-300">{row.hotspot}</td>
+                <td className="p-3 border-b border-gray-300 text-center">{row.liveRideRequest}</td>
+                <td className="p-3 border-b border-gray-300 text-center">{row.paired}</td>
+                <td className="p-3 border-b border-gray-300 text-center">{row.waitingForDrivingAssigning}</td>
+                <td className="p-3 border-b border-gray-300 text-center">{row.waitingForDriverArrival}</td>
+                <td className="p-3 border-b border-gray-300 text-center">{row.averageWaitingTime}</td>
               </tr>
             ))}
           </tbody>

@@ -4,126 +4,40 @@ import alarm from '../assets/alarm.png';
 import person from '../assets/person.png';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import styles from './Topbar.module.css';
 
-function Topbar({ heading, showSearch }) {
+function TopBar({ heading, showSearch }) {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, logout } = useAuth();
-  const isRidersActive = location.pathname === '/dashboard/riders'?true:false;
-
+  const isRidersActive = location.pathname === '/dashboard/riders';
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const handleLogout = () => {
-    logout();
-    navigate('/');
-  };
+  const handleLogout = () => { logout(); navigate('/'); };
 
   return (
-    <div
-      className="d-flex align-items-center justify-content-between px-4 py-2 bg-white margin"
-      style={{ minHeight: 70 }}
-    >
-      <h2 className="fw-bold mb-0" style={{ color: '#222', fontSize: 36 }}>
-        {heading}
-      </h2>
+    <div className="flex items-center justify-between px-4 py-2 bg-white" style={{ minHeight: 70 }}>
+      <h2 className="font-bold mb-0" style={{ color: '#222', fontSize: 36 }}>{heading}</h2>
 
       {showSearch && (
-        <div
-          className="mx-4"
-          style={{ position: 'relative', maxWidth: 400, flexGrow: 1 }}
-        >
-          <FaSearch
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '15px',
-              transform: 'translateY(-50%)',
-              color: '#999',
-              fontSize: 16,
-            }}
-          />
-          <input
-            className="form-control ps-5"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-            style={{
-              background: '#ffffff',
-              border: 'solid 0.5px #a2a2a2',
-              borderRadius: 40,
-              fontWeight: 500,
-            }}
-          />
+        <div className="mx-4 relative grow" style={{ maxWidth: 400 }}>
+          <FaSearch style={{ position: 'absolute', top: '50%', left: '15px', transform: 'translateY(-50%)', color: '#999', fontSize: 16 }} />
+          <input className="w-full py-2 pl-10 pr-4 bg-white font-medium rounded-full outline-none" type="search" placeholder="Search" aria-label="Search"
+            style={{ border: 'solid 0.5px #a2a2a2' }} />
         </div>
       )}
 
-      <div className="d-flex align-items-center gap-4 position-relative">
-        <span
-          style={{
-            cursor: 'pointer',
-            color: isRidersActive ? '#0C6CFC' : '#757474',
-            fontWeight: 'bold',
-          }}
-          onClick={() => navigate('/dashboard/riders')}
-        >
-          Riders
+      <div className="flex items-center gap-4 relative">
+        <span className="cursor-pointer font-bold" style={{ color: !isRidersActive ? '#0C6CFC' : '#757474' }} onClick={() => navigate('/dashboard')}>Drivers</span>
+        <span className="cursor-pointer font-bold" style={{ color: isRidersActive ? '#0C6CFC' : '#757474' }} onClick={() => navigate('/dashboard/riders')}>Riders</span>
+        <span className="ml-3">
+          <img src={alarm} alt="Notifications" className="w-[45px] h-[45px] object-contain cursor-pointer" />
         </span>
-
-        <span
-          className="text-secondary"
-          style={{
-            cursor: 'pointer',
-            color:  '#ff930f',
-            fontWeight: 'bold',
-          }}
-          onClick={() => navigate('/dashboard')}
-        >
-          Drivers
-        </span>
-
-        <span className="ms-3">
-          <img
-            src={alarm}
-            alt="Notifications"
-            style={{
-              width: 45,
-              height: 45,
-              objectFit: 'contain',
-              cursor: 'pointer',
-            }}
-          />
-        </span>
-
-        <span className="ms-2" style={{ position: 'relative' }}>
-          <img
-            src={person}
-            alt="User"
-            style={{
-              width: 45,
-              height: 45,
-              borderRadius: '50%',
-              objectFit: 'cover',
-              cursor: 'pointer',
-            }}
-            onClick={() => setShowDropdown(!showDropdown)}
-          />
-
+        <span className="ml-2 relative">
+          <img src={person} alt="User" className="w-[45px] h-[45px] rounded-full object-cover cursor-pointer" onClick={() => setShowDropdown(!showDropdown)} />
           {showDropdown && (
-            <div
-              className="position-absolute bg-white border shadow p-3"
-              style={{
-                right: 0,
-                top: 55,
-                borderRadius: 8,
-                minWidth: 150,
-                zIndex: 1000,
-              }}
-            >
-              <div className="mb-2 fw-bold">{user?.name || 'Admin'}</div>
-              <button onClick={handleLogout} className="btn btn-danger w-100">
-                Logout
-              </button>
+            <div className="absolute bg-white border border-gray-200 shadow-md p-3 rounded-lg" style={{ right: 0, top: 55, minWidth: 150, zIndex: 1000 }}>
+              <div className="mb-2 font-bold">{user?.name || 'Admin'}</div>
+              <button onClick={handleLogout} className="w-full bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 cursor-pointer border-none font-medium">Logout</button>
             </div>
           )}
         </span>
@@ -132,4 +46,4 @@ function Topbar({ heading, showSearch }) {
   );
 }
 
-export default Topbar;
+export default TopBar;

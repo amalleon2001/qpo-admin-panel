@@ -4,238 +4,77 @@ import axiosBaseInstance from '../services/api';
 import { endpoints } from '../services/endpoints';
 
 const STATUS_OPTIONS = [
-  { label: 'All Status', value: '' },
-  { label: 'Pending', value: 'PENDING' },
-  { label: 'Ongoing', value: 'ONGOING' },
-  { label: 'Completed', value: 'COMPLETED' },
-  { label: 'Canceled', value: 'CANCELED' },
-  { label: 'Expired', value: 'EXPIRED' },
+  { label: 'All Status', value: '' }, { label: 'Pending', value: 'PENDING' },
+  { label: 'Ongoing', value: 'ONGOING' }, { label: 'Completed', value: 'COMPLETED' },
+  { label: 'Canceled', value: 'CANCELED' }, { label: 'Expired', value: 'EXPIRED' },
 ];
 
 const NewTrip = () => {
-  const [trips, setTrips] = useState([]);
-  const [totalCount, setTotalCount] = useState(0);
-  const [status, setStatus] = useState('');
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const limit = 10;
+  const [trips, setTrips] = useState([]); const [totalCount, setTotalCount] = useState(0);
+  const [status, setStatus] = useState(''); const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1); const limit = 10;
 
   const fetchTrips = async () => {
     try {
-      const params = { page, limit };
-      if (status) params.status = status;
-      const response = await axiosBaseInstance.get(
-        endpoints.GET_TRIPS_SUMMARY_TABLE(params)
-      );
-      if (response.success) {
-        setTrips(response.data.trips);
-        setTotalCount(response.data.totalCount);
-        setTotalPages(response.data.pagination.totalPages);
-      }
-    } catch (error) {
-      console.error('Error fetching trips:', error);
-    }
+      const params = { page, limit }; if (status) params.status = status;
+      const response = await axiosBaseInstance.get(endpoints.GET_TRIPS_SUMMARY_TABLE(params));
+      if (response.success) { setTrips(response.data.trips); setTotalCount(response.data.totalCount); setTotalPages(response.data.pagination.totalPages); }
+    } catch (error) { console.error('Error fetching trips:', error); }
   };
 
-  useEffect(() => {
-    fetchTrips();
-  }, [page, status]);
-
-  const handleStatusChange = (e) => {
-    setStatus(e.target.value);
-    setPage(1);
-  };
+  useEffect(() => { fetchTrips(); }, [page, status]);
+  const handleStatusChange = (e) => { setStatus(e.target.value); setPage(1); };
 
   return (
     <div className="p-4 pt-0 bg-white">
-      <hr />
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h4 className="fw-semibold fs-20 mb-0 nav-path">
-          <span style={{ color: 'grey', fontWeight: 'bold' }}>
-            Live Pairing &gt;
-          </span>{' '}
-          New Trip
+      <hr className="border-gray-200" />
+      <div className="flex justify-between items-center mb-3">
+        <h4 className="font-semibold mb-0 nav-path">
+          <span className="text-gray-500 font-bold">Live Pairing &gt;</span> New Trip
         </h4>
-        <div className="fw-bold fs-5 border px-3 py-2 rounded-3">
-          Total Count : {totalCount}
-        </div>
+        <div className="font-bold text-xl border border-gray-300 px-3 py-2 rounded-lg">Total Count : {totalCount}</div>
       </div>
 
-      <div
-        className="d-flex align-items-center justify-content-start gap-4 mb-3 flex-wrap"
-        style={{ flexWrap: 'wrap', rowGap: '10px' }}
-      >
-        <div
-          className="position-relative"
-          style={{ flex: '1 1 250px', maxWidth: '1000px' }}
-        >
-          <FaSearch
-            className="position-absolute"
-            style={{ top: 12, left: 12, color: '#888' }}
-          />
-          <input
-            type="text"
-            className="form-control ps-5"
-            placeholder="Search"
-            style={{ borderRadius: 10, width: '100%' }}
-          />
+      <div className="flex items-center justify-start gap-4 mb-3 flex-wrap row-gap-2.5">
+        <div className="relative flex-[1_1_250px] max-w-250">
+          <FaSearch className="absolute top-3 left-3 text-gray-400" />
+          <input type="text" className="w-full py-2 pl-10 pr-4 border border-gray-300 rounded-[10px] outline-none bg-white" placeholder="Search" />
         </div>
-
-        <select
-          className="form-select"
-          style={{ borderRadius: 10, maxWidth: 150 }}
-          value={status}
-          onChange={handleStatusChange}
-        >
-          {STATUS_OPTIONS.map((opt) => (
-            <option key={opt.value} value={opt.value}>
-              {opt.label}
-            </option>
-          ))}
+        <select className="border border-gray-300 rounded-[10px] py-2 px-3 outline-none bg-white max-w-37.5" value={status} onChange={handleStatusChange}>
+          {STATUS_OPTIONS.map((opt) => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
         </select>
-
-        <select
-          className="form-select"
-          style={{ borderRadius: 10, maxWidth: 150 }}
-        >
-          <option>This Month</option>
-        </select>
+        <select className="border border-gray-300 rounded-[10px] py-2 px-3 outline-none bg-white max-w-37.5"><option>This Month</option></select>
       </div>
 
-      <div className="table-responsive">
-        <table
-          className="table mb-0"
-          style={{
-            border: '1px solid #ccc',
-            borderRadius: '8px',
-            borderCollapse: 'separate',
-            borderSpacing: 0,
-            overflow: 'hidden',
-          }}
-        >
-          <thead
-            className="table-secondary"
-            style={{
-              backgroundColor: '#ffffffff',
-              borderBottom: '1px solid #ccc',
-            }}
-          >
-            <tr>
-              <th style={{ padding: '12px', border: 'none' }}>Trip ID</th>
-              <th style={{ padding: '12px', border: 'none' }}>Pair ID</th>
-              <th style={{ padding: '12px', border: 'none' }}>Ride ID 1</th>
-              <th style={{ padding: '12px', border: 'none' }}>Ride ID 2</th>
-              <th style={{ padding: '12px', border: 'none' }}>Ride ID 3</th>
-              <th style={{ padding: '12px', border: 'none' }}>
-                Seats Combined
-              </th>
-              <th style={{ padding: '12px', border: 'none' }}>Route</th>
-              <th style={{ padding: '12px', border: 'none' }}>Driver ID</th>
-            </tr>
-          </thead>
+      <div className="overflow-x-auto">
+        <table className="w-full mb-0 border border-gray-300 rounded-lg border-separate border-spacing-0 overflow-hidden">
+          <thead><tr className="bg-gray-100 border-b border-gray-300">
+            {['Trip ID','Pair ID','Ride ID 1','Ride ID 2','Ride ID 3','Seats Combined','Route','Driver ID'].map(h =>
+              <th key={h} className="p-3 text-left text-sm font-semibold text-gray-700 border-none">{h}</th>
+            )}
+          </tr></thead>
           <tbody>
             {trips.map((trip) => (
-              <tr key={trip.trip_id}>
-                <td
-                  style={{
-                    padding: '12px',
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                  }}
-                >
-                  {trip.trip_id}
-                </td>
-                <td
-                  style={{
-                    padding: '12px',
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                  }}
-                >
-                  {trip.pair_id}
-                </td>
-                <td
-                  style={{
-                    padding: '12px',
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                  }}
-                >
-                  {trip.ride_id_1}
-                </td>
-                <td
-                  style={{
-                    padding: '12px',
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                  }}
-                >
-                  {trip.ride_id_2}
-                </td>
-                <td
-                  style={{
-                    padding: '12px',
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                  }}
-                >
-                  {trip.ride_id_3 ?? '—'}
-                </td>
-                <td
-                  style={{
-                    padding: '10px',
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                    textAlign: 'center',
-                  }}
-                >
-                  {trip.seats_combined}
-                </td>
-                <td
-                  style={{
-                    padding: '12px',
-                    border: 'none',
-                    alignItems: 'center',
-                    borderBottom: '1px solid #ccc',
-                  }}
-                >
-                  {trip.route}
-                </td>
-                <td
-                  style={{
-                    padding: '12px',
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                  }}
-                >
-                  {trip.driver_id}
-                </td>
+              <tr key={trip.trip_id} className="border-b border-gray-300">
+                <td className="p-3 text-sm border-none">{trip.trip_id}</td>
+                <td className="p-3 text-sm border-none">{trip.pair_id}</td>
+                <td className="p-3 text-sm border-none">{trip.ride_id_1}</td>
+                <td className="p-3 text-sm border-none">{trip.ride_id_2}</td>
+                <td className="p-3 text-sm border-none">{trip.ride_id_3 ?? '—'}</td>
+                <td className="p-3 text-sm border-none text-center">{trip.seats_combined}</td>
+                <td className="p-3 text-sm border-none">{trip.route}</td>
+                <td className="p-3 text-sm border-none">{trip.driver_id}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      {/* Pagination */}
       {totalPages > 1 && (
-        <div className="d-flex justify-content-center align-items-center gap-3 mt-3">
-          <button
-            className="btn btn-outline-secondary btn-sm"
-            disabled={page <= 1}
-            onClick={() => setPage((p) => p - 1)}
-          >
-            Previous
-          </button>
-          <span>
-            Page {page} of {totalPages}
-          </span>
-          <button
-            className="btn btn-outline-secondary btn-sm"
-            disabled={page >= totalPages}
-            onClick={() => setPage((p) => p + 1)}
-          >
-            Next
-          </button>
+        <div className="flex justify-center items-center gap-3 mt-3">
+          <button className="border border-gray-400 text-gray-600 text-sm py-1 px-3 rounded hover:bg-gray-100 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed bg-white" disabled={page <= 1} onClick={() => setPage((p) => p - 1)}>Previous</button>
+          <span>Page {page} of {totalPages}</span>
+          <button className="border border-gray-400 text-gray-600 text-sm py-1 px-3 rounded hover:bg-gray-100 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed bg-white" disabled={page >= totalPages} onClick={() => setPage((p) => p + 1)}>Next</button>
         </div>
       )}
     </div>

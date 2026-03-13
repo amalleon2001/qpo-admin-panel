@@ -6,4 +6,10 @@ export const endpoints = {
     `/getTripsSummaryTable?${new URLSearchParams(params).toString()}`,
   GET_LIVE_RIDE_REQUESTS: (params) =>
     `/getLiveRideRequests?${new URLSearchParams(params).toString()}`,
+  GET_DRIVER_ADMIN_PANEL_DATA: '/getAllAdminPanelData',
+  GET_RIDER_DASHBOARD_STATS: '/getRiderDashboardStats',
+  GET_CANCELLED_RIDES: '/getCancelledRides',
+  GET_IDLE_DRIVERS: '/getIdleDrivers',
+  GET_ONGOING_DRIVERS_WITH_TRIPS: '/getOngoingDriversWithTrips',
+  GET_COMPLETED_RIDES: '/getCompletedRides',
 };

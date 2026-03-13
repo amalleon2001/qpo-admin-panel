@@ -1,184 +1,11 @@
 import React, { useState } from 'react';
-
-const styles = {
-  page: {
-    padding: '0px 18px',
-    background: '#fff',
-    minHeight: '100vh',
-    fontFamily: "'Segoe UI', Arial, sans-serif",
-  },
-
-  breadcrumb: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  breadcrumbLeft: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 8,
-    fontSize: 22,
-  },
-  breadcrumbParent: {
-    color: '#696969',
-    fontWeight: 500,
-    cursor: 'pointer',
-  },
-  breadcrumbSeparator: {
-    color: '#999',
-    fontSize: 22,
-  },
-  breadcrumbCurrent: {
-    color: '#111',
-    fontWeight: 600,
-    fontSize: 22,
-  },
-  breadcrumbRight: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 12,
-  },
-  totalCount: {
-    fontSize: 22,
-    fontWeight: 700,
-    color: '#111',
-    border: '1.5px solid #222',
-    borderRadius: 10,
-    padding: '6px 20px',
-  },
-  exportBtn: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 6,
-    border: '1.5px solid #ddd',
-    borderRadius: 8,
-    padding: '7px 16px',
-    fontSize: 14,
-    color: '#333',
-    background: '#fff',
-    cursor: 'pointer',
-    fontWeight: 500,
-  },
-
-  filterBar: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 30,
-    marginBottom: 16,
-  },
-  searchWrapper: {
-    display: 'flex',
-    alignItems: 'center',
-    background: '#fff',
-    border: '1.5px solid #ddd',
-    borderRadius: 24,
-    padding: '7px 16px',
-    flex: 1,
-    gap: 8,
-  },
-  searchInput: {
-    border: 'none',
-    outline: 'none',
-    fontSize: 14,
-    color: '#333',
-    width: '100%',
-    background: 'transparent',
-  },
-  select: {
-    border: '1.5px solid #ddd',
-    borderRadius: 8,
-    padding: '7px 32px 7px 14px',
-    fontSize: 14,
-    color: '#333',
-    background: '#fff',
-    cursor: 'pointer',
-    appearance: 'none',
-    WebkitAppearance: 'none',
-    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23555' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`,
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right 10px center',
-    outline: 'none',
-    minWidth: 130,
-  },
-
-  tableWrapper: {
-    border: '1.5px solid #e0e0e0',
-    borderRadius: 4,
-    overflow: 'hidden',
-  },
-  table: {
-    width: '100%',
-    borderCollapse: 'collapse',
-  },
-  th: {
-    background: '#f0f0f0',
-    color: '#333',
-    fontWeight: 600,
-    fontSize: 14,
-    padding: '12px 18px',
-    textAlign: 'center',
-    borderBottom: '1.5px solid #e0e0e0',
-  },
-  td: {
-    fontSize: 14,
-    color: '#333',
-    padding: '13px 18px',
-    textAlign: 'center',
-    borderBottom: '1px solid #f0f0f0',
-  },
-  eyeBtn: {
-    background: 'none',
-    border: 'none',
-    cursor: 'pointer',
-    padding: 0,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: '0 auto',
-  },
-  statusCompleted: {
-    color: '#111',
-  },
-  statusCancelled: {
-    color: '#111',
-  },
-};
-
-const SearchIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <circle cx="7" cy="7" r="5" stroke="#888" strokeWidth="1.6" />
-    <path
-      d="M11 11l3 3"
-      stroke="#888"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-    />
-  </svg>
-);
-
+import SearchIcon from './common/SearchIcon';
 const ExportIcon = () => (
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <rect
-      x="2"
-      y="10"
-      width="12"
-      height="4"
-      rx="1"
-      stroke="#333"
-      strokeWidth="1.4"
-      fill="none"
-    />
-    <path
-      d="M8 2v7M5 6l3 3 3-3"
-      stroke="#333"
-      strokeWidth="1.4"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
+    <rect x="2" y="10" width="12" height="4" rx="1" stroke="#333" strokeWidth="1.4" fill="none" />
+    <path d="M8 2v7M5 6l3 3 3-3" stroke="#333" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
-
 const EyeIcon = () => (
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
     <ellipse cx="10" cy="10" rx="8" ry="5" stroke="#333" strokeWidth="1.5" />
@@ -187,60 +14,12 @@ const EyeIcon = () => (
 );
 
 const sampleData = [
-  {
-    date: '16 Jul 2025',
-    riderId: 'R2313',
-    status: 'Completed',
-    otp: '1234',
-    rider: 'Bala suburamaniyam',
-    driver: 'Bala suburamaniyam',
-    driverId: 'AUTO_0001',
-  },
-  {
-    date: '16 Jul 2025',
-    riderId: 'R2314',
-    status: 'Cancelled',
-    otp: '1234',
-    rider: 'Venkatesh',
-    driver: 'Venkatesh',
-    driverId: 'AUTO_0001',
-  },
-  {
-    date: '16 Jul 2025',
-    riderId: 'R2315',
-    status: 'Cancelled',
-    otp: '1234',
-    rider: 'Dhiyaa',
-    driver: 'Dhiyaa',
-    driverId: 'AUTO_0001',
-  },
-  {
-    date: '16 Jul 2025',
-    riderId: 'R2316',
-    status: 'Cancelled',
-    otp: '1234',
-    rider: 'Preethi',
-    driver: 'Preethi',
-    driverId: 'AUTO_0001',
-  },
-  {
-    date: '16 Jul 2025',
-    riderId: 'R2317',
-    status: 'Cancelled',
-    otp: '1234',
-    rider: 'Vinoth',
-    driver: 'Vinoth',
-    driverId: 'AUTO_0001',
-  },
-  {
-    date: '16 Jul 2025',
-    riderId: 'R2318',
-    status: 'Cancelled',
-    otp: '1234',
-    rider: 'Ashwin',
-    driver: 'Ashwin',
-    driverId: 'AUTO_0001',
-  },
+  { date: '16 Jul 2025', riderId: 'R2313', status: 'Completed', otp: '1234', rider: 'Bala suburamaniyam', driver: 'Bala suburamaniyam', driverId: 'AUTO_0001' },
+  { date: '16 Jul 2025', riderId: 'R2314', status: 'Cancelled', otp: '1234', rider: 'Venkatesh', driver: 'Venkatesh', driverId: 'AUTO_0001' },
+  { date: '16 Jul 2025', riderId: 'R2315', status: 'Cancelled', otp: '1234', rider: 'Dhiyaa', driver: 'Dhiyaa', driverId: 'AUTO_0001' },
+  { date: '16 Jul 2025', riderId: 'R2316', status: 'Cancelled', otp: '1234', rider: 'Preethi', driver: 'Preethi', driverId: 'AUTO_0001' },
+  { date: '16 Jul 2025', riderId: 'R2317', status: 'Cancelled', otp: '1234', rider: 'Vinoth', driver: 'Vinoth', driverId: 'AUTO_0001' },
+  { date: '16 Jul 2025', riderId: 'R2318', status: 'Cancelled', otp: '1234', rider: 'Ashwin', driver: 'Ashwin', driverId: 'AUTO_0001' },
 ];
 
 function RideRequestLogs() {
@@ -256,51 +35,37 @@ function RideRequestLogs() {
   );
 
   return (
-    <div style={styles.page}>
-      <style>{`
-        .poppins-breadcrumb {
-          font-family: 'Poppins', sans-serif !important;
-        }
-      `}</style>
-
+    <div className="px-4.5 bg-white min-h-screen font-[Segoe_UI,Arial,sans-serif]">
       <hr />
 
-      <div style={styles.breadcrumb}>
-        <div style={styles.breadcrumbLeft}>
-          <span className="poppins-breadcrumb" style={styles.breadcrumbParent}>
-            Activity Logs
-          </span>
-          <span
-            className="poppins-breadcrumb"
-            style={styles.breadcrumbSeparator}
-          >
-            &gt;
-          </span>
-          <span className="poppins-breadcrumb" style={styles.breadcrumbCurrent}>
-            Ride Request Logs
-          </span>
+      <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center gap-2 text-[22px]">
+          <span className="poppins-breadcrumb text-[#696969] font-medium cursor-pointer">Activity Logs</span>
+          <span className="poppins-breadcrumb text-gray-400">&gt;</span>
+          <span className="poppins-breadcrumb text-gray-900 font-semibold">Ride Request Logs</span>
         </div>
-        <div style={styles.breadcrumbRight}>
-          <button style={styles.exportBtn}>
-            <ExportIcon />
-            Export
+        <div className="flex items-center gap-3">
+          <button className="flex items-center gap-1.5 border-[1.5px] border-gray-300 rounded-lg py-1.75 px-4 text-sm text-gray-700 bg-white cursor-pointer font-medium">
+            <ExportIcon /> Export
           </button>
-          <span style={styles.totalCount}>Total Count : 1150</span>
+          <span className="text-[22px] font-bold text-gray-900 border-[1.5px] border-gray-800 rounded-[10px] py-1.5 px-5">
+            Total Count : 1150
+          </span>
         </div>
       </div>
 
-      <div style={styles.filterBar}>
-        <div style={styles.searchWrapper}>
+      <div className="flex items-center gap-[30px] mb-4">
+        <div className="flex items-center bg-white border-[1.5px] border-gray-300 rounded-3xl py-1.75 px-4 flex-1 gap-2">
           <SearchIcon />
           <input
-            style={styles.searchInput}
+            className="border-none outline-none text-sm text-gray-700 w-full bg-transparent"
             placeholder="Search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <select
-          style={styles.select}
+          className="border-[1.5px] border-gray-300 rounded-lg py-1.75 pr-8 pl-3.5 text-sm text-gray-700 bg-white cursor-pointer appearance-none outline-none min-w-[130px] bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23555%22%20d%3D%22M6%208L1%203h10z%22/%3E%3C/svg%3E')] bg-no-repeat bg-position-[right_10px_center]"
           value={status}
           onChange={(e) => setStatus(e.target.value)}
         >
@@ -309,7 +74,7 @@ function RideRequestLogs() {
           <option value="cancelled">Cancelled</option>
         </select>
         <select
-          style={styles.select}
+          className="border-[1.5px] border-gray-300 rounded-lg py-1.75 pr-8 pl-3.5 text-sm text-gray-700 bg-white cursor-pointer appearance-none outline-none min-w-[130px] bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20fill%3D%22%23555%22%20d%3D%22M6%208L1%203h10z%22/%3E%3C/svg%3E')] bg-no-repeat bg-position-[right_10px_center]"
           value={period}
           onChange={(e) => setPeriod(e.target.value)}
         >
@@ -319,42 +84,28 @@ function RideRequestLogs() {
         </select>
       </div>
 
-      <div style={styles.tableWrapper}>
-        <table style={styles.table}>
+      <div className="border-[1.5px] border-gray-300 rounded overflow-hidden">
+        <table className="w-full border-collapse">
           <thead>
             <tr>
-              {[
-                'Date',
-                'Rider ID',
-                'Action',
-                'Status',
-                'OTP',
-                'Rider',
-                'Driver',
-                'Driver ID',
-              ].map((h) => (
-                <th key={h} style={styles.th}>
-                  {h}
-                </th>
+              {['Date', 'Rider ID', 'Action', 'Status', 'OTP', 'Rider', 'Driver', 'Driver ID'].map((h) => (
+                <th key={h} className="bg-[#f0f0f0] text-gray-700 font-semibold text-sm py-3 px-4.5 text-center border-b-[1.5px] border-gray-300">{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {filtered.map((row, i) => (
-              <tr key={i} style={{ background: '#fff' }}>
-                <td style={styles.td}>{row.date}</td>
-                <td style={styles.td}>{row.riderId}</td>
-                <td style={styles.td}>
-                  {/* Eye icon — functionality to be added later */}
-                  <button style={styles.eyeBtn} title="View">
-                    <EyeIcon />
-                  </button>
+              <tr key={i} className="bg-white">
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.date}</td>
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.riderId}</td>
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">
+                  <button className="bg-transparent border-none cursor-pointer p-0 flex items-center justify-center mx-auto" title="View"><EyeIcon /></button>
                 </td>
-                <td style={styles.td}>{row.status}</td>
-                <td style={styles.td}>{row.otp}</td>
-                <td style={styles.td}>{row.rider}</td>
-                <td style={styles.td}>{row.driver}</td>
-                <td style={styles.td}>{row.driverId}</td>
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.status}</td>
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.otp}</td>
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.rider}</td>
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.driver}</td>
+                <td className="text-sm text-gray-700 py-3.25 px-4.5 text-center border-b border-[#f0f0f0]">{row.driverId}</td>
               </tr>
             ))}
           </tbody>

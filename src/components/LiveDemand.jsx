@@ -3,204 +3,54 @@ import { FaSearch, FaEye } from 'react-icons/fa';
 
 const LiveDemand = ({ setActive, onViewDirection }) => {
   const [searchTerm, setSearchTerm] = useState('');
-
   const liveDemandData = [
-    {
-      route: 'Tidel Park and SIPCOT',
-      liveRideRequest: 10,
-      paired: 6,
-      waitingForDriverAssigning: 4,
-      waitingForDriverArrival: 2,
-    },
-    {
-      route: 'Thirunvanmiur and ECR',
-      liveRideRequest: 10,
-      paired: 6,
-      waitingForDriverAssigning: 4,
-      waitingForDriverArrival: 2,
-    },
-    {
-      route: 'Tidel Park and SIPCOT',
-      liveRideRequest: 10,
-      paired: 6,
-      waitingForDriverAssigning: 4,
-      waitingForDriverArrival: 2,
-    },
-    {
-      route: 'Tidel Park and SIPCOT',
-      liveRideRequest: 10,
-      paired: 6,
-      waitingForDriverAssigning: 4,
-      waitingForDriverArrival: 2,
-    },
-    {
-      route: 'Tidel Park and SIPCOT',
-      liveRideRequest: 10,
-      paired: 6,
-      waitingForDriverAssigning: 4,
-      waitingForDriverArrival: 2,
-    },
-    {
-      route: 'Tidel Park and SIPCOT',
-      liveRideRequest: 10,
-      paired: 6,
-      waitingForDriverAssigning: 4,
-      waitingForDriverArrival: 2,
-    },
+    { route: 'Tidel Park and SIPCOT', liveRideRequest: 10, paired: 6, waitingForDriverAssigning: 4, waitingForDriverArrival: 2 },
+    { route: 'Thirunvanmiur and ECR', liveRideRequest: 10, paired: 6, waitingForDriverAssigning: 4, waitingForDriverArrival: 2 },
+    { route: 'Tidel Park and SIPCOT', liveRideRequest: 10, paired: 6, waitingForDriverAssigning: 4, waitingForDriverArrival: 2 },
+    { route: 'Tidel Park and SIPCOT', liveRideRequest: 10, paired: 6, waitingForDriverAssigning: 4, waitingForDriverArrival: 2 },
+    { route: 'Tidel Park and SIPCOT', liveRideRequest: 10, paired: 6, waitingForDriverAssigning: 4, waitingForDriverArrival: 2 },
+    { route: 'Tidel Park and SIPCOT', liveRideRequest: 10, paired: 6, waitingForDriverAssigning: 4, waitingForDriverArrival: 2 },
   ];
-
-  const filteredData = liveDemandData.filter((row) =>
-    row.route.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredData = liveDemandData.filter((row) => row.route.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
     <div className="p-4 pt-0 bg-white">
       <hr />
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h4 className="fw-semibold fs-24 mb-0 mt-2 nav-path">Live Demand</h4>
+      <div className="flex justify-between items-center mb-3">
+        <h4 className="font-semibold mb-0 mt-2 nav-path">Live Demand</h4>
       </div>
 
-      <div
-        className="d-flex align-items-center justify-content-start gap-4 mb-3 flex-wrap"
-        style={{ flexWrap: 'wrap', rowGap: '10px' }}
-      >
-        <div
-          className="position-relative"
-          style={{ flex: '1 1 250px', maxWidth: '1000px' }}
-        >
-          <FaSearch
-            className="position-absolute"
-            style={{ top: 12, left: 12, color: '#888' }}
-          />
-          <input
-            type="text"
-            className="form-control ps-5"
-            placeholder="Search"
-            style={{ borderRadius: 10, width: '100%' }}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+      <div className="flex items-center justify-start gap-4 mb-3 flex-wrap gap-y-2.5">
+        <div className="relative flex-[1_1_250px] max-w-[1000px]">
+          <FaSearch className="absolute top-3 left-3 text-gray-400" />
+          <input type="text" className="w-full py-2 pl-10 pr-4 border border-gray-300 rounded-[10px] outline-none bg-white" placeholder="Search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         </div>
-
-        <select
-          className="form-select"
-          style={{ borderRadius: 10, maxWidth: 150 }}
-        >
-          <option>This Month</option>
-          <option>This Week</option>
-          <option>Today</option>
+        <select className="border border-gray-300 rounded-[10px] py-2 px-3 outline-none bg-white max-w-[150px]">
+          <option>This Month</option><option>This Week</option><option>Today</option>
         </select>
-
-        <div className="fw-bold fs-5 border px-3 py-2 rounded-3">
-          Total Count : {filteredData.length}
-        </div>
+        <div className="font-bold text-xl border border-gray-300 px-3 py-2 rounded-lg">Total Count : {filteredData.length}</div>
       </div>
 
-      <div className="table-responsive">
-        <table
-          className="table mb-0"
-          style={{
-            border: '1px solid #ccc',
-            borderRadius: '8px',
-            borderCollapse: 'separate',
-            borderSpacing: 0,
-            overflow: 'hidden',
-          }}
-        >
-          <thead
-            className="table-secondary"
-            style={{
-              backgroundColor: '#f8f9fa',
-              borderBottom: '1px solid #ccc',
-            }}
-          >
+      <div className="overflow-x-auto">
+        <table className="w-full mb-0 border border-gray-300 rounded-lg border-separate border-spacing-0 overflow-hidden">
+          <thead className="bg-[#f8f9fa] border-b border-gray-300">
             <tr>
-              <th style={{ padding: '12px', border: 'none', color: '#363636' }}>
-                Action
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#363636' }}>
-                Route Name
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#363636' }}>
-                Live Ride Request
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#363636' }}>
-                Paired
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#363636' }}>
-                Waiting for Driving Assigning
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#363636' }}>
-                Waiting for Driver Arrival
-              </th>
+              {['Action', 'Route Name', 'Live Ride Request', 'Paired', 'Waiting for Driving Assigning', 'Waiting for Driver Arrival'].map((h) => (
+                <th key={h} className="p-3 border-none text-[#363636]">{h}</th>
+              ))}
             </tr>
           </thead>
           <tbody>
             {filteredData.map((row, idx) => (
               <tr key={idx}>
-                <td
-                  style={{
-                    padding: '12px',
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                    textAlign: 'center',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <FaEye
-                    style={{ color: '#1C1B1F' }}
-                    onClick={() => onViewDirection(row.route)}
-                  />
+                <td className="p-3 border-b border-gray-300 text-center cursor-pointer">
+                  <FaEye className="text-[#1C1B1F]" onClick={() => onViewDirection(row.route)} />
                 </td>
-                <td
-                  style={{
-                    padding: '12px',
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                  }}
-                >
-                  {row.route}
-                </td>
-                <td
-                  style={{
-                    padding: '12px',
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                    textAlign: 'center',
-                  }}
-                >
-                  {row.liveRideRequest}
-                </td>
-                <td
-                  style={{
-                    padding: '12px',
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                    textAlign: 'center',
-                  }}
-                >
-                  {row.paired}
-                </td>
-                <td
-                  style={{
-                    padding: '12px',
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                    textAlign: 'center',
-                  }}
-                >
-                  {row.waitingForDriverAssigning}
-                </td>
-                <td
-                  style={{
-                    padding: '12px',
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                    textAlign: 'center',
-                  }}
-                >
-                  {row.waitingForDriverArrival}
-                </td>
+                <td className="p-3 border-b border-gray-300">{row.route}</td>
+                <td className="p-3 border-b border-gray-300 text-center">{row.liveRideRequest}</td>
+                <td className="p-3 border-b border-gray-300 text-center">{row.paired}</td>
+                <td className="p-3 border-b border-gray-300 text-center">{row.waitingForDriverAssigning}</td>
+                <td className="p-3 border-b border-gray-300 text-center">{row.waitingForDriverArrival}</td>
               </tr>
             ))}
           </tbody>

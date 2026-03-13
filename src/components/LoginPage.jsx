@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BackgroundImage from '../assets/loginbackground.png';
 import { useAuth } from '../context/AuthContext';
-import styles from './LoginPage.module.css';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
@@ -32,16 +31,16 @@ function LoginPage() {
   };
 
   return (
-    <div className={styles.page}>
-      <h2 className={styles.title}>Login Page</h2>
-      <div className={styles.content}>
-        <form onSubmit={handleLogin} className={styles.form}>
+    <div className="p-6 bg-primary h-screen w-screen">
+      <h2 className="text-center text-white text-3xl font-bold mb-5">Login Page</h2>
+      <div className="relative">
+        <form onSubmit={handleLogin} className="max-w-[500px] bg-white p-5 rounded-[10px] shadow-md" style={{ margin: '250px 50px' }}>
           <input
             type="text"
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className={styles.input}
+            className="block w-[400px] h-10 m-5 px-2.5 border border-gray-300 rounded outline-none"
             required
           />
           <input
@@ -49,19 +48,24 @@ function LoginPage() {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className={styles.input}
+            className="block w-[400px] h-10 m-5 px-2.5 border border-gray-300 rounded outline-none"
             required
           />
-          <button type="submit" className={styles.button} disabled={loading}>
+          <button
+            type="submit"
+            className="block w-[400px] h-[50px] bg-primary text-white font-bold text-sm rounded-[10px] m-5 cursor-pointer border-none disabled:opacity-70 disabled:cursor-not-allowed"
+            disabled={loading}
+          >
             {loading ? 'Logging in...' : 'Login'}
           </button>
-          {error && <p className={styles.error}>{error}</p>}
+          {error && <p className="text-red-600 mx-5">{error}</p>}
         </form>
 
         <img
           src={BackgroundImage}
           alt="Background"
-          className={styles.backgroundImage}
+          className="absolute"
+          style={{ top: '20%', left: '50%', width: '40%', height: '80vh' }}
         />
       </div>
     </div>
