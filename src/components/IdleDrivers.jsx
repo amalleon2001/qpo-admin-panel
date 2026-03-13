@@ -1,61 +1,67 @@
 import React from 'react';
 import { FaSearch } from 'react-icons/fa';
 
-const OngoingDrivers = () => {
-  const ongoingDriversData = [
+const IdleDrivers = () => {
+  const idleDriversData = [
     {
-      ongoingTripId: 'T0001',
+      tripId: 'T0001',
       pairId: 'P0001',
       numberOfRiders: 3,
       driverId: 'AUTO_0001',
       driverName: 'Bala Subramaniyam',
       route: 'Tidel Park to SIPCOT',
       attempt: 1,
+      assigned: '10:30',
     },
     {
-      ongoingTripId: 'T0002',
+      tripId: 'T0002',
       pairId: 'P0002',
       numberOfRiders: 3,
       driverId: 'AUTO_0001',
       driverName: 'Bala Subramaniyam',
       route: 'Tidel Park to SIPCOT',
       attempt: 1,
+      assigned: '10:30',
     },
     {
-      ongoingTripId: 'T0003',
+      tripId: 'T0003',
       pairId: 'P0003',
       numberOfRiders: 3,
       driverId: 'AUTO_0001',
       driverName: 'Bala Subramaniyam',
       route: 'Tidel Park to SIPCOT',
       attempt: 1,
+      assigned: '10:30',
     },
     {
-      ongoingTripId: 'T0004',
+      tripId: 'T0004',
       pairId: 'P0004',
       numberOfRiders: 3,
       driverId: 'AUTO_0001',
       driverName: 'Bala Subramaniyam',
       route: 'Tidel Park to SIPCOT',
       attempt: 1,
+      assigned: '10:30',
     },
     {
-      ongoingTripId: 'T0005',
+      tripId: 'T0005',
       pairId: 'P0005',
       numberOfRiders: 3,
       driverId: 'AUTO_0001',
       driverName: 'Bala Subramaniyam',
       route: 'Tidel Park to SIPCOT',
       attempt: 1,
+      assigned: '10:30',
     },
     {
-      ongoingTripId: 'T0006',
+      tripId: 'T0006',
       pairId: 'P0006',
       numberOfRiders: 3,
       driverId: 'AUTO_0001',
       driverName: 'Bala Subramaniyam',
       route: 'Tidel Park to SIPCOT',
       attempt: 1,
+      assigned: '10:30',
     },
   ];
 
@@ -67,7 +73,7 @@ const OngoingDrivers = () => {
           <span style={{ color: 'grey', fontWeight: 'bold' }}>
             Live Driver Assigning &gt;
           </span>{' '}
-          Ongoing Drivers (Refilling)
+          Idle Drivers
         </h4>
         <div className="fw-bold fs-5 border px-3 py-2 rounded-3">
           Total Count : 1150
@@ -123,36 +129,25 @@ const OngoingDrivers = () => {
           <thead
             className="table-secondary"
             style={{
-              backgroundColor: '#f8f9fa',
+              backgroundColor: '#ffffffff',
               borderBottom: '1px solid #ccc',
             }}
           >
             <tr>
-              <th style={{ padding: '12px', border: 'none', color: '#666' }}>
-                Ongoing Trip ID
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#666' }}>
-                Pair ID
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#666' }}>
+              <th style={{ padding: '12px', border: 'none' }}>Trip ID</th>
+              <th style={{ padding: '12px', border: 'none' }}>Pair ID</th>
+              <th style={{ padding: '12px', border: 'none' }}>
                 Number of Riders
               </th>
-              <th style={{ padding: '12px', border: 'none', color: '#666' }}>
-                Driver ID
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#666' }}>
-                Driver Name
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#666' }}>
-                Route
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#666' }}>
-                Attempt
-              </th>
+              <th style={{ padding: '12px', border: 'none' }}>Driver ID</th>
+              <th style={{ padding: '12px', border: 'none' }}>Driver Name</th>
+              <th style={{ padding: '12px', border: 'none' }}>Route</th>
+              <th style={{ padding: '12px', border: 'none' }}>Attempt</th>
+              <th style={{ padding: '12px', border: 'none' }}>Assigned</th>
             </tr>
           </thead>
           <tbody>
-            {ongoingDriversData.map((driver, index) => (
+            {idleDriversData.map((driver, index) => (
               <tr key={index}>
                 <td
                   style={{
@@ -161,7 +156,7 @@ const OngoingDrivers = () => {
                     borderBottom: '1px solid #ccc',
                   }}
                 >
-                  {driver.ongoingTripId}
+                  {driver.tripId}
                 </td>
                 <td
                   style={{
@@ -219,6 +214,16 @@ const OngoingDrivers = () => {
                 >
                   {driver.attempt}
                 </td>
+                <td
+                  style={{
+                    padding: '12px',
+                    border: 'none',
+                    borderBottom: '1px solid #ccc',
+                    textAlign: 'center',
+                  }}
+                >
+                  {driver.assigned}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -228,4 +233,4 @@ const OngoingDrivers = () => {
   );
 };
 
-export default OngoingDrivers;
+export default IdleDrivers;

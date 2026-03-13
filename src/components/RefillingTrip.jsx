@@ -1,61 +1,67 @@
 import React from 'react';
 import { FaSearch } from 'react-icons/fa';
 
-const OngoingDrivers = () => {
-  const ongoingDriversData = [
+const RefillingTrip = () => {
+  const refilling = [
     {
-      ongoingTripId: 'T0001',
-      pairId: 'P0001',
-      numberOfRiders: 3,
-      driverId: 'AUTO_0001',
-      driverName: 'Bala Subramaniyam',
+      tripId: 'T0001',
+      pairId: 'P2313',
+      ride1: 'R0001',
+      ride2: 'R0007',
+      ride3: 'R0013',
+      seats: 3,
       route: 'Tidel Park to SIPCOT',
-      attempt: 1,
+      driverId: 'AUTO_0001',
     },
     {
-      ongoingTripId: 'T0002',
-      pairId: 'P0002',
-      numberOfRiders: 3,
-      driverId: 'AUTO_0001',
-      driverName: 'Bala Subramaniyam',
+      tripId: 'T0002',
+      pairId: 'P2314',
+      ride1: 'R0002',
+      ride2: 'R0008',
+      ride3: 'R0014',
+      seats: 3,
       route: 'Tidel Park to SIPCOT',
-      attempt: 1,
+      driverId: 'AUTO_0001',
     },
     {
-      ongoingTripId: 'T0003',
-      pairId: 'P0003',
-      numberOfRiders: 3,
-      driverId: 'AUTO_0001',
-      driverName: 'Bala Subramaniyam',
+      tripId: 'T0003',
+      pairId: 'P2315',
+      ride1: 'R0003',
+      ride2: 'R0009',
+      ride3: 'R0015',
+      seats: 3,
       route: 'Tidel Park to SIPCOT',
-      attempt: 1,
+      driverId: 'AUTO_0001',
     },
     {
-      ongoingTripId: 'T0004',
-      pairId: 'P0004',
-      numberOfRiders: 3,
-      driverId: 'AUTO_0001',
-      driverName: 'Bala Subramaniyam',
+      tripId: 'T0004',
+      pairId: 'P2316',
+      ride1: 'R0004',
+      ride2: 'R0010',
+      ride3: 'R0016',
+      seats: 3,
       route: 'Tidel Park to SIPCOT',
-      attempt: 1,
+      driverId: 'AUTO_0001',
     },
     {
-      ongoingTripId: 'T0005',
-      pairId: 'P0005',
-      numberOfRiders: 3,
-      driverId: 'AUTO_0001',
-      driverName: 'Bala Subramaniyam',
+      tripId: 'T0005',
+      pairId: 'P2317',
+      ride1: 'R0005',
+      ride2: 'R0011',
+      ride3: 'R0017',
+      seats: 3,
       route: 'Tidel Park to SIPCOT',
-      attempt: 1,
+      driverId: 'AUTO_0001',
     },
     {
-      ongoingTripId: 'T0006',
-      pairId: 'P0006',
-      numberOfRiders: 3,
-      driverId: 'AUTO_0001',
-      driverName: 'Bala Subramaniyam',
+      tripId: 'T0006',
+      pairId: 'P2318',
+      ride1: 'R0006',
+      ride2: 'R0012',
+      ride3: 'R0018',
+      seats: 3,
       route: 'Tidel Park to SIPCOT',
-      attempt: 1,
+      driverId: 'AUTO_0001',
     },
   ];
 
@@ -65,9 +71,9 @@ const OngoingDrivers = () => {
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h4 className="fw-semibold fs-20 mb-0 nav-path">
           <span style={{ color: 'grey', fontWeight: 'bold' }}>
-            Live Driver Assigning &gt;
+            Live Pairing &gt;
           </span>{' '}
-          Ongoing Drivers (Refilling)
+          Refilling Trip
         </h4>
         <div className="fw-bold fs-5 border px-3 py-2 rounded-3">
           Total Count : 1150
@@ -123,45 +129,39 @@ const OngoingDrivers = () => {
           <thead
             className="table-secondary"
             style={{
-              backgroundColor: '#f8f9fa',
+              backgroundColor: '#ffffffff',
               borderBottom: '1px solid #ccc',
             }}
           >
             <tr>
-              <th style={{ padding: '12px', border: 'none', color: '#666' }}>
+              <th style={{ padding: '12px', border: 'none', width: '160px' }}>
                 Ongoing Trip ID
               </th>
-              <th style={{ padding: '12px', border: 'none', color: '#666' }}>
-                Pair ID
+              <th style={{ padding: '12px', border: 'none' }}>Pair ID</th>
+              <th style={{ padding: '12px', border: 'none' }}>Ride ID 1</th>
+              <th style={{ padding: '12px', border: 'none' }}>Ride ID 2</th>
+              <th style={{ padding: '12px', border: 'none' }}>Ride ID 3</th>
+              <th style={{ padding: '12px', border: 'none' }}>
+                {' '}
+                Seats Combined{' '}
               </th>
-              <th style={{ padding: '12px', border: 'none', color: '#666' }}>
-                Number of Riders
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#666' }}>
-                Driver ID
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#666' }}>
-                Driver Name
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#666' }}>
-                Route
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#666' }}>
-                Attempt
-              </th>
+              <th style={{ padding: '12px', border: 'none' }}>Route</th>
+              <th style={{ padding: '12px', border: 'none' }}>Driver ID</th>
             </tr>
           </thead>
           <tbody>
-            {ongoingDriversData.map((driver, index) => (
+            {refilling.map((trip, index) => (
               <tr key={index}>
                 <td
                   style={{
                     padding: '12px',
+                    textAlign: 'center',
+
                     border: 'none',
                     borderBottom: '1px solid #ccc',
                   }}
                 >
-                  {driver.ongoingTripId}
+                  {trip.tripId}
                 </td>
                 <td
                   style={{
@@ -170,17 +170,54 @@ const OngoingDrivers = () => {
                     borderBottom: '1px solid #ccc',
                   }}
                 >
-                  {driver.pairId}
+                  {trip.pairId}
                 </td>
                 <td
                   style={{
                     padding: '12px',
+                    border: 'none',
+                    borderBottom: '1px solid #ccc',
+                  }}
+                >
+                  {trip.ride1}
+                </td>
+                <td
+                  style={{
+                    padding: '12px',
+                    border: 'none',
+                    borderBottom: '1px solid #ccc',
+                  }}
+                >
+                  {trip.ride2}
+                </td>
+                <td
+                  style={{
+                    padding: '12px',
+                    border: 'none',
+                    borderBottom: '1px solid #ccc',
+                  }}
+                >
+                  {trip.ride3}
+                </td>
+                <td
+                  style={{
+                    padding: '10px',
                     border: 'none',
                     borderBottom: '1px solid #ccc',
                     textAlign: 'center',
                   }}
                 >
-                  {driver.numberOfRiders}
+                  {trip.seats}
+                </td>
+                <td
+                  style={{
+                    padding: '12px',
+                    border: 'none',
+                    alignItems: 'center',
+                    borderBottom: '1px solid #ccc',
+                  }}
+                >
+                  {trip.route}
                 </td>
                 <td
                   style={{
@@ -189,35 +226,7 @@ const OngoingDrivers = () => {
                     borderBottom: '1px solid #ccc',
                   }}
                 >
-                  {driver.driverId}
-                </td>
-                <td
-                  style={{
-                    padding: '12px',
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                  }}
-                >
-                  {driver.driverName}
-                </td>
-                <td
-                  style={{
-                    padding: '12px',
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                  }}
-                >
-                  {driver.route}
-                </td>
-                <td
-                  style={{
-                    padding: '12px',
-                    border: 'none',
-                    borderBottom: '1px solid #ccc',
-                    textAlign: 'center',
-                  }}
-                >
-                  {driver.attempt}
+                  {trip.driverId}
                 </td>
               </tr>
             ))}
@@ -228,4 +237,4 @@ const OngoingDrivers = () => {
   );
 };
 
-export default OngoingDrivers;
+export default RefillingTrip;

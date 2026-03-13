@@ -1,0 +1,65 @@
+.page {
+  padding: 25px;
+  background-color: #1c72ff;
+  height: 100vh;
+  width: 100vw;
+}
+
+.title {
+  text-align: center;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.content {
+  position: relative;
+}
+
+.form {
+  max-width: 500px;
+  margin: 250px 50px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input {
+  width: 400px;
+  height: 40px;
+  margin: 20px;
+  padding: 0 10px;
+}
+
+.button {
+  width: 400px;
+  height: 50px;
+  background-color: #0c6cfc;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 10px;
+  margin: 20px;
+  cursor: pointer;
+  border: none;
+}
+
+.button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.error {
+  color: red;
+  margin: 0 20px;
+}
+
+.backgroundImage {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: 40%;
+  height: 80vh;
+}

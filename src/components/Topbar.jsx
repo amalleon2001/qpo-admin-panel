@@ -2,19 +2,21 @@ import { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import alarm from '../assets/alarm.png';
 import person from '../assets/person.png';
-import { useNavigate,useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import styles from './Topbar.module.css';
 
-function Topbar({ heading, showSearch, username }) {
+function Topbar({ heading, showSearch }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const isRidersActive = location.pathname === "/dashboard/riders";
+  const { user, logout } = useAuth();
+  const isRidersActive = location.pathname === '/dashboard/riders'?true:false;
 
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleLogout = () => {
-    // Clear user session/token
-    localStorage.removeItem('token'); // or whatever you use
-    navigate('/login');
+    logout();
+    navigate('/');
   };
 
   return (
@@ -58,19 +60,24 @@ function Topbar({ heading, showSearch, username }) {
 
       <div className="d-flex align-items-center gap-4 position-relative">
         <span
-  style={{
-    cursor: 'pointer',
-    color: isRidersActive ? '#0C6CFC' : '#757474',
-    fontWeight:'bold'
-  }}
-  onClick={() => navigate("/dashboard/riders")}
->
-  Riders
-</span>
+          style={{
+            cursor: 'pointer',
+            color: isRidersActive ? '#0C6CFC' : '#757474',
+            fontWeight: 'bold',
+          }}
+          onClick={() => navigate('/dashboard/riders')}
+        >
+          Riders
+        </span>
 
         <span
           className="text-secondary"
-          style={{ cursor: 'pointer', color: '#515151', fontWeight: 'bold' }}
+          style={{
+            cursor: 'pointer',
+            color:  '#ff930f',
+            fontWeight: 'bold',
+          }}
+          onClick={() => navigate('/dashboard')}
         >
           Drivers
         </span>
@@ -113,11 +120,8 @@ function Topbar({ heading, showSearch, username }) {
                 zIndex: 1000,
               }}
             >
-              <div className="mb-2 fw-bold">{username}</div>
-              <button
-                onClick={handleLogout}
-                className="btn btn-danger w-100"
-              >
+              <div className="mb-2 fw-bold">{user?.name || 'Admin'}</div>
+              <button onClick={handleLogout} className="btn btn-danger w-100">
                 Logout
               </button>
             </div>

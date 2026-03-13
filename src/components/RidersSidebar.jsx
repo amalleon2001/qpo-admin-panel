@@ -1,17 +1,15 @@
-import { useEffect } from "react";
-import ridersSidebarItems from "./ridersSidebarItems";
+import { useEffect } from 'react';
+import ridersSidebarItems from './RidersSidebarItems';
 
-import logoImg from "../assets/blue in white bg original logo (1) 1.png";
+import logoImg from '../assets/Qpo-logo.png';
 
+import rightArrow from '../assets/right-arrow.png';
+import downArrow from '../assets/down-arrow.png';
 
-
-import rightArrow from "../assets/right-arrow.png";
-import downArrow from "../assets/down-arrow.png";
-
-const sidebarBg = "#f7f9fb";
-const sidebarActive = "#0C6CFC";
-const sidebarActiveText = "#fff";
-const sidebarText = "#222";
+const sidebarBg = '#f7f9fb';
+const sidebarActive = '#0C6CFC';
+const sidebarActiveText = '#fff';
+const sidebarText = '#222';
 
 const getFirstChildKey = (item) => {
   if (!item.children || item.children.length === 0) return item.key;
@@ -20,9 +18,8 @@ const getFirstChildKey = (item) => {
 
 function RidersSidebar({ active, setActive, openMenus, setOpenMenus }) {
   useEffect(() => {
-    setActive("dashboard");
+    setActive('dashboard');
   }, [setActive]);
-  
 
   const handleToggle = (key) => {
     setOpenMenus((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -38,24 +35,24 @@ function RidersSidebar({ active, setActive, openMenus, setOpenMenus }) {
     }
   };
 
- 
   const renderItems = (items, level = 0) => (
-    <ul className="nav flex-column mb-0" style={{ paddingLeft: level ? 16 : 0 }}>
+    <ul
+      className="nav flex-column mb-0"
+      style={{ paddingLeft: level ? 16 : 0 }}
+    >
       {items.map((item) => (
         <li key={item.key} className="nav-item">
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
             <a
               href="#"
               className="nav-link"
               style={{
-                background:
-                  active === item.key ? sidebarActive : "transparent",
-                color:
-                  active === item.key ? sidebarActiveText : sidebarText,
+                background: active === item.key ? sidebarActive : 'transparent',
+                color: active === item.key ? sidebarActiveText : sidebarText,
                 fontWeight: active === item.key ? 600 : 400,
                 flex: 1,
-                display: "flex",
-                alignItems: "center",
+                display: 'flex',
+                alignItems: 'center',
                 gap: 8,
                 fontSize: 14,
                 paddingLeft: item.icon && level === 0 ? 0 : 36,
@@ -93,34 +90,33 @@ function RidersSidebar({ active, setActive, openMenus, setOpenMenus }) {
       ))}
     </ul>
   );
-return (
-  <div
-    className="d-flex flex-column flex-shrink-0 ps-3 border-end vh-100"
-    style={{ width: 260, background: sidebarBg }}
-  >
-    <div className="d-flex align-items-center m-2">
-      <img
-        src={logoImg}
-        alt="Logo"
-        style={{
-          width: 56,
-          height: 56,
-          marginRight: 12,
-          objectFit: "cover",
-        }}
-      />
-      <span
-        className="fw-bold"
-        style={{ color: "#000000ff", fontSize: "48px" }}
-      >
-        QPo
-      </span>
+  return (
+    <div
+      className="d-flex flex-column flex-shrink-0 ps-3 border-end vh-100"
+      style={{ width: 260, background: sidebarBg }}
+    >
+      <div className="d-flex align-items-center m-2">
+        <img
+          src={logoImg}
+          alt="Logo"
+          style={{
+            width: 56,
+            height: 56,
+            marginRight: 12,
+            objectFit: 'cover',
+          }}
+        />
+        <span
+          className="fw-bold"
+          style={{ color: '#000000ff', fontSize: '48px' }}
+        >
+          QPo
+        </span>
+      </div>
+
+      {renderItems(ridersSidebarItems)}
     </div>
-
-    {renderItems(ridersSidebarItems)}
-  </div>
-);
-
+  );
 }
 
 export default RidersSidebar;

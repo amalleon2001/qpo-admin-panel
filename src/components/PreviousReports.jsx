@@ -1,69 +1,38 @@
 import React, { useState } from 'react';
 import { FaSearch, FaEye } from 'react-icons/fa';
 
-const LiveDemand = ({ setActive, onViewDirection }) => {
+const PreviousReports = ({ onViewReport }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const liveDemandData = [
+  const reportsData = [
     {
       route: 'Tidel Park and SIPCOT',
-      liveRideRequest: 10,
+      totalRequest: 10,
       paired: 6,
-      waitingForDriverAssigning: 4,
-      waitingForDriverArrival: 2,
+      completed: 6,
+      cancelled: 6,
+      avgWait: '2 Minutes',
     },
     {
-      route: 'Thirunvanmiur and ECR',
-      liveRideRequest: 10,
+      route: 'Thiruvanmiyur and ECR',
+      totalRequest: 10,
       paired: 6,
-      waitingForDriverAssigning: 4,
-      waitingForDriverArrival: 2,
-    },
-    {
-      route: 'Tidel Park and SIPCOT',
-      liveRideRequest: 10,
-      paired: 6,
-      waitingForDriverAssigning: 4,
-      waitingForDriverArrival: 2,
-    },
-    {
-      route: 'Tidel Park and SIPCOT',
-      liveRideRequest: 10,
-      paired: 6,
-      waitingForDriverAssigning: 4,
-      waitingForDriverArrival: 2,
-    },
-    {
-      route: 'Tidel Park and SIPCOT',
-      liveRideRequest: 10,
-      paired: 6,
-      waitingForDriverAssigning: 4,
-      waitingForDriverArrival: 2,
-    },
-    {
-      route: 'Tidel Park and SIPCOT',
-      liveRideRequest: 10,
-      paired: 6,
-      waitingForDriverAssigning: 4,
-      waitingForDriverArrival: 2,
+      completed: 6,
+      cancelled: 6,
+      avgWait: '2 Minutes',
     },
   ];
 
-  const filteredData = liveDemandData.filter((row) =>
+  const filteredData = reportsData.filter((row) =>
     row.route.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
-    <div className="p-4 pt-0 bg-white">
+    <div className="p-4 pt-2 bg-white">
       <hr />
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h4 className="fw-semibold fs-24 mb-0 mt-2 nav-path">Live Demand</h4>
-      </div>
+      <h4 className="fw-semibold mb-3">Previous Reports</h4>
 
-      <div
-        className="d-flex align-items-center justify-content-start gap-4 mb-3 flex-wrap"
-        style={{ flexWrap: 'wrap', rowGap: '10px' }}
-      >
+      <div className="d-flex align-items-center gap-3 mb-3 flex-wrap">
         <div
           className="position-relative"
           style={{ flex: '1 1 250px', maxWidth: '1000px' }}
@@ -76,16 +45,12 @@ const LiveDemand = ({ setActive, onViewDirection }) => {
             type="text"
             className="form-control ps-5"
             placeholder="Search"
-            style={{ borderRadius: 10, width: '100%' }}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
 
-        <select
-          className="form-select"
-          style={{ borderRadius: 10, maxWidth: 150 }}
-        >
+        <select className="form-select" style={{ maxWidth: 150 }}>
           <option>This Month</option>
           <option>This Week</option>
           <option>Today</option>
@@ -98,7 +63,7 @@ const LiveDemand = ({ setActive, onViewDirection }) => {
 
       <div className="table-responsive">
         <table
-          className="table mb-0"
+          className="table"
           style={{
             border: '1px solid #ccc',
             borderRadius: '8px',
@@ -115,24 +80,13 @@ const LiveDemand = ({ setActive, onViewDirection }) => {
             }}
           >
             <tr>
-              <th style={{ padding: '12px', border: 'none', color: '#363636' }}>
-                Action
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#363636' }}>
-                Route Name
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#363636' }}>
-                Live Ride Request
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#363636' }}>
-                Paired
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#363636' }}>
-                Waiting for Driving Assigning
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#363636' }}>
-                Waiting for Driver Arrival
-              </th>
+              <th style={{ border: 'none' }}>Action</th>
+              <th style={{ border: 'none' }}>Route Name</th>
+              <th style={{ border: 'none' }}>Total Ride Request</th>
+              <th style={{ border: 'none' }}>Paired</th>
+              <th style={{ border: 'none' }}>Completed Rides</th>
+              <th style={{ border: 'none' }}>Cancelled Rides</th>
+              <th style={{ border: 'none' }}>Average Waiting Time</th>
             </tr>
           </thead>
           <tbody>
@@ -140,16 +94,14 @@ const LiveDemand = ({ setActive, onViewDirection }) => {
               <tr key={idx}>
                 <td
                   style={{
-                    padding: '12px',
                     border: 'none',
                     borderBottom: '1px solid #ccc',
                     textAlign: 'center',
-                    cursor: 'pointer',
                   }}
                 >
                   <FaEye
-                    style={{ color: '#1C1B1F' }}
-                    onClick={() => onViewDirection(row.route)}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => onViewReport(row)}
                   />
                 </td>
                 <td
@@ -169,7 +121,7 @@ const LiveDemand = ({ setActive, onViewDirection }) => {
                     textAlign: 'center',
                   }}
                 >
-                  {row.liveRideRequest}
+                  {row.totalRequest}
                 </td>
                 <td
                   style={{
@@ -189,7 +141,7 @@ const LiveDemand = ({ setActive, onViewDirection }) => {
                     textAlign: 'center',
                   }}
                 >
-                  {row.waitingForDriverAssigning}
+                  {row.completed}
                 </td>
                 <td
                   style={{
@@ -199,7 +151,17 @@ const LiveDemand = ({ setActive, onViewDirection }) => {
                     textAlign: 'center',
                   }}
                 >
-                  {row.waitingForDriverArrival}
+                  {row.cancelled}
+                </td>
+                <td
+                  style={{
+                    padding: '12px',
+                    border: 'none',
+                    borderBottom: '1px solid #ccc',
+                    textAlign: 'center',
+                  }}
+                >
+                  {row.avgWait}
                 </td>
               </tr>
             ))}
@@ -210,4 +172,4 @@ const LiveDemand = ({ setActive, onViewDirection }) => {
   );
 };
 
-export default LiveDemand;
+export default PreviousReports;

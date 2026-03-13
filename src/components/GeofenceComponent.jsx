@@ -1,27 +1,27 @@
-import React, { useState } from "react";
-import { FaEye, FaEdit, FaTrash, FaArrowLeft, FaSearch } from "react-icons/fa";
-import HotspotListView from "./hotspotlistview";
+import React, { useState } from 'react';
+import { FaEye, FaEdit, FaTrash, FaArrowLeft, FaSearch } from 'react-icons/fa';
+import HotspotListView from './HotspotListView';
 
 const DirectionDetails = ({ direction, onBack }) => (
   <div className="p-4">
     <button
       onClick={onBack}
       style={{
-        display: "flex",
-        alignItems: "center",
+        display: 'flex',
+        alignItems: 'center',
         gap: 6,
-        background: "none",
-        border: "none",
-        color: "#007bff",
+        background: 'none',
+        border: 'none',
+        color: '#007bff',
         fontSize: 18,
-        cursor: "pointer",
+        cursor: 'pointer',
         marginBottom: 16,
       }}
     >
       <FaArrowLeft />
       Back
     </button>
-    <h2 style={{ fontSize: 22, fontWeight: "bold", marginBottom: 12 }}>
+    <h2 style={{ fontSize: 22, fontWeight: 'bold', marginBottom: 12 }}>
       Direction Details
     </h2>
     <div>
@@ -36,10 +36,10 @@ const DirectionDetails = ({ direction, onBack }) => (
 );
 
 const GeoFenceComponent = ({ onBack }) => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [directions, setDirections] = useState([
-    { id: 1, name: "Tidel Park and SIPCOT", totalDrivers: 10 },
-    { id: 2, name: "Thirunvanmiur and ECR", totalDrivers: 10 },
+    { id: 1, name: 'Tidel Park and SIPCOT', totalDrivers: 10 },
+    { id: 2, name: 'Thirunvanmiur and ECR', totalDrivers: 10 },
   ]);
   const [viewingDirection, setViewingDirection] = useState(null);
   const [viewingHotspots, setViewingHotspots] = useState(false);
@@ -49,7 +49,7 @@ const GeoFenceComponent = ({ onBack }) => {
   };
 
   const handleEdit = (id) => {
-    const newName = prompt("Enter new direction name:");
+    const newName = prompt('Enter new direction name:');
     if (newName) {
       setDirections(
         directions.map((dir) =>
@@ -63,11 +63,9 @@ const GeoFenceComponent = ({ onBack }) => {
     dir.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  
   if (viewingHotspots) {
     return <HotspotListView onBack={() => setViewingHotspots(false)} />;
   }
-
 
   if (viewingDirection) {
     return (
@@ -83,11 +81,11 @@ const GeoFenceComponent = ({ onBack }) => {
       <hr />
       <div
         style={{
-          display: "flex",
-          alignItems: "center",
+          display: 'flex',
+          alignItems: 'center',
           gap: 10,
           fontSize: 22,
-          fontWeight: "bold",
+          fontWeight: 'bold',
           marginBottom: 10,
         }}
       >
@@ -95,44 +93,44 @@ const GeoFenceComponent = ({ onBack }) => {
           onClick={onBack}
           aria-label="Back"
           style={{
-            border: "none",
-            background: "none",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
+            border: 'none',
+            background: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
             padding: 0,
             marginRight: 6,
             fontSize: 22,
-            color: "#000",
+            color: '#000',
           }}
         >
           <FaArrowLeft />
         </button>
-        <span style={{ color: "grey", fontWeight: "bold" }}>
-          Geofence &gt;
-        </span>
-        <span style={{ color: "#000000", fontWeight: "bold" }}>Direction</span>
+        <span style={{ color: 'grey', fontWeight: 'bold' }}>Geofence &gt;</span>
+        <span style={{ color: '#000000', fontWeight: 'bold' }}>Direction</span>
       </div>
       <div
         style={{
-          background: "#fff",
-          padding: "12px 16px",
+          background: '#fff',
+          padding: '12px 16px',
           borderRadius: 6,
-          display: "flex",
-          alignItems: "center",
+          display: 'flex',
+          alignItems: 'center',
           gap: 10,
           marginBottom: 12,
         }}
       >
-        <div style={{ position: "relative", flex: "1 1 300px", maxWidth: 1000 }}>
+        <div
+          style={{ position: 'relative', flex: '1 1 300px', maxWidth: 1000 }}
+        >
           <FaSearch
             style={{
-              position: "absolute",
+              position: 'absolute',
               left: 12,
-              top: "50%",
-              transform: "translateY(-50%)",
-              color: "#919191ff",
-              pointerEvents: "none",
+              top: '50%',
+              transform: 'translateY(-50%)',
+              color: '#919191ff',
+              pointerEvents: 'none',
             }}
           />
           <input
@@ -141,37 +139,37 @@ const GeoFenceComponent = ({ onBack }) => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{
-              width: "100%",
-              backgroundColor: "#ffffff",
-              padding: "8px 12px 8px 36px",
+              width: '100%',
+              backgroundColor: '#ffffff',
+              padding: '8px 12px 8px 36px',
               borderRadius: 6,
-              border: "1px solid #c6c6c6ff",
+              border: '1px solid #c6c6c6ff',
               fontSize: 16,
             }}
           />
         </div>
         <button
-          onClick={() => alert("Add new direction")}
+          onClick={() => alert('Add new direction')}
           style={{
-            background: "#f4f4f4",
-            color: "#222",
-            border: "1px solid #ccc",
+            background: '#f4f4f4',
+            color: '#222',
+            border: '1px solid #ccc',
             borderRadius: 6,
-            padding: "7px 16px",
+            padding: '7px 16px',
             fontSize: 16,
-            cursor: "pointer",
+            cursor: 'pointer',
           }}
         >
           + Add Direction
         </button>
         <span
           style={{
-            fontWeight: "bold",
-            border: "1px solid #ccc",
+            fontWeight: 'bold',
+            border: '1px solid #ccc',
             borderRadius: 6,
-            padding: "7px 16px",
+            padding: '7px 16px',
             fontSize: 18,
-            background: "#fff",
+            background: '#fff',
           }}
         >
           Total Count : {directions.length}
@@ -179,32 +177,32 @@ const GeoFenceComponent = ({ onBack }) => {
       </div>
       <div
         style={{
-          border: "1px solid #919191ff",
+          border: '1px solid #919191ff',
           borderRadius: 4,
-          overflow: "hidden",
+          overflow: 'hidden',
         }}
       >
         <table
           style={{
-            width: "100%",
-            borderCollapse: "separate",
+            width: '100%',
+            borderCollapse: 'separate',
             borderSpacing: 0,
           }}
         >
           <thead>
-            <tr style={{ background: "#d9d9d9", color: "#444" }}>
+            <tr style={{ background: '#d9d9d9', color: '#444' }}>
               <th
-                style={{ padding: "10px", fontWeight: 500, textAlign: "left" }}
+                style={{ padding: '10px', fontWeight: 500, textAlign: 'left' }}
               >
                 Direction
               </th>
               <th
-                style={{ padding: "10px", fontWeight: 500, textAlign: "left" }}
+                style={{ padding: '10px', fontWeight: 500, textAlign: 'left' }}
               >
                 Total Drivers Tagged
               </th>
               <th
-                style={{ padding: "10px", fontWeight: 500, textAlign: "left" }}
+                style={{ padding: '10px', fontWeight: 500, textAlign: 'left' }}
               >
                 Action
               </th>
@@ -214,24 +212,27 @@ const GeoFenceComponent = ({ onBack }) => {
             {filteredDirections.map((dir) => (
               <tr
                 key={dir.id}
-                style={{ borderBottom: "1px solid #e4e4e4", background: "#fff" }}
+                style={{
+                  borderBottom: '1px solid #e4e4e4',
+                  background: '#fff',
+                }}
               >
-                <td style={{ padding: "10px", color: "#333" }}>{dir.name}</td>
-                <td style={{ padding: "10px", color: "#333" }}>
+                <td style={{ padding: '10px', color: '#333' }}>{dir.name}</td>
+                <td style={{ padding: '10px', color: '#333' }}>
                   {dir.totalDrivers}
                 </td>
-                <td style={{ padding: "10px" }}>
-                  <span style={{ display: "flex", gap: 18 }}>
+                <td style={{ padding: '10px' }}>
+                  <span style={{ display: 'flex', gap: 18 }}>
                     <FaEye
-                      style={{ cursor: "pointer" }}
+                      style={{ cursor: 'pointer' }}
                       onClick={() => setViewingHotspots(true)}
                     />
                     <FaEdit
-                      style={{ cursor: "pointer" }}
+                      style={{ cursor: 'pointer' }}
                       onClick={() => handleEdit(dir.id)}
                     />
                     <FaTrash
-                      style={{ cursor: "pointer" }}
+                      style={{ cursor: 'pointer' }}
                       onClick={() => handleDelete(dir.id)}
                     />
                   </span>

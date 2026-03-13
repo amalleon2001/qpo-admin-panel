@@ -10,14 +10,12 @@ function FullScreenStyles() {
     if (root) {
       root.style.height = '100%';
       root.style.margin = '0';
-      
     }
 
     return () => {
       document.documentElement.style.height = '';
       document.body.style.height = '';
       document.body.style.margin = '';
-      
 
       if (root) {
         root.style.height = '';

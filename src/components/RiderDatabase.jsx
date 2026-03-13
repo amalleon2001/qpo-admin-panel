@@ -7,52 +7,25 @@ const styles = {
     minHeight: '100vh',
     fontFamily: "'Segoe UI', Arial, sans-serif",
   },
-
-  breadcrumb: {
+  topBar: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 20,
   },
-  breadcrumbLeft: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 8,
-    fontSize: 20,
-  },
-  breadcrumbParent: {
-    color: '#999',
-    fontSize: 22,
-
-    fontWeight: 500,
-    cursor: 'pointer',
-
-    fontFamily: "'Poppins', sans-serif",
-  },
-  breadcrumbSeparator: {
-    color: '#999',
-    fontSize: 22,
-    fontFamily: "'Poppins', sans-serif",
-  },
-  breadcrumbCurrent: {
-    color: '#111',
-    fontWeight: 600,
-    fontSize: 22,
-    fontFamily: "'Poppins', sans-serif",
-  },
+  pageTitle: { fontSize: 22, fontWeight: 600, color: '#111', margin: 0 },
   totalCount: {
-    fontSize: 18,
-    fontWeight: 700,
-    color: '#000000',
+    fontSize: 22,
+    fontWeight: 600,
+    color: '#111',
     border: '1.5px solid #222',
     borderRadius: 10,
     padding: '6px 20px',
   },
-
   filterBar: {
     display: 'flex',
     alignItems: 'center',
-    gap: 12,
+    gap: 32,
     marginBottom: 16,
   },
   searchWrapper: {
@@ -89,16 +62,12 @@ const styles = {
     outline: 'none',
     minWidth: 130,
   },
-
   tableWrapper: {
     border: '1.5px solid #e0e0e0',
     borderRadius: 4,
-    overflow: 'hidden',
+    overflow: 'auto',
   },
-  table: {
-    width: '100%',
-    borderCollapse: 'collapse',
-  },
+  table: { width: '100%', borderCollapse: 'collapse', minWidth: 900 },
   th: {
     background: '#f0f0f0',
     color: '#333',
@@ -107,6 +76,7 @@ const styles = {
     padding: '12px 18px',
     textAlign: 'center',
     borderBottom: '1.5px solid #e0e0e0',
+    whiteSpace: 'nowrap',
   },
   td: {
     fontSize: 14,
@@ -114,6 +84,17 @@ const styles = {
     padding: '13px 18px',
     textAlign: 'center',
     borderBottom: '1px solid #f0f0f0',
+    whiteSpace: 'nowrap',
+  },
+  eyeBtn: {
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+    padding: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: '0 auto',
   },
 };
 
@@ -129,53 +110,39 @@ const SearchIcon = () => (
   </svg>
 );
 
+const EyeIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+    <ellipse cx="10" cy="10" rx="8" ry="5" stroke="#333" strokeWidth="1.5" />
+    <circle cx="10" cy="10" r="2.5" stroke="#333" strokeWidth="1.5" />
+  </svg>
+);
+
 const sampleData = Array(6).fill({
-  date: '16 Jul 2025',
+  signupDate: '16 Jul 2025',
   time: '08:35',
   rideId: 'R0001',
   riderName: 'Manisha',
-  pickup: 'Hindustan College',
-  drop: 'Bharathi Nagar',
-  driverAssigned: 'Vijayan',
-  fare: '20',
+  mobileNumber: '0123456789',
+  gender: 'Female',
+  installSource: 'Deeplink',
+  campaign: 'Whatsapp',
 });
 
-function CompletedRides() {
+function RiderDatabase() {
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState('all');
   const [period, setPeriod] = useState('month');
 
-  const filtered = sampleData.filter(
-    (r) =>
-      r.riderName.toLowerCase().includes(search.toLowerCase()) ||
-      r.rideId.toLowerCase().includes(search.toLowerCase()) ||
-      r.pickup.toLowerCase().includes(search.toLowerCase())
-  );
-
   return (
     <div style={styles.page}>
-      <hr />
-      <style>{`
-        .poppins-breadcrumb {
-          font-family: 'Poppins', sans-serif !important;
-        }
-      `}</style>
+      <style>{`.poppins-title { font-family: 'Poppins', sans-serif !important; }`}</style>
 
-      <div style={styles.breadcrumb}>
-        <div style={styles.breadcrumbLeft}>
-          <span className="poppins-breadcrumb" style={styles.breadcrumbParent}>
-            All Rides
-          </span>
-          <span
-            className="poppins-breadcrumb"
-            style={styles.breadcrumbSeparator}
-          >
-            &gt;
-          </span>
-          <span className="poppins-breadcrumb" style={styles.breadcrumbCurrent}>
-            Completed Rides
-          </span>
-        </div>
+      <hr />
+
+      <div style={styles.topBar}>
+        <h2 className="poppins-title" style={styles.pageTitle}>
+          Rider database
+        </h2>
         <span style={styles.totalCount}>Total Count : 1150</span>
       </div>
 
@@ -195,8 +162,8 @@ function CompletedRides() {
           onChange={(e) => setStatus(e.target.value)}
         >
           <option value="all">All Status</option>
-          <option value="open">Open</option>
-          <option value="closed">Closed</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
         </select>
         <select
           style={styles.select}
@@ -214,14 +181,15 @@ function CompletedRides() {
           <thead>
             <tr>
               {[
-                'Date',
+                'Action',
+                'Signup Date',
                 'Time',
                 'Ride ID',
                 'Rider Name',
-                'Pickup',
-                'Drop',
-                'Driver Assigned',
-                'Fare',
+                'Mobile Number',
+                'Gender',
+                'Install Source',
+                'Campaign',
               ].map((h) => (
                 <th key={h} style={styles.th}>
                   {h}
@@ -230,16 +198,21 @@ function CompletedRides() {
             </tr>
           </thead>
           <tbody>
-            {filtered.map((row, i) => (
+            {sampleData.map((row, i) => (
               <tr key={i} style={{ background: '#fff' }}>
-                <td style={styles.td}>{row.date}</td>
+                <td style={styles.td}>
+                  <button style={styles.eyeBtn}>
+                    <EyeIcon />
+                  </button>
+                </td>
+                <td style={styles.td}>{row.signupDate}</td>
                 <td style={styles.td}>{row.time}</td>
                 <td style={styles.td}>{row.rideId}</td>
                 <td style={styles.td}>{row.riderName}</td>
-                <td style={styles.td}>{row.pickup}</td>
-                <td style={styles.td}>{row.drop}</td>
-                <td style={styles.td}>{row.driverAssigned}</td>
-                <td style={styles.td}>{row.fare}</td>
+                <td style={styles.td}>{row.mobileNumber}</td>
+                <td style={styles.td}>{row.gender}</td>
+                <td style={styles.td}>{row.installSource}</td>
+                <td style={styles.td}>{row.campaign}</td>
               </tr>
             ))}
           </tbody>
@@ -249,4 +222,4 @@ function CompletedRides() {
   );
 }
 
-export default CompletedRides;
+export default RiderDatabase;

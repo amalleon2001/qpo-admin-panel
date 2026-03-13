@@ -1,0 +1,252 @@
+.page {
+  padding: 0 18px;
+  background: #fff;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.pageTitle {
+  font-size: 22px;
+  font-weight: 600;
+  color: #111;
+  margin: 0;
+}
+
+.totalCount {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111;
+  border: 1.5px solid #222;
+  border-radius: 10px;
+  padding: 6px 20px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.breadcrumbLeft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 22px;
+}
+
+.breadcrumbParent {
+  color: #696969;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.breadcrumbSeparator {
+  color: #999;
+  font-size: 22px;
+}
+
+.breadcrumbCurrent {
+  color: #111;
+  font-weight: 600;
+  font-size: 22px;
+}
+
+.filterBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.searchWrapper {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1.5px solid #ddd;
+  border-radius: 24px;
+  padding: 7px 16px;
+  flex: 1;
+  gap: 8px;
+}
+
+.searchInput {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  color: #333;
+  width: 100%;
+  background: transparent;
+}
+
+.select {
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  padding: 7px 32px 7px 14px;
+  font-size: 14px;
+  color: #333;
+  background: #fff;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23555' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  outline: none;
+  min-width: 130px;
+}
+
+.exportBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  padding: 7px 16px;
+  font-size: 14px;
+  color: #333;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.tableWrapper {
+  border: 1.5px solid #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.th {
+  background: #f0f0f0;
+  color: #333;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 18px;
+  text-align: center;
+  border-bottom: 1.5px solid #e0e0e0;
+}
+
+.td {
+  font-size: 14px;
+  color: #333;
+  padding: 13px 18px;
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.eyeBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.actionCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.iconBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.addBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 14px;
+  color: #333;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.formSection {
+  background: #f9faff;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 28px;
+}
+
+.formTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 20px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px 24px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formLabel {
+  font-size: 13px;
+  color: #333;
+  font-weight: 500;
+}
+
+.required {
+  color: red;
+}
+
+.formInput {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 14px;
+  outline: none;
+  background: #fff;
+}
+
+.saveBtn {
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-top: 16px;
+}
+
+.historyTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 12px;
+}

@@ -18,32 +18,27 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     gap: 8,
-    fontSize: 20,
+    fontSize: 15,
   },
   breadcrumbParent: {
-    color: '#999',
-    fontSize: 22,
-
+    color: '#696969',
     fontWeight: 500,
+    fontSize: 22,
     cursor: 'pointer',
-
-    fontFamily: "'Poppins', sans-serif",
   },
   breadcrumbSeparator: {
     color: '#999',
     fontSize: 22,
-    fontFamily: "'Poppins', sans-serif",
   },
   breadcrumbCurrent: {
     color: '#111',
     fontWeight: 600,
     fontSize: 22,
-    fontFamily: "'Poppins', sans-serif",
   },
   totalCount: {
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: 700,
-    color: '#000000',
+    color: '#111',
     border: '1.5px solid #222',
     borderRadius: 10,
     padding: '6px 20px',
@@ -129,18 +124,28 @@ const SearchIcon = () => (
   </svg>
 );
 
-const sampleData = Array(6).fill({
-  date: '16 Jul 2025',
-  time: '08:35',
-  rideId: 'R0001',
-  riderName: 'Manisha',
-  pickup: 'Hindustan College',
-  drop: 'Bharathi Nagar',
-  driverAssigned: 'Vijayan',
-  fare: '20',
-});
+const sampleData = [
+  {
+    userType: 'Returning User',
+    appOpenedAt: '10:05',
+    appOpenedVia: 'Notification',
+    riderId: 'CUS0001',
+    riderName: 'Manisha',
+    pickupSearched: 'Auto fetched',
+    dropSearched: 'Bharathi Nagar',
+  },
+  ...Array(5).fill({
+    userType: 'New User',
+    appOpenedAt: '10:05',
+    appOpenedVia: 'Notification',
+    riderId: 'CUS0001',
+    riderName: 'Manisha',
+    pickupSearched: 'Auto fetched',
+    dropSearched: 'Bharathi Nagar',
+  }),
+];
 
-function CompletedRides() {
+function LiveAppActivity() {
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState('all');
   const [period, setPeriod] = useState('month');
@@ -148,23 +153,33 @@ function CompletedRides() {
   const filtered = sampleData.filter(
     (r) =>
       r.riderName.toLowerCase().includes(search.toLowerCase()) ||
-      r.rideId.toLowerCase().includes(search.toLowerCase()) ||
-      r.pickup.toLowerCase().includes(search.toLowerCase())
+      r.riderId.toLowerCase().includes(search.toLowerCase()) ||
+      r.userType.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
     <div style={styles.page}>
-      <hr />
       <style>{`
         .poppins-breadcrumb {
           font-family: 'Poppins', sans-serif !important;
         }
       `}</style>
 
+      <hr />
+
       <div style={styles.breadcrumb}>
         <div style={styles.breadcrumbLeft}>
           <span className="poppins-breadcrumb" style={styles.breadcrumbParent}>
-            All Rides
+            Activity Logs
+          </span>
+          <span
+            className="poppins-breadcrumb"
+            style={styles.breadcrumbSeparator}
+          >
+            &gt;
+          </span>
+          <span className="poppins-breadcrumb" style={styles.breadcrumbParent}>
+            App Activity Logs
           </span>
           <span
             className="poppins-breadcrumb"
@@ -173,7 +188,7 @@ function CompletedRides() {
             &gt;
           </span>
           <span className="poppins-breadcrumb" style={styles.breadcrumbCurrent}>
-            Completed Rides
+            Live App Activity
           </span>
         </div>
         <span style={styles.totalCount}>Total Count : 1150</span>
@@ -195,8 +210,8 @@ function CompletedRides() {
           onChange={(e) => setStatus(e.target.value)}
         >
           <option value="all">All Status</option>
-          <option value="open">Open</option>
-          <option value="closed">Closed</option>
+          <option value="new">New User</option>
+          <option value="returning">Returning User</option>
         </select>
         <select
           style={styles.select}
@@ -214,14 +229,13 @@ function CompletedRides() {
           <thead>
             <tr>
               {[
-                'Date',
-                'Time',
-                'Ride ID',
+                'User Type',
+                'App Opened at',
+                'App Opened Via',
+                'Rider ID',
                 'Rider Name',
-                'Pickup',
-                'Drop',
-                'Driver Assigned',
-                'Fare',
+                'Pickup Searched',
+                'Drop Searched',
               ].map((h) => (
                 <th key={h} style={styles.th}>
                   {h}
@@ -232,14 +246,13 @@ function CompletedRides() {
           <tbody>
             {filtered.map((row, i) => (
               <tr key={i} style={{ background: '#fff' }}>
-                <td style={styles.td}>{row.date}</td>
-                <td style={styles.td}>{row.time}</td>
-                <td style={styles.td}>{row.rideId}</td>
+                <td style={styles.td}>{row.userType}</td>
+                <td style={styles.td}>{row.appOpenedAt}</td>
+                <td style={styles.td}>{row.appOpenedVia}</td>
+                <td style={styles.td}>{row.riderId}</td>
                 <td style={styles.td}>{row.riderName}</td>
-                <td style={styles.td}>{row.pickup}</td>
-                <td style={styles.td}>{row.drop}</td>
-                <td style={styles.td}>{row.driverAssigned}</td>
-                <td style={styles.td}>{row.fare}</td>
+                <td style={styles.td}>{row.pickupSearched}</td>
+                <td style={styles.td}>{row.dropSearched}</td>
               </tr>
             ))}
           </tbody>
@@ -249,4 +262,4 @@ function CompletedRides() {
   );
 }
 
-export default CompletedRides;
+export default LiveAppActivity;

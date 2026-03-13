@@ -1,11 +1,9 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 * {
   font-family: 'Inter' !important;
   font-weight: 400;
-  
 }
 
 .nav-path {
@@ -14,10 +12,7 @@
   font-size: 20px !important;
 }
 
-
-
 :root {
- 
   line-height: 1.5;
   font-weight: 400;
 

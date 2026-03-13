@@ -1,67 +1,48 @@
 import React, { useState } from 'react';
-import { FaSearch, FaEye } from 'react-icons/fa';
+import { FaArrowLeft, FaSearch, FaEye } from 'react-icons/fa';
 
-const LiveDemand = ({ setActive, onViewDirection }) => {
+const directionData = [
+  {
+    direction: 'Tidel Park to SIPCOT',
+    liveRideRequest: 10,
+    paired: 6,
+    waitingForDrivingAssigning: 4,
+    waitingForDriverArrival: 2,
+  },
+  {
+    direction: 'SIPCOT to Tidel Park',
+    liveRideRequest: 10,
+    paired: 6,
+    waitingForDrivingAssigning: 4,
+    waitingForDriverArrival: 2,
+  },
+];
+
+function RideDirection({ routeName, onBack, onViewHotspot }) {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const liveDemandData = [
-    {
-      route: 'Tidel Park and SIPCOT',
-      liveRideRequest: 10,
-      paired: 6,
-      waitingForDriverAssigning: 4,
-      waitingForDriverArrival: 2,
-    },
-    {
-      route: 'Thirunvanmiur and ECR',
-      liveRideRequest: 10,
-      paired: 6,
-      waitingForDriverAssigning: 4,
-      waitingForDriverArrival: 2,
-    },
-    {
-      route: 'Tidel Park and SIPCOT',
-      liveRideRequest: 10,
-      paired: 6,
-      waitingForDriverAssigning: 4,
-      waitingForDriverArrival: 2,
-    },
-    {
-      route: 'Tidel Park and SIPCOT',
-      liveRideRequest: 10,
-      paired: 6,
-      waitingForDriverAssigning: 4,
-      waitingForDriverArrival: 2,
-    },
-    {
-      route: 'Tidel Park and SIPCOT',
-      liveRideRequest: 10,
-      paired: 6,
-      waitingForDriverAssigning: 4,
-      waitingForDriverArrival: 2,
-    },
-    {
-      route: 'Tidel Park and SIPCOT',
-      liveRideRequest: 10,
-      paired: 6,
-      waitingForDriverAssigning: 4,
-      waitingForDriverArrival: 2,
-    },
-  ];
-
-  const filteredData = liveDemandData.filter((row) =>
-    row.route.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredData = directionData.filter((row) =>
+    row.direction.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <div className="p-4 pt-0 bg-white">
       <hr />
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h4 className="fw-semibold fs-24 mb-0 mt-2 nav-path">Live Demand</h4>
+      <div className="d-flex align-items-center mb-2 mt-4">
+        <FaArrowLeft
+          style={{ cursor: 'pointer', marginRight: 10 }}
+          onClick={onBack}
+        />
+        <h4 className="fw-semibold fs-20 mb-0 nav-path">
+          <span style={{ color: 'grey', fontWeight: 'bold' }}>
+            Live Demand &nbsp; &gt; Routes &nbsp; &gt;
+          </span>{' '}
+          Directions
+        </h4>
       </div>
 
       <div
-        className="d-flex align-items-center justify-content-start gap-4 mb-3 flex-wrap"
+        className="d-flex align-items-center justify-content-start gap-4 mb-3 mt-4 flex-wrap"
         style={{ flexWrap: 'wrap', rowGap: '10px' }}
       >
         <div
@@ -87,8 +68,6 @@ const LiveDemand = ({ setActive, onViewDirection }) => {
           style={{ borderRadius: 10, maxWidth: 150 }}
         >
           <option>This Month</option>
-          <option>This Week</option>
-          <option>Today</option>
         </select>
 
         <div className="fw-bold fs-5 border px-3 py-2 rounded-3">
@@ -101,7 +80,7 @@ const LiveDemand = ({ setActive, onViewDirection }) => {
           className="table mb-0"
           style={{
             border: '1px solid #ccc',
-            borderRadius: '8px',
+            borderRadius: 8,
             borderCollapse: 'separate',
             borderSpacing: 0,
             overflow: 'hidden',
@@ -115,22 +94,14 @@ const LiveDemand = ({ setActive, onViewDirection }) => {
             }}
           >
             <tr>
-              <th style={{ padding: '12px', border: 'none', color: '#363636' }}>
-                Action
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#363636' }}>
-                Route Name
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#363636' }}>
-                Live Ride Request
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#363636' }}>
-                Paired
-              </th>
-              <th style={{ padding: '12px', border: 'none', color: '#363636' }}>
+              <th style={{ padding: 12, border: 'none' }}>Action</th>
+              <th style={{ padding: 12, border: 'none' }}>Direction</th>
+              <th style={{ padding: 12, border: 'none' }}>Live Ride Request</th>
+              <th style={{ padding: 12, border: 'none' }}>Paired</th>
+              <th style={{ padding: 12, border: 'none' }}>
                 Waiting for Driving Assigning
               </th>
-              <th style={{ padding: '12px', border: 'none', color: '#363636' }}>
+              <th style={{ padding: 12, border: 'none' }}>
                 Waiting for Driver Arrival
               </th>
             </tr>
@@ -140,30 +111,29 @@ const LiveDemand = ({ setActive, onViewDirection }) => {
               <tr key={idx}>
                 <td
                   style={{
-                    padding: '12px',
+                    padding: 12,
                     border: 'none',
                     borderBottom: '1px solid #ccc',
                     textAlign: 'center',
-                    cursor: 'pointer',
                   }}
                 >
                   <FaEye
-                    style={{ color: '#1C1B1F' }}
-                    onClick={() => onViewDirection(row.route)}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => onViewHotspot(row)}
                   />
                 </td>
                 <td
                   style={{
-                    padding: '12px',
+                    padding: 12,
                     border: 'none',
                     borderBottom: '1px solid #ccc',
                   }}
                 >
-                  {row.route}
+                  {row.direction}
                 </td>
                 <td
                   style={{
-                    padding: '12px',
+                    padding: 12,
                     border: 'none',
                     borderBottom: '1px solid #ccc',
                     textAlign: 'center',
@@ -173,7 +143,7 @@ const LiveDemand = ({ setActive, onViewDirection }) => {
                 </td>
                 <td
                   style={{
-                    padding: '12px',
+                    padding: 12,
                     border: 'none',
                     borderBottom: '1px solid #ccc',
                     textAlign: 'center',
@@ -183,17 +153,17 @@ const LiveDemand = ({ setActive, onViewDirection }) => {
                 </td>
                 <td
                   style={{
-                    padding: '12px',
+                    padding: 12,
                     border: 'none',
                     borderBottom: '1px solid #ccc',
                     textAlign: 'center',
                   }}
                 >
-                  {row.waitingForDriverAssigning}
+                  {row.waitingForDrivingAssigning}
                 </td>
                 <td
                   style={{
-                    padding: '12px',
+                    padding: 12,
                     border: 'none',
                     borderBottom: '1px solid #ccc',
                     textAlign: 'center',
@@ -208,6 +178,6 @@ const LiveDemand = ({ setActive, onViewDirection }) => {
       </div>
     </div>
   );
-};
+}
 
-export default LiveDemand;
+export default RideDirection;

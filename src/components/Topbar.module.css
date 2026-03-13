@@ -1,0 +1,72 @@
+.topbar {
+  min-height: 70px;
+}
+
+.heading {
+  color: #222;
+  font-size: 36px;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 16px;
+}
+
+.searchInput {
+  background: #ffffff;
+  border: solid 0.5px #a2a2a2;
+  border-radius: 40px;
+  font-weight: 500;
+}
+
+.searchWrapper {
+  position: relative;
+  max-width: 400px;
+  flex-grow: 1;
+}
+
+.ridersLink {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.ridersLinkActive {
+  color: #0c6cfc;
+}
+
+.ridersLinkInactive {
+  color: #757474;
+}
+
+.navLink {
+  cursor: pointer;
+  color: #515151;
+  font-weight: bold;
+}
+
+.iconImg {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.avatarImg {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.dropdown {
+  right: 0;
+  top: 55px;
+  border-radius: 8px;
+  min-width: 150px;
+  z-index: 1000;
+}

@@ -1,4 +1,4 @@
-import logoImg from '../assets/blue in white bg original logo (1) 1.png';
+import logoImg from '../assets/Qpo-logo.png';
 import dashboardIcon from '../assets/grid_view.png';
 import liveRideIcon from '../assets/mingcute_computer-camera-fill.png';
 import demandIcon from '../assets/cell_tower.png';
@@ -16,12 +16,24 @@ const sidebarItems = [
   {
     key: 'Daily Operations',
     label: 'Dashboard',
-    icon: <img src={dashboardIcon} alt="Dashboard" style={{ width: 24, height: 24, marginLeft: 10 }} />,
+    icon: (
+      <img
+        src={dashboardIcon}
+        alt="Dashboard"
+        style={{ width: 24, height: 24, marginLeft: 10 }}
+      />
+    ),
   },
   {
     key: 'log',
     label: 'Live Activities Log',
-    icon: <img src={liveRideIcon} alt="Log" style={{ width: 22, height: 22, marginLeft: 10 }} />,
+    icon: (
+      <img
+        src={liveRideIcon}
+        alt="Log"
+        style={{ width: 22, height: 22, marginLeft: 10 }}
+      />
+    ),
     children: [
       { key: 'liveRide', label: 'Live Ride Request' },
       {
@@ -39,13 +51,19 @@ const sidebarItems = [
           { key: 'idleDrivers', label: 'Idle Drivers' },
           { key: 'ongoingDrivers', label: 'Ongoing Drivers' },
         ],
-      }
+      },
     ],
   },
   {
     key: 'demand',
     label: 'Demand and Hotspot',
-    icon: <img src={demandIcon} alt="Demand" style={{ width: 20, height: 20, marginLeft: 10 }} />,
+    icon: (
+      <img
+        src={demandIcon}
+        alt="Demand"
+        style={{ width: 20, height: 20, marginLeft: 10 }}
+      />
+    ),
     children: [
       { key: 'liveDemand', label: 'Live Demand' },
       { key: 'previousReports', label: 'Previous Reports' },
@@ -54,12 +72,24 @@ const sidebarItems = [
   {
     key: 'geofence',
     label: 'Geofence',
-    icon: <img src={previousReportsIcon} alt="Geofence" style={{ width: 20, height: 20, marginLeft: 10 }} />,
+    icon: (
+      <img
+        src={previousReportsIcon}
+        alt="Geofence"
+        style={{ width: 20, height: 20, marginLeft: 10 }}
+      />
+    ),
   },
   {
     key: 'algorithm',
     label: 'Algorithm',
-    icon: <img src={algorithmIcon} alt="Algorithm" style={{ width: 20, height: 20, marginLeft: 10 }} />,
+    icon: (
+      <img
+        src={algorithmIcon}
+        alt="Algorithm"
+        style={{ width: 20, height: 20, marginLeft: 10 }}
+      />
+    ),
     children: [
       { key: 'pricingAlgorithm', label: 'Pricing Algorithm' },
       { key: 'driverAlgorithm', label: 'Driver Algorithm' },
@@ -89,7 +119,10 @@ function Sidebar({ active, setActive, openMenus, setOpenMenus }) {
   };
 
   const renderItems = (items, level = 0) => (
-    <ul className="nav flex-column mb-0" style={{ paddingLeft: level ? 16 : 0 }}>
+    <ul
+      className="nav flex-column mb-0"
+      style={{ paddingLeft: level ? 16 : 0 }}
+    >
       {items.map((item) => (
         <li key={item.key} className="nav-item">
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -137,14 +170,19 @@ function Sidebar({ active, setActive, openMenus, setOpenMenus }) {
               </button>
             )}
           </div>
-          {item.children && openMenus[item.key] && renderItems(item.children, level + 1)}
+          {item.children &&
+            openMenus[item.key] &&
+            renderItems(item.children, level + 1)}
         </li>
       ))}
     </ul>
   );
 
   return (
-    <div className="d-flex flex-column flex-shrink-0 ps-3 border-end vh-100" style={{ width: 260, background: sidebarBg }}>
+    <div
+      className="d-flex flex-column flex-shrink-0 ps-3 border-end vh-100"
+      style={{ width: 260, background: sidebarBg }}
+    >
       {/* Scrollbar styling inline */}
       <style>{`
         .sidebar-scroll {
@@ -177,14 +215,15 @@ function Sidebar({ active, setActive, openMenus, setOpenMenus }) {
           alt="Logo"
           style={{ width: 56, height: 56, marginRight: 12, objectFit: 'cover' }}
         />
-        <span className="fw-bold" style={{ color: '#000000ff', fontSize: '48px' }}>
+        <span
+          className="fw-bold"
+          style={{ color: '#000000ff', fontSize: '48px' }}
+        >
           QPo
         </span>
       </div>
 
-      <div className="sidebar-scroll">
-        {renderItems(sidebarItems)}
-      </div>
+      <div className="sidebar-scroll">{renderItems(sidebarItems)}</div>
 
       <div className="mt-auto text-muted small">Admin 2</div>
     </div>
