@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, useCallback } from 'react';
-import axiosTripInstance from '../services/api';
 
 const AuthContext = createContext(null);
 
@@ -11,20 +10,11 @@ export function AuthProvider({ children }) {
 
   const [token, setToken] = useState(() => localStorage.getItem('token'));
 
-  const login = useCallback(async (username, password) => {
-    const { data } = await axiosTripInstance.post('/admin/login', {
-      username,
-      password,
-    });
-
-    if (data.login?.accessToken) {
-      localStorage.setItem('token', data.login.accessToken);
-      localStorage.setItem('user', JSON.stringify(data.login.adminProfile));
-      setToken(data.login.accessToken);
-      setUser(data.login.adminProfile);
-      return data;
-    }
-    throw new Error('Invalid username or password');
+  const setAuth = useCallback((accessToken, adminProfile) => {
+    localStorage.setItem('token', accessToken);
+    localStorage.setItem('user', JSON.stringify(adminProfile));
+    setToken(accessToken);
+    setUser(adminProfile);
   }, []);
 
   const logout = useCallback(() => {
@@ -38,7 +28,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, token, login, logout, isAuthenticated }}
+      value={{ user, token, setAuth, logout, isAuthenticated }}
     >
       {children}
     </AuthContext.Provider>

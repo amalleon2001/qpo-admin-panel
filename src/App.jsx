@@ -26,11 +26,11 @@ function AppRoutes() {
       <Route
         path="/dashboard"
         element={
-          <PrivateRoute>
+          // <PrivateRoute>
           <SidebarProvider>
             <DashboardLayout />
           </SidebarProvider>
-           </PrivateRoute>
+          //  </PrivateRoute>
         }
       >
         <Route path="riders" element={<RidersLayout />} />

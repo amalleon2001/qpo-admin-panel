@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import BackgroundImage from '../../assets/loginbackground.png';
 import { useAuth } from '../../context/AuthContext';
 import { toast } from 'react-toastify';
+import axiosTripInstance from '../../services/api';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
@@ -10,7 +11,7 @@ function LoginPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login, isAuthenticated } = useAuth();
+  const { setAuth, isAuthenticated } = useAuth();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -31,7 +32,15 @@ function LoginPage() {
     setError('');
     setLoading(true);
     try {
-      await login(username, password);
+      const { data } = await axiosTripInstance.post('/admin/login', {
+        username,
+        password,
+      });
+      if (data.login?.accessToken) {
+        setAuth(data.login.accessToken, data.login.adminProfile);
+      } else {
+        throw new Error('Invalid username or password');
+      }
     } catch (err) {
       setError(err.message || 'Login failed');
     } finally {
@@ -49,6 +58,7 @@ function LoginPage() {
         <form onSubmit={handleLogin} className="w-full max-w-[450px] bg-white p-8 rounded-[10px] shadow-md">
           <div className="relative mb-5">
             <input
+              id="username"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -58,8 +68,9 @@ function LoginPage() {
                          focus:border-black"
             />
             <label
+              htmlFor="username"
               className="absolute left-4 top-1/2 -translate-y-1/2 bg-white px-1 text-gray-500 text-base
-                         transition-all duration-200
+                         transition-all duration-200 cursor-text
                          peer-focus:top-0 peer-focus:left-3 peer-focus:-translate-y-1/2 peer-focus:text-sm peer-focus:text-black
                          peer-valid:top-0 peer-valid:left-3 peer-valid:-translate-y-1/2 peer-valid:text-sm peer-valid:text-black"
             >
@@ -69,6 +80,7 @@ function LoginPage() {
 
           <div className="relative mb-5">
             <input
+              id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -78,8 +90,9 @@ function LoginPage() {
                          focus:border-black"
             />
             <label
+              htmlFor="password"
               className="absolute left-4 top-1/2 -translate-y-1/2 bg-white px-1 text-gray-500 text-base
-                         transition-all duration-200
+                         transition-all duration-200 cursor-text
                          peer-focus:top-0 peer-focus:left-3 peer-focus:-translate-y-1/2 peer-focus:text-sm peer-focus:text-black
                          peer-valid:top-0 peer-valid:left-3 peer-valid:-translate-y-1/2 peer-valid:text-sm peer-valid:text-black"
             >
