@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback } from 'react';
-import axiosBaseInstance from '../services/api';
+import axiosTripInstance from '../services/api';
 
 const AuthContext = createContext(null);
 
@@ -12,7 +12,7 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem('token'));
 
   const login = useCallback(async (username, password) => {
-    const { data } = await axiosBaseInstance.post('/admin/login', {
+    const { data } = await axiosTripInstance.post('/admin/login', {
       username,
       password,
     });

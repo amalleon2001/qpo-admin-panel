@@ -1,15 +1,14 @@
 import axios from 'axios';
 const beUrl = import.meta.env.VITE_TRIP_URL;
-console.log('Backend URL:', beUrl);
 
 const BASE_URL = `${beUrl}/api/trip/admin`;
 
-const axiosBaseInstance = axios.create({
+const axiosTripInstance = axios.create({
   baseURL: BASE_URL,
   withCredentials: false,
 });
 
-axiosBaseInstance.interceptors.request.use(
+axiosTripInstance.interceptors.request.use(
   function (config) {
     const token = localStorage.getItem('token');
     if (token) {
@@ -21,7 +20,7 @@ axiosBaseInstance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-axiosBaseInstance.interceptors.response.use(
+axiosTripInstance.interceptors.response.use(
   function (response) {
     return response.data;
   },
@@ -71,5 +70,39 @@ axiosDriverInstance.interceptors.response.use(
   }
 );
 
-export { axiosDriverInstance };
-export default axiosBaseInstance;
+const riderUrl = import.meta.env.VITE_RIDER_URL;
+const RIDER_BASE_URL = `${riderUrl}/api/admin/rider`;
+
+const axiosRiderInstance = axios.create({
+  baseURL: RIDER_BASE_URL,
+  withCredentials: false,
+});
+
+axiosRiderInstance.interceptors.request.use(
+  function (config) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = 'Bearer ' + token;
+    }
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
+axiosRiderInstance.interceptors.response.use(
+  function (response) {
+    return response.data;
+  },
+  function (error) {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location.href = '/';
+    }
+    return Promise.reject(error);
+  }
+);
+
+export { axiosDriverInstance, axiosRiderInstance };
+export default axiosTripInstance;

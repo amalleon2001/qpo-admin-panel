@@ -6,10 +6,12 @@ import {
 } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { SidebarProvider } from './context/SidebarContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import ErrorBoundary from './components/common/ErrorBoundary';
-import LoginPage from './components/LoginPage';
-import DashboardLayout from './components/DashboardLayout';
-import RidersLayout from './components/RidersLayout';
+import LoginPage from './components/layout/LoginPage';
+import DashboardLayout from './components/layout/DashboardLayout';
+import RidersLayout from './components/layout/RidersLayout';
 
 function PrivateRoute({ children }) {
   const { isAuthenticated } = useAuth();
@@ -24,11 +26,11 @@ function AppRoutes() {
       <Route
         path="/dashboard"
         element={
-          // <PrivateRoute>
+          <PrivateRoute>
           <SidebarProvider>
             <DashboardLayout />
           </SidebarProvider>
-          // </PrivateRoute>
+           </PrivateRoute>
         }
       >
         <Route path="riders" element={<RidersLayout />} />
@@ -45,6 +47,7 @@ function App() {
       <AuthProvider>
         <Router>
           <AppRoutes />
+          <ToastContainer position="top-right" autoClose={3000} />
         </Router>
       </AuthProvider>
     </ErrorBoundary>
