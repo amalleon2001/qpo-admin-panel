@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      network: host
       args:
         VITE_TRIP_URL: "https://<TRIP_API_DOMAIN>"
         VITE_DRIVER_URL: "https://<DRIVER_API_DOMAIN>"
